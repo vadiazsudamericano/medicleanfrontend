@@ -1,14 +1,18 @@
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+// RUTA: tsconfig.app.json
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "buffer": ["./node_modules/buffer/index.js"],
+      "stream": ["./node_modules/stream-browserify/index.js"],
+      "zlib": ["./node_modules/browserify-zlib/lib/index.js"]
+    }
   },
   "files": [
     "src/main.ts",
-    "src/polyfills.ts" // Asegúrate de que tu polyfill también esté aquí
+    "src/polyfills.ts" 
   ],
   "include": [
     "src/**/*.d.ts"
