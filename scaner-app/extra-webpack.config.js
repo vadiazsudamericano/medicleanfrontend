@@ -4,7 +4,7 @@ const webpack = require('webpack');
 module.exports = {
   resolve: {
     fallback: {
-      "buffer": require.resolve("buffer/"),
+      "buffer": require.resolve("buffer"),
       "stream": require.resolve("stream-browserify"),
       "zlib": require.resolve("browserify-zlib")
     }
