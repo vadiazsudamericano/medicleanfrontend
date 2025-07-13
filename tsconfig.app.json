@@ -3,7 +3,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": [] // Puedes dejarlo vacío o quitar la línea 'types' por completo
+    "types": ["node"] // Puedes dejarlo vacío o quitar la línea 'types' por completo
   },
   "files": [
     "src/main.ts",
