@@ -18,6 +18,7 @@
             },
             "outputPath": "dist/scaner-app",
             "index": "src/index.html",
+            "main": "src/main.ts",
             "browser": "src/main.ts",
             "polyfills": [
               "src/polyfills.ts",
