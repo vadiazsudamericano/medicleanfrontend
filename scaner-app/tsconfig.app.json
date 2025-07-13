@@ -1,14 +1,9 @@
-// RUTA: tsconfig.app.json
+// RUTA: tsconfig.app.json (Versión Limpia para usar con Custom Webpack)
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": ["node"],
-    "paths": {
-      "buffer": ["./node_modules/buffer/index.js"],
-      "stream": ["./node_modules/stream-browserify/index.js"],
-      "zlib": ["./node_modules/browserify-zlib/lib/index.js"]
-    }
+    "types": [] // Puedes dejarlo vacío o quitar la línea 'types' por completo
   },
   "files": [
     "src/main.ts",
