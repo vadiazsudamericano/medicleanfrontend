@@ -1,0 +1,88 @@
+/* RUTA: src/app/registrar-herramienta/registrar-herramienta.css */
+/* Usamos las mismas clases de otros componentes para consistencia */
+.page-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.content-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 25px var(--shadow-color);
+  padding: 2.5rem;
+}
+
+.page-header {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.page-header h1 { font-size: 2.2rem; margin: 0; }
+.page-header p { font-size: 1.1rem; color: var(--secondary-text); margin-top: 0.5rem; }
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--secondary-text);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  transition: all 0.3s ease;
+  background-color: #f5f8f7;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--button-bg);
+  box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.2);
+}
+
+.primary-button {
+  width: 100%;
+  padding: 16px;
+  background: var(--button-bg);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.primary-button:hover {
+  background: var(--button-hover-bg);
+}
+
+.primary-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.error-message, .success-message {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.error-message { background-color: #ffebee; color: #c62828; }
+.success-message { background-color: #e8f5e9; color: #2e7d32; }

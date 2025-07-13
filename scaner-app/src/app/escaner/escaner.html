@@ -1,0 +1,42 @@
+<!-- RUTA: src/app/escaner/escaner.html -->
+
+<div class="scan-container">
+  <h1>Escanear Herramienta</h1>
+  
+  <p class="status-message">{{ statusMessage }}</p>
+
+  <!-- 
+    Contenedor para el video que SÍ será visible para el usuario.
+    El TypeScript se encargará de poner el stream de la cámara aquí.
+  -->
+  <div class="video-wrapper">
+    <video #videoElement autoplay playsinline muted></video>
+  </div>
+  
+  <!-- 
+    Contenedor para el canvas que usa la Inteligencia Artificial.
+    Lo ocultamos con la clase 'hidden-canvas' en nuestro archivo CSS.
+  -->
+  <div #webcamContainer class="hidden-canvas"></div>
+
+  <!-- Contenedor para mostrar las barras de predicción -->
+  <div class="results-container">
+    <div *ngFor="let p of predictions" class="prediction-item">
+      <div class="label">{{ p.className }}</div>
+      <div class="progress">
+        <div 
+          class="progress-bar" 
+          [style.width.%]="p.probability * 100">
+          {{ (p.probability * 100).toFixed(0) }}%
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Contenedor para el botón que aparece cuando se detecta una herramienta -->
+  <div class="confirm-container" *ngIf="herramientaDetectada">
+    <button class="confirm-button" (click)="onConfirmarHerramienta(herramientaDetectada.className)">
+      Confirmar {{ herramientaDetectada.className }}
+    </button>
+  </div>
+</div>

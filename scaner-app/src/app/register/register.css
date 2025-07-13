@@ -1,0 +1,104 @@
+/* RUTA: src/app/login/login.css */
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px); /* Resta la altura del navbar aprox. */
+  padding: 2rem;
+}
+
+.login-card {
+  background: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px var(--shadow-color);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.logo-container {
+  margin-bottom: 2rem;
+}
+
+.logo-container img {
+  height: 60px;
+  margin-bottom: 1rem;
+}
+
+.logo-container h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.logo-container p {
+  color: var(--secondary-text);
+  margin-top: 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--secondary-text);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--button-bg);
+  box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.2);
+}
+
+.primary-button {
+  width: 100%;
+  padding: 16px;
+  background: var(--button-bg);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.primary-button:hover {
+  background: var(--button-hover-bg);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 121, 107, 0.3);
+}
+
+.footer-text {
+  margin-top: 2rem;
+  color: var(--secondary-text);
+}
+
+.footer-text a {
+  color: var(--button-bg);
+  font-weight: 600;
+  text-decoration: none;
+}
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
