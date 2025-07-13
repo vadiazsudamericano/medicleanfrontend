@@ -1,4 +1,4 @@
-<!-- RUTA: src/app/login/login.html (CORREGIDO) -->
+<!-- RUTA: [Tu Proyecto de Frontend]/src/app/login/login.html -->
 
 <div class="page-container">
   <div class="login-card">
@@ -8,28 +8,40 @@
       <p>Bienvenido de nuevo</p>
     </div>
 
-    <!-- 1. AÑADIMOS (ngSubmit) PARA CONECTAR EL FORMULARIO -->
-    <form (ngSubmit)="onLogin()">
+    <form #loginForm="ngForm" (ngSubmit)="onLogin()">
       <div class="form-group">
         <label for="email">E-mail</label>
-        <!-- 2. AÑADIMOS name y [(ngModel)] PARA CONECTAR EL INPUT -->
-        <input type="email" id="email" name="email" placeholder="Ingresa tu correo" [(ngModel)]="loginData.email" required>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          placeholder="Ingresa tu correo" 
+          [(ngModel)]="loginData.email" 
+          required>
       </div>
 
       <div class="form-group">
         <label for="password">Contraseña</label>
-        <!-- 3. AÑADIMOS name y [(ngModel)] PARA CONECTAR EL INPUT -->
-        <input type="password" id="password" name="password" placeholder="••••••••" [(ngModel)]="loginData.password" required>
+        <!-- AÑADIMOS autocomplete="new-password" PARA EVITAR EL AUTOCOMPLETADO -->
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          placeholder="••••••••" 
+          [(ngModel)]="loginData.password" 
+          required
+          autocomplete="new-password">
       </div>
 
-      <!-- Es una buena idea mostrar los mensajes de error aquí -->
       <div *ngIf="errorMessage" class="error-message">
         {{ errorMessage }}
       </div>
 
-      <button type="submit" class="primary-button">Iniciar Sesión</button>
+      <button type="submit" class="primary-button" [disabled]="!loginForm.form.valid">
+        Iniciar Sesión
+      </button>
     </form>
-
+    
     <p class="footer-text">
       ¿No tienes una cuenta? <a routerLink="/register">Regístrate</a>
     </p>

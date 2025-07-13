@@ -1,15 +1,10 @@
-// RUTA: src/app/auth/auth.service.ts
+// RUTA: [Tu Proyecto de Frontend]/src/app/auth/auth.service.ts
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-// ===============================================
-//       AQUÍ ESTÁ LA CORRECCIÓN
-// Añadimos 'export' para que otros archivos puedan
-// importar y usar estas interfaces.
-// ===============================================
 export interface RegisterPayload {
   username: string;
   password: string;
@@ -25,7 +20,10 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiBase = 'https://postgres-production-06bfa.up.railway.app';
+  // --- ESTA ES LA LÍNEA IMPORTANTE ---
+  // Apunta a la URL pública y segura (https) de tu backend en Railway.
+  // Reemplaza esto con tu URL real.
+  private apiBase = 'https://backendpiensa-production.up.railway.app';
 
   constructor(private http: HttpClient) {}
 
