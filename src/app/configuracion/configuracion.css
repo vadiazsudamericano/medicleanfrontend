@@ -1,0 +1,121 @@
+/* RUTA: src/app/configuracion/configuracion.css */
+
+/* --- Estilos Generales de la Página (reutilizados de perfil) --- */
+.page-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.content-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 25px var(--shadow-color);
+  padding: 2.5rem;
+}
+
+.page-header {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  font-size: 2.2rem;
+  margin: 0;
+}
+
+.page-header p {
+  font-size: 1.1rem;
+  color: var(--secondary-text);
+  margin-top: 0.5rem;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.setting-item:last-child {
+  border-bottom: none;
+}
+
+.setting-info h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.2rem;
+}
+
+.setting-info p {
+  margin: 0;
+  color: var(--secondary-text);
+}
+
+.secondary-button {
+  background-color: transparent;
+  color: var(--button-bg);
+  border: 2px solid var(--border-color);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.secondary-button:hover {
+  background-color: var(--primary-bg);
+  border-color: var(--button-bg);
+}
+
+
+/* --- ESTILOS PARA EL INTERRUPTOR (TOGGLE SWITCH) --- */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+/* Ocultamos el checkbox por defecto */
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* El fondo del interruptor */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 28px;
+}
+
+/* El círculo que se mueve */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+/* Estilos para cuando el interruptor está activado */
+input:checked + .slider {
+  background-color: var(--button-bg); /* Usamos el color principal de la app */
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}

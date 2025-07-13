@@ -1,0 +1,19 @@
+<!-- RUTA: src/app/navbar/navbar.html -->
+<div class="navbar-container">
+  <a class="navbar-brand" routerLink="/inicio">
+    <!-- Si tienes un logo, pon la ruta aquí. Si no, quita la línea <img> -->
+    <img src="icono.png" class="navbar-logo">
+    <span>MediClean</span>
+  </a>
+
+  <ul class="navbar-links">
+    <li><a class="nav-link" routerLink="/inicio" routerLinkActive="active">Inicio</a></li>
+    <li><a class="nav-link" routerLink="/escaner" routerLinkActive="active">Escanear</a></li>
+    <li><a class="nav-link" routerLink="/historial" routerLinkActive="active">Historial</a></li>
+    <li><a class="nav-link" routerLink="/perfil" routerLinkActive="active">Perfil</a></li>
+    <li><a class="nav-link" routerLink="/configuracion" routerLinkActive="active">Configuración</a></li>
+    <li><a class="nav-link" routerLink="/ayuda" routerLinkActive="active">Ayuda</a></li>
+    <!-- Asumo que tienes una función (logout)="onLogout()" en tu navbar.ts -->
+    <li><button class="logout-button" (click)="onLogout()">Cerrar sesión</button></li>
+  </ul>
+</div>

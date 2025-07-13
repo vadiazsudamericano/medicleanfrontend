@@ -1,0 +1,43 @@
+<!-- RUTA: src/app/escaner/escaner.html -->
+
+<div class="scan-container">
+  <h1>Escanear Herramienta</h1>
+  
+  <p class="status-message">{{ statusMessage }}</p>
+
+  <div class="video-wrapper">
+    <video #videoElement autoplay playsinline muted></video>
+  </div>
+  
+  <div #webcamContainer class="hidden-canvas"></div>
+
+  <div class="results-container">
+    <div *ngFor="let p of predictions" class="prediction-item">
+      <div class="label">{{ p.className }}</div>
+      <div class="progress">
+        <div 
+          class="progress-bar" 
+          [style.width.%]="p.probability * 100">
+          {{ (p.probability * 100).toFixed(0) }}%
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="details-preview" *ngIf="detallesHerramienta">
+    <h3>Estado Actual</h3>
+    <!-- 
+      Ahora [ngClass] es mucho más simple y seguro. 
+      Solo usa la variable 'claseEstado' que ya hemos preparado.
+    -->
+    <p class="estado" [ngClass]="claseEstado">
+      {{ detallesHerramienta.estado }}
+    </p>
+  </div>
+  
+  <div class="confirm-container" *ngIf="herramientaDetectada">
+    <button class="confirm-button" (click)="onConfirmarHerramienta(herramientaDetectada.className)">
+      Confirmar {{ herramientaDetectada.className }}
+    </button>
+  </div>
+</div>

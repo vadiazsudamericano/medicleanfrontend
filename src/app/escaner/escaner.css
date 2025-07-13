@@ -1,0 +1,31 @@
+.details-preview {
+  margin-top: 1.5rem;
+  background-color: #f5f8f7;
+  padding: 1rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid var(--border-color);
+}
+
+.details-preview h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  color: var(--secondary-text);
+  text-transform: uppercase;
+}
+
+.details-preview .estado {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 8px 15px;
+  border-radius: 8px;
+  color: white;
+  display: inline-block;
+}
+
+/* Reutilizamos los colores de estado que ya definimos en otro CSS */
+.details-preview .estado.esterilizado { background-color: #4CAF50; } /* Verde */
+.details-preview .estado.requiere-esterilizacion { background-color: #f44336; } /* Rojo */
+.details-preview .estado.en-mantenimiento { background-color: #ff9800; } /* Naranja */
+.details-preview .estado.no-registrado { background-color: #757575; } /* Gris */

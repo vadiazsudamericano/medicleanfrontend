@@ -1,0 +1,76 @@
+/* RUTA: src/app/navbar/navbar.css */
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-container {
+  background: var(--card-bg);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--button-bg);
+}
+
+.navbar-brand img {
+  height: 35px;
+  margin-right: 12px;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  color: var(--secondary-text);
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+}
+
+.nav-link.active {
+  background-color: var(--button-bg);
+  color: white;
+  font-weight: 600;
+}
+
+.logout-button {
+  background-color: transparent;
+  color: var(--button-bg);
+  border: 2px solid var(--button-bg);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+}
+
+.logout-button:hover {
+  background-color: var(--button-bg);
+  color: white;
+}

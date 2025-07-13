@@ -1,0 +1,49 @@
+<!-- RUTA: src/app/historial/historial.html -->
+<div class="page-container">
+  <h1>Historial de Registros</h1>
+  
+  <div class="toolbar">
+    <div class="search-bar">
+      <input 
+        type="text" 
+        placeholder="Buscar por evento o responsable..."
+        [(ngModel)]="terminoBusqueda"
+        (input)="filtrarRegistros()">
+    </div>
+  </div>
+
+  <!-- Contenedor principal para la tabla y los mensajes -->
+  <div class="table-container">
+
+    <!-- 1. El Spinner de Carga (se muestra solo mientras carga) -->
+    <div *ngIf="cargando" class="loading-spinner-overlay">
+      <div class="spinner"></div>
+    </div>
+    
+    <!-- 2. La Tabla (se muestra solo si NO está cargando y SÍ hay registros) -->
+    <table *ngIf="!cargando && registrosFiltrados.length > 0" class="history-table">
+      <thead>
+        <tr>
+          <th>ID Herramienta</th>
+          <th>Evento</th>
+          <th>Fecha y Hora</th>
+          <th>Responsable</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registro of registrosFiltrados">
+          <td>#{{ registro.herramientaId }}</td>
+          <td><span class="tag" [ngClass]="'tag-' + registro.evento.toLowerCase().replace(' ', '-')">{{ registro.evento }}</span></td>
+          <td>{{ registro.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>{{ registro.responsable }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 3. Mensaje de "No hay resultados" (se muestra solo si NO está cargando y NO hay registros) -->
+    <div *ngIf="!cargando && registrosFiltrados.length === 0" class="no-results-message">
+      No se encontraron registros.
+    </div>
+    
+  </div>
+</div>

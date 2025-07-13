@@ -1,0 +1,44 @@
+<!-- RUTA: src/app/register/register.html -->
+<div class="page-container">
+  <div class="register-card">
+    <div class="logo-container">
+      <h1>Crear una Cuenta</h1>
+      <p>Únete a MediClean para empezar a gestionar.</p>
+    </div>
+    
+    <form #registerForm="ngForm" (ngSubmit)="onRegister()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" [(ngModel)]="registerData.nombre" required>
+        </div>
+        <div class="form-group">
+          <label for="apellido">Apellido</label>
+          <input type="text" id="apellido" name="apellido" [(ngModel)]="registerData.apellido" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" [(ngModel)]="registerData.email" required email>
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" name="password" [(ngModel)]="registerData.password" required minlength="8">
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar Contraseña</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="registerData.confirmPassword" required>
+      </div>
+
+      <!-- Mensajes de feedback -->
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+      
+      <button type="submit" class="primary-button" [disabled]="!registerForm.form.valid">Registrarse</button>
+    </form>
+    
+    <p class="footer-text">
+      ¿Ya tienes una cuenta? <a routerLink="/login">Inicia Sesión</a>
+    </p>
+  </div>
+</div>
