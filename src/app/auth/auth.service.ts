@@ -25,7 +25,7 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiBase = 'postgres-production-06bfa.up.railway.app';
+  private apiBase = 'https://postgres-production-06bfa.up.railway.app';
 
   constructor(private http: HttpClient) {}
 
