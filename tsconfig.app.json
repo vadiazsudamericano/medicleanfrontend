@@ -1,13 +1,12 @@
-// RUTA: tsconfig.app.json (Versión Limpia para usar con Custom Webpack)
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": ["node"] // Puedes dejarlo vacío o quitar la línea 'types' por completo
+    "types": ["node"]
   },
   "files": [
     "src/main.ts",
-    "src/polyfills.ts" 
+    "src/polyfills.ts"
   ],
   "include": [
     "src/**/*.d.ts"

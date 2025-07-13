@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 export interface RegisterPayload {
   username: string;
@@ -23,7 +24,7 @@ export class AuthService {
   // --- ESTA ES LA LÍNEA IMPORTANTE ---
   // Apunta a la URL pública y segura (https) de tu backend en Railway.
   // Reemplaza esto con tu URL real.
-  private apiBase = 'https://backendpiensa-production.up.railway.app';
+private apiBase = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
