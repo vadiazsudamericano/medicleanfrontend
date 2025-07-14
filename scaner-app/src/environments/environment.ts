@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://backendpiensa-production.up.railway.app'
+  apiUrl: 'http://localhost:3000'
 };
