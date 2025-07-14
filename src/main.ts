@@ -16,10 +16,11 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),  // Proporciona las rutas
     provideHttpClient(),
-    importProvidersFrom(FormsModule),
-    NavbarComponent,        // Incluye aquí los componentes standalone
-    DashboardComponent,     // Incluye aquí los componentes standalone
-    EscanerComponent,       // Incluye aquí los componentes standalone
-    PerfilComponent,        // Incluye aquí los componentes standalone
+    importProvidersFrom(FormsModule),  // Importa FormsModule
+    // Aquí solo incluyes los componentes standalone si los necesitas globalmente
+    NavbarComponent,
+    DashboardComponent,
+    EscanerComponent,
+    PerfilComponent,
   ],
 }).catch(err => console.error(err));
