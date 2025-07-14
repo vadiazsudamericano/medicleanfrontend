@@ -24,7 +24,7 @@ export class AuthService {
   // --- ESTA ES LA LÍNEA IMPORTANTE ---
   // Apunta a la URL pública y segura (https) de tu backend en Railway.
   // Reemplaza esto con tu URL real.
-private apiBase = environment.backendUrl;
+private apiBase = environment.apiUrl;
 
 
   constructor(private http: HttpClient) {}
