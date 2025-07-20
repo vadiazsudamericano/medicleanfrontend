@@ -14,12 +14,17 @@ export class NavbarComponent {
   // 1. Creamos un emisor de eventos.
   // El decorador @Output() lo hace visible para el componente padre.
   @Output() logoutRequest = new EventEmitter<void>();
+  menuAbierto = false;
 
   constructor() {}
 
   /**
    * Esta función se llama cuando se hace clic en el botón de cerrar sesión.
    */
+  toggleMenu() {
+    this.menuAbierto = !this.menuAbierto;
+  }
+
   onLogout(): void {
     console.log('Navbar está pidiendo cerrar sesión...');
     // 2. Emitimos el evento para que el padre (AppComponent) lo escuche.

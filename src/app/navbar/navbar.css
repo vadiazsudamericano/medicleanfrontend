@@ -1,4 +1,3 @@
-/* RUTA: src/app/navbar/navbar.css */
 :host {
   display: block;
   position: sticky;
@@ -6,6 +5,7 @@
   z-index: 1000;
 }
 
+/* --- CONTENEDOR PRINCIPAL --- */
 .navbar-container {
   background: var(--card-bg);
   padding: 1rem 2rem;
@@ -15,6 +15,7 @@
   box-shadow: 0 2px 10px var(--shadow-color);
 }
 
+/* --- MARCA / LOGO --- */
 .navbar-brand {
   display: flex;
   align-items: center;
@@ -25,10 +26,21 @@
 }
 
 .navbar-brand img {
-  height: 35px;
-  margin-right: 12px;
+  height: 55px;
+  /*margin-right: px;*/
 }
 
+/* --- BOTÓN HAMBURGUESA (solo visible en móvil) --- */
+.menu-toggle {
+  display: none; /* Oculto por defecto (escritorio) */
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--button-bg);
+  cursor: pointer;
+}
+
+/* --- MENÚ DE ENLACES --- */
 .navbar-links {
   display: flex;
   gap: 0.5rem;
@@ -57,6 +69,7 @@
   font-weight: 600;
 }
 
+/* --- BOTÓN CERRAR SESIÓN --- */
 .logout-button {
   background-color: transparent;
   color: var(--button-bg);
@@ -73,4 +86,48 @@
 .logout-button:hover {
   background-color: var(--button-bg);
   color: white;
+}
+
+/* --- 🎯 RESPONSIVE PARA CELULARES --- */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .menu-toggle {
+    display: block; /* Mostrar hamburguesa en móvil */
+  }
+
+  .navbar-links {
+    display: none; /* Ocultar menú por defecto */
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .navbar-links.show {
+    display: flex; /* Mostrar cuando se activa */
+  }
+
+  .nav-link {
+    width: 100%;
+    text-align: left;
+    padding: 6px 10px;
+    font-size: 1rem;
+  }
+
+  .logout-button {
+    align-self: flex-start;
+    margin-top: 0.5rem;
+    padding: 10px 16px;
+    font-size: 1rem;
+  }
 }

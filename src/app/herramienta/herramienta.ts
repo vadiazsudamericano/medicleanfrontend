@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HerramientaService } from '../servicios/herramienta.service';
+import { HerramientaService, HerramientaBackend } from '../servicios/herramienta.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -11,8 +11,8 @@ import { FormsModule } from '@angular/forms';
     <h2>Registrar nueva herramienta</h2>
     <form (ngSubmit)="guardar()">
       <input [(ngModel)]="nombre" name="nombre" placeholder="Nombre" required>
-      <input [(ngModel)]="tipo" name="tipo" placeholder="Tipo" required>
-      <input [(ngModel)]="codigo" name="codigo" placeholder="Código" required>
+      <input [(ngModel)]="tipo" name="tipo" placeholder="Tipo/Descripción" required>
+      <input [(ngModel)]="codigo" name="codigo" placeholder="Código/Uso" required>
       <button type="submit">Guardar</button>
     </form>
   `,
@@ -25,9 +25,22 @@ export class HerramientaComponent {
   constructor(private servicio: HerramientaService) {}
 
   guardar() {
-    const data = { nombre: this.nombre, tipo: this.tipo, codigo: this.codigo };
+    const data: HerramientaBackend = {
+      id: 0,
+      nombre: this.nombre,
+      descripcion: this.tipo,
+      uso: this.codigo,
+      proceso: [],
+      estado: 'Nuevo',
+      esterilizacion: 'Autoclave'
+    };
+
     this.servicio.crearHerramienta(data).subscribe(() => {
-      alert('Herramienta guardada');
+      console.log('✅ Herramienta creada');
+      // Puedes limpiar los campos o redirigir aquí
+      this.nombre = '';
+      this.tipo = '';
+      this.codigo = '';
     });
   }
 }

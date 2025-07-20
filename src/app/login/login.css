@@ -1,9 +1,10 @@
 /* RUTA: src/app/login/login.css */
+
 .page-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 80px); /* Resta la altura del navbar aprox. */
+  min-height: calc(100vh - 80px);
   padding: 2rem;
 }
 
@@ -94,6 +95,7 @@
   font-weight: 600;
   text-decoration: none;
 }
+
 .error-message {
   background-color: #ffebee;
   color: #c62828;
@@ -101,4 +103,50 @@
   border-radius: 8px;
   margin-bottom: 1.5rem;
   font-weight: 500;
+}
+
+
+/* --- 🎯 ESTILOS RESPONSIVE PARA CELULARES --- */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+
+  .login-card {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .logo-container img {
+    height: 50px;
+    margin-bottom: 0.5rem;
+  }
+
+  .logo-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .logo-container p {
+    font-size: 0.95rem;
+  }
+
+  .form-group input {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+  }
+
+  .primary-button {
+    padding: 14px;
+    font-size: 1rem;
+  }
+
+  .footer-text {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .error-message {
+    font-size: 0.95rem;
+    padding: 8px;
+  }
 }

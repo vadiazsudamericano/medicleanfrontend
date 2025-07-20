@@ -1,40 +1,12 @@
-<!-- RUTA: src/app/registrar-herramienta/registrar-herramienta.html -->
-<div class="page-container">
-  <div class="content-card">
-    <div class="page-header">
-      <h1>Registrar Nueva Herramienta</h1>
-      <p>Añade un nuevo instrumento al inventario de la aplicación.</p>
-    </div>
+<h2>Registrar Herramienta</h2>
 
-    <form #herramientaForm="ngForm" (ngSubmit)="onRegistrarHerramienta()">
-      <div class="content-body">
-        <div class="form-group">
-          <label for="nombre">Nombre de la Herramienta</label>
-          <input type="text" id="nombre" name="nombre" [(ngModel)]="nuevaHerramienta.nombre" placeholder="Ej: Tijera Mayo" required>
-        </div>
+<form (ngSubmit)="registrar()">
+  <input [(ngModel)]="nuevaHerramienta.nombre" name="nombre" placeholder="Nombre" required />
+  <input [(ngModel)]="nuevaHerramienta.descripcion" name="descripcion" placeholder="Descripción" required />
+  <input [(ngModel)]="nuevaHerramienta.uso" name="uso" placeholder="Uso" required />
+  <input [(ngModel)]="nuevaHerramienta.esterilizacion" name="esterilizacion" placeholder="Método de esterilización" required />
+  <input [(ngModel)]="nuevaHerramienta.estado" name="estado" placeholder="Estado" required />
+  <textarea [(ngModel)]="nuevaHerramienta.procesoTexto" name="proceso" placeholder="Proceso (separado por comas)" required></textarea>
 
-        <div class="form-group">
-          <label for="descripcion">Descripción</label>
-          <textarea id="descripcion" name="descripcion" [(ngModel)]="nuevaHerramienta.descripcion" rows="4" placeholder="Añade una descripción detallada de la herramienta..."></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="estado">Estado Inicial</label>
-          <select id="estado" name="estado" [(ngModel)]="nuevaHerramienta.estado">
-            <option value="Esterilizado">Esterilizado</option>
-            <option value="Requiere esterilización">Requiere esterilización</option>
-            <option value="En mantenimiento">En mantenimiento</option>
-          </select>
-        </div>
-
-        <!-- Mensajes de feedback -->
-        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-        <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-
-        <button type="submit" class="primary-button" [disabled]="!herramientaForm.form.valid">
-          Registrar Herramienta
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
+  <button type="submit">Registrar</button>
+</form>

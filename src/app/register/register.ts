@@ -39,10 +39,11 @@ export class RegisterComponent {
 
     // Creamos el objeto con la estructura que el servicio espera
     const payload: RegisterPayload = {
-      username: this.registerData.email,
+      email: this.registerData.email,
+      nombre: this.registerData.nombre,
+      apellido: this.registerData.apellido,
       password: this.registerData.password,
-      role: 'user', // Rol por defecto
-      email: this.registerData.email
+      rol: 'user' // Rol por defecto
     };
     
     this.authService.register(payload).subscribe({

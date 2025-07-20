@@ -5,12 +5,10 @@ import { Routes } from '@angular/router';
 // --- 1. IMPORTACIONES DE COMPONENTES ---
 // Layout, Páginas Públicas y el Guardián de Seguridad
 import { MainLayoutComponent } from './layouts/main-layout/main-layout';
-import { LoginComponent } from './login/login';
 import { RegisterComponent } from './register/register';
 import { BienvenidaComponent } from './bienvenida/bienvenida';
 import { authGuard } from './auth/auth-guard';
-
-// Páginas Protegidas (las que van dentro del Layout)
+import { LoginComponent } from './login/login';
 import { DashboardComponent } from './dashboard/dashboard';
 import { EscanerComponent } from './escaner/escaner';
 import { HistorialComponent } from './historial/historial';

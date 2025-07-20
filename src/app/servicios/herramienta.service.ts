@@ -1,63 +1,46 @@
 // RUTA: src/app/servicios/herramienta.service.ts
 
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
 
-// Esta interfaz define la estructura de datos de una herramienta
+// La interfaz es la misma para todos los componentes, la dejamos aquí
 export interface HerramientaBackend {
   id: number;
   nombre: string;
-  descripcion?: string;
-  estado?: string;
+  descripcion: string;
+  uso: string;
+  proceso: string[];
+  estado: string;
+  esterilizacion: string;
   ultimoUso?: string;
   proximaEsterilizacion?: string;
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class HerramientaService {
-  // Usamos la URL del entorno correcto (local o producción)
-  private apiBase = environment.apiUrl;
+  // Apuntamos a la dirección real de tu backend local
+  private apiUrl = 'http://localhost:3000/herramientas';
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * Obtiene la lista completa de herramientas del backend.
-   */
+  // --- MÉTODO RESTAURADO #1 (Para el Dashboard) ---
+  // Esta función devuelve TODAS las herramientas.
   getHerramientas(): Observable<HerramientaBackend[]> {
-    // CORRECCIÓN: Usamos this.apiBase y la ruta correcta /herramientas
-    return this.http.get<HerramientaBackend[]>(`${this.apiBase}/herramientas`);
+    return this.http.get<HerramientaBackend[]>(this.apiUrl);
   }
 
-  /**
-   * Envía los datos de una nueva herramienta al backend para crearla.
-   */
-  crearHerramienta(data: any): Observable<any> {
-    // CORRECCIÓN: Usamos this.apiBase y la ruta correcta /herramientas
-    return this.http.post(`${this.apiBase}/herramientas`, data);
+  // --- MÉTODO RESTAURADO #2 (Para crear herramientas) ---
+  // Esta función crea una nueva herramienta.
+  crearHerramienta(data: HerramientaBackend): Observable<HerramientaBackend> {
+    return this.http.post<HerramientaBackend>(this.apiUrl, data);
   }
 
-  /**
-   * Obtiene los detalles de una única herramienta por su ID.
-   */
-  getHerramienta(id: number): Observable<HerramientaBackend> {
-    // CORRECCIÓN: Usamos this.apiBase y la ruta correcta /herramientas/:id
-    return this.http.get<HerramientaBackend>(`${this.apiBase}/herramientas/${id}`);
-  }
-
-  /**
-   * Obtiene los detalles de una herramienta por su nombre.
-   * (Esta función ya estaba bien, pero la incluyo para que el archivo esté completo).
-   */
-  getHerramientaPorNombre(nombre: string): Observable<HerramientaBackend | undefined> {
-    return this.getHerramientas().pipe(
-      map(herramientas =>
-        herramientas.find(h => h.nombre.toLowerCase() === nombre.toLowerCase())
-      )
-    );
+  // --- MÉTODO PARA EL ESCÁNER (Este ya lo tenías) ---
+  // Esta función busca una sola herramienta por su nombre.
+  getHerramientaPorNombre(nombre: string): Observable<HerramientaBackend> {
+    return this.http.get<HerramientaBackend>(`${this.apiUrl}/nombre/${nombre}`);
   }
 }

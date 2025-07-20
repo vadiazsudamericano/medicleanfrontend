@@ -78,14 +78,12 @@
   height: 28px;
 }
 
-/* Ocultamos el checkbox por defecto */
 .toggle-switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* El fondo del interruptor */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -98,7 +96,6 @@
   border-radius: 28px;
 }
 
-/* El círculo que se mueve */
 .slider:before {
   position: absolute;
   content: "";
@@ -111,11 +108,45 @@
   border-radius: 50%;
 }
 
-/* Estilos para cuando el interruptor está activado */
 input:checked + .slider {
-  background-color: var(--button-bg); /* Usamos el color principal de la app */
+  background-color: var(--button-bg);
 }
 
 input:checked + .slider:before {
   transform: translateX(22px);
+}
+
+
+/* --- 🎯 ESTILOS RESPONSIVE PARA CELULARES --- */
+@media (max-width: 768px) {
+  ::ng-deep .page-container {
+    padding: 1rem !important;
+    margin: 1rem auto !important;
+  }
+
+  ::ng-deep .content-card {
+    padding: 1.5rem !important;
+  }
+
+  ::ng-deep .page-header h1 {
+    font-size: 1.6rem !important;
+    text-align: center !important;
+  }
+
+  ::ng-deep .page-header p {
+    font-size: 1rem !important;
+    text-align: center !important;
+  }
+
+  ::ng-deep .setting-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+
+  ::ng-deep .secondary-button {
+    width: 100% !important;
+    padding: 0.75rem !important;
+    text-align: center !important;
+  }
 }

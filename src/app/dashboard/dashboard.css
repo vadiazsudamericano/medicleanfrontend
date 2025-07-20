@@ -114,3 +114,92 @@
 .tag.tag-uso-en-cirugía { background-color: #42A5F5; }
 .tag.tag-mantenimiento { background-color: #FFA726; }
 .loading-message { text-align: center; padding: 2rem; color: var(--secondary-text); }
+/* RUTA: src/app/dashboard/dashboard.css */
+
+/* (Tu CSS original se mantiene igual aquí arriba...) */
+
+/* --- 🎯 ESTILOS RESPONSIVE PARA CELULARES --- */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+
+  .welcome-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .welcome-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .welcome-header p {
+    font-size: 1rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .summary-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .card-icon {
+    font-size: 2rem;
+    margin: 0 0 1rem 0;
+  }
+
+  .card-content .card-value {
+    font-size: 1.8rem;
+  }
+
+  .actions-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .action-card {
+    padding: 1.2rem;
+  }
+
+  .action-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .recent-activity h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .table-container {
+    padding: 0.5rem;
+    overflow-x: auto;
+  }
+
+  .history-table th,
+  .history-table td {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }
+
+  .loading-message {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+  }
+}

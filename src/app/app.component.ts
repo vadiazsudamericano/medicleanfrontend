@@ -4,7 +4,6 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core'; // 1. IMPO
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar';
-
 @Component({
   selector: 'app-root',
   standalone: true,

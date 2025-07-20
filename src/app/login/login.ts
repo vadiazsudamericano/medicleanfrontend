@@ -1,21 +1,49 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment.prod';  // Asegúrate de importar el archivo de entorno de producción
 
-export interface LoginResponse {
-  access_token: string;
-}
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../auth/auth.service';
 
-@Injectable({
-  providedIn: 'root',
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule
+  ],
+  templateUrl: './login.html',
+  styleUrls: ['./login.css']
 })
-export class AuthService {
-  private apiBase = environment.apiUrl;  // Esto usará la URL definida en environment.prod.ts
+export class LoginComponent {
 
-  constructor(private http: HttpClient) {}
+  loginData = {
+    email: '',      // ← CAMPO USADO COMO EMAIL
+    password: ''
+  };
 
-  login(username: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiBase}/auth/login`, { username, password });
+  errorMessage: string | null = null;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  onLogin(): void {
+    this.errorMessage = null;
+    console.log('Intento de login con email:', this.loginData.email);
+
+    // Usamos email como identificador (no username)
+    this.authService.login(this.loginData.email, this.loginData.password).subscribe({
+      next: (response) => {
+        console.log('Login exitoso!', response);
+        this.router.navigate(['/inicio']);
+      },
+      error: (err) => {
+        console.error('Error en el login:', err);
+        this.errorMessage = 'Correo o contraseña incorrectos.';
+      }
+    });
   }
 }

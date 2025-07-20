@@ -2,42 +2,35 @@
 
 <div class="scan-container">
   <h1>Escanear Herramienta</h1>
-  
   <p class="status-message">{{ statusMessage }}</p>
 
-  <div class="video-wrapper">
-    <video #videoElement autoplay playsinline muted></video>
-  </div>
-  
-  <div #webcamContainer class="hidden-canvas"></div>
+  <!-- Contenedor para la cámara -->
+  <div #webcamContainer class="video-wrapper"></div>
 
-  <div class="results-container">
+  <!-- Contenedor para las barras de predicción -->
+  <div *ngIf="predictions.length > 0" class="results-container">
     <div *ngFor="let p of predictions" class="prediction-item">
       <div class="label">{{ p.className }}</div>
       <div class="progress">
-        <div 
-          class="progress-bar" 
-          [style.width.%]="p.probability * 100">
+        <div class="progress-bar" [style.width.%]="p.probability * 100">
           {{ (p.probability * 100).toFixed(0) }}%
         </div>
       </div>
     </div>
   </div>
-  
-  <div class="details-preview" *ngIf="detallesHerramienta">
-    <h3>Estado Actual</h3>
-    <!-- 
-      Ahora [ngClass] es mucho más simple y seguro. 
-      Solo usa la variable 'claseEstado' que ya hemos preparado.
-    -->
-    <p class="estado" [ngClass]="claseEstado">
-      {{ detallesHerramienta.estado }}
-    </p>
-  </div>
-  
-  <div class="confirm-container" *ngIf="herramientaDetectada">
+
+  <!-- 
+    Este es el único botón que hay.
+    Se muestra cuando se detecta una herramienta y llama a la única función necesaria.
+  -->
+  <div *ngIf="herramientaDetectada" class="confirm-container">
     <button class="confirm-button" (click)="onConfirmarHerramienta(herramientaDetectada.className)">
       Confirmar {{ herramientaDetectada.className }}
     </button>
   </div>
+
+  <!-- 
+    TODOS LOS BLOQUES *ngIf="detallesHerramienta" HAN SIDO ELIMINADOS
+    para que ya no causen errores de compilación.
+  -->
 </div>

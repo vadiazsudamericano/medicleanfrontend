@@ -4,13 +4,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 export interface RegisterPayload {
-  username: string;
-  password: string;
-  role: string;
+  nombre: string;
+  apellido: string;
   email: string;
+  password: string;
+  rol: string;
 }
 
 export interface LoginResponse {
@@ -24,13 +25,13 @@ export class AuthService {
   // --- ESTA ES LA LÍNEA IMPORTANTE ---
   // Apunta a la URL pública y segura (https) de tu backend en Railway.
   // Reemplaza esto con tu URL real.
-private apiBase = environment.apiUrl;
+  private apiBase = 'http://localhost:3000';
 
 
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiBase}/auth/login`, { username, password })
+  login(email: string, password: string): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiBase}/auth/login`, { email, password })
       .pipe(
         tap(response => {
           if (response && response.access_token) {
@@ -41,7 +42,7 @@ private apiBase = environment.apiUrl;
   }
 
   register(userData: RegisterPayload): Observable<any> {
-    return this.http.post<any>(`${this.apiBase}/users`, userData);
+    return this.http.post<any>(`${this.apiBase}/auth/register`, userData);
   }
 
   public isLoggedIn(): boolean {
