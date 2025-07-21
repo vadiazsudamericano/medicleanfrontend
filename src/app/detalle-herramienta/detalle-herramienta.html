@@ -9,34 +9,28 @@
       <div class="header">
         <h1 class="nombre">{{ h.nombre }}</h1>
         <!-- 
-          CAMBIO CLAVE #1:
-          Añadimos paréntesis y un OR ('||').
-          (h.estado?.toLowerCase() || '') asegura que si el resultado es undefined,
-          se convierte en una cadena vacía '' ANTES de intentar hacer el .split().
+          ESTA ES LA VERSIÓN A PRUEBA DE BALAS:
+          (h.estado ?? 'no-registrado') se asegura de que, si el estado es nulo,
+          se use 'no-registrado' ANTES de intentar el .toLowerCase().
         -->
-        <div class="estado" [ngClass]="(h.estado?.toLowerCase() || '').split(' ')[0] || ''">
-          {{ h.estado }}
+        <div class="estado" [ngClass]="(h.estado ?? 'no-registrado').toLowerCase().split(' ')[0] || ''">
+          <!-- También nos protegemos aquí al mostrarlo, por si acaso -->
+          {{ h.estado || 'No definido' }}
         </div>
       </div>
   
       <div class="seccion">
-        <h3>Descripción</h3>
+        <h3>DESCRIPCIÓN</h3>
         <p>{{ h.descripcion || 'No disponible.' }}</p>
       </div>
   
       <div class="seccion">
-        <h3>Uso Principal</h3>
+        <h3>USO PRINCIPAL</h3>
         <p>{{ h.uso || 'No disponible.' }}</p>
       </div>
   
       <div class="seccion">
-        <h3>Proceso de Esterilización</h3>
-        <!-- 
-          CAMBIO CLAVE #2:
-          Usamos el operador de coalescencia nula ('??').
-          (h.proceso?.length ?? 0) asegura que si el resultado es undefined,
-          se convierte en 0 ANTES de compararlo con > 0.
-        -->
+        <h3>PROCESO DE ESTERILIZACIÓN</h3>
         <ul *ngIf="(h.proceso?.length ?? 0) > 0; else sinProceso">
           <li *ngFor="let paso of h.proceso">{{ paso }}</li>
         </ul>
@@ -49,14 +43,12 @@
 
   </ng-container>
 
-  <!-- Plantilla de carga (sin cambios) -->
   <ng-template #cargando>
     <div class="mensaje-carga">
       <p>{{ mensajeCarga }}</p>
     </div>
   </ng-template>
 
-  <!-- Botón de volver (sin cambios) -->
   <div class="acciones">
     <a routerLink="/escaner" class="boton-volver">← Volver al Escáner</a>
   </div>

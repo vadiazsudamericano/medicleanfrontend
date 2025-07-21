@@ -1,40 +1,49 @@
-<!-- RUTA: src/app/register/register.html -->
+<!-- RUTA: src/app/register/register.html (Versión Corregida) -->
+
 <div class="page-container">
-  <div class="register-card">
+  <div class="card-container">
+
+    <!-- 
+      SECCIÓN CORREGIDA:
+      Hemos agrupado el logo, el título principal y el subtítulo
+      dentro de un solo div para un control total.
+    -->
     <div class="logo-container">
+      <img src="assets/scanner-svgrepo-com.png">
       <h1>Crear una Cuenta</h1>
-      <p>Únete a MediClean para empezar a gestionar.</p>
+      <p>Únete a MediClean para empezar.</p>
     </div>
-    
-    <form #registerForm="ngForm" (ngSubmit)="onRegister()">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="nombre">Nombre</label>
-          <input type="text" id="nombre" name="nombre" [(ngModel)]="registerData.nombre" required>
-        </div>
-        <div class="form-group">
-          <label for="apellido">Apellido</label>
-          <input type="text" id="apellido" name="apellido" [(ngModel)]="registerData.apellido" required>
-        </div>
-      </div>
+
+    <!-- El formulario no necesita cambios, ya estaba bien -->
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="form">
+      
       <div class="form-group">
-        <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" [(ngModel)]="registerData.email" required email>
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" [(ngModel)]="registerData.nombre" required placeholder="Ingresa tu nombre">
       </div>
+      
       <div class="form-group">
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" name="password" [(ngModel)]="registerData.password" required minlength="8">
-      </div>
-      <div class="form-group">
-        <label for="confirmPassword">Confirmar Contraseña</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="registerData.confirmPassword" required>
+        <label for="apellido">Apellido</label>
+        <input type="text" id="apellido" name="apellido" [(ngModel)]="registerData.apellido" required placeholder="Ingresa tu apellido">
       </div>
 
-      <!-- Mensajes de feedback -->
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" [(ngModel)]="registerData.email" required email placeholder="Ingresa tu correo">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" name="password" [(ngModel)]="registerData.password" required minlength="6" placeholder="••••••••">
+      </div>
+
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
       <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-      
-      <button type="submit" class="primary-button" [disabled]="!registerForm.form.valid">Registrarse</button>
+
+      <button type="submit" class="primary-button" [disabled]="!registerForm.form.valid">
+        Crear Cuenta
+      </button>
+
     </form>
     
     <p class="footer-text">

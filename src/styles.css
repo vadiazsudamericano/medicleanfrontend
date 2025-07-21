@@ -1,32 +1,56 @@
-/* RUTA: src/styles.css */
+/* RUTA: src/styles.css (Versión Final con la fuente Montserrat) */
 
-/* --- Paleta de Colores Inspirada en tu Diseño --- */
+/* --- 1. IMPORTACIÓN DE FUENTE --- */
+/* Importamos la fuente 'Montserrat' desde Google Fonts con varios grosores (weights). */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+/* --- 2. VARIABLES DE COLOR (Para el Modo Oscuro) --- */
+
+/* Tema claro (por defecto) */
 :root {
-  --primary-bg: #E0F2F1;  /* El verde menta muy claro de fondo */
-  --secondary-bg: #4DB6AC; /* El verde azulado para acentos */
-  --primary-text: #263238; /* Un gris oscuro casi negro para texto */
-  --secondary-text: #546E7A;
-  --card-bg: #FFFFFF;
-  --button-bg: #00796B;   /* El verde oscuro para botones principales */
-  --button-hover-bg: #004D40;
-  --border-color: #B2DFDB;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --font-family: 'Poppins', sans-serif;
+  --color-primario-activo: #023163;
+  --color-fondo: #f4f7f9;
+  --color-tarjeta: #ffffff;
+  --color-texto-principal: #2c3e50;
+  --color-texto-secundario: #2c3e50;
+  --color-borde: #e0e7e5;
+  --color-sombra: rgba(44, 62, 80, 0.1);
 }
 
-/* --- Estilos Globales Base --- */
-body {
-  margin: 0;
-  font-family: var(--font-family);
-  background-color: var(--primary-bg);
-  color: var(--primary-text);
+/* Tema oscuro */
+body.dark-mode {
+  --color-primario-activo: #3e6e96;
+  --color-fondo: #1a202c;
+  --color-tarjeta: #2d3748;
+  --color-texto-principal: #ffffff;
+  --color-texto-secundario: #ffffff;
+  --color-borde: #4a5568;
+  --color-sombra: rgba(0, 0, 0, 0.2);
 }
 
+
+/* --- 3. ESTILOS GLOBALES Y APLICACIÓN DE LA FUENTE --- */
 * {
   box-sizing: border-box;
 }
 
-h1, h2, h3 {
-  font-weight: 600;
-  color: var(--primary-text);
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  /* --- ¡AQUÍ ESTÁ LA MAGIA! --- */
+  /* Aplicamos la fuente 'Montserrat' a toda la aplicación. */
+  font-family: 'Montserrat', sans-serif; 
+  
+  background-color: var(--color-fondo);
+  color: var(--color-texto-principal);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  color: var(--color-primario-activo);
+  text-decoration: none;
 }

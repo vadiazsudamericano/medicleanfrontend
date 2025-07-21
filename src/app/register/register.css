@@ -1,104 +1,107 @@
-/* RUTA: src/app/login/login.css */
+/* RUTA: src/app/register/register.css */
+
 .page-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 80px); /* Resta la altura del navbar aprox. */
-  padding: 2rem;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: var(--color-fondo);
 }
 
-.login-card {
-  background: var(--card-bg);
-  padding: 2.5rem;
-  border-radius: 24px;
-  box-shadow: 0 10px 40px var(--shadow-color);
+.card-container {
   width: 100%;
   max-width: 420px;
-  text-align: center;
+  padding: 2.5rem;
+  background-color: var(--color-tarjeta);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px var(--color-sombra);
 }
 
+/* --- ESTILOS PARA EL LOGO (LA CLAVE) --- */
 .logo-container {
+  text-align: center;
   margin-bottom: 2rem;
 }
 
 .logo-container img {
-  height: 60px;
+  height: 50px; /* Ajusta este valor si quieres el logo más grande o pequeño */
   margin-bottom: 1rem;
 }
 
 .logo-container h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.8rem;
+  color: var(--color-texto-principal);
 }
 
 .logo-container p {
-  color: var(--secondary-text);
+  color: var(--color-texto-secundario);
   margin-top: 0.5rem;
+}
+/* --- FIN DE LOS ESTILOS PARA EL LOGO --- */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 8px;
   font-weight: 500;
-  color: var(--secondary-text);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-texto-secundario);
 }
 
 .form-group input {
-  width: 100%;
-  padding: 14px 18px;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  background-color: var(--color-fondo);
+  color: var(--color-texto-principal);
   font-size: 1rem;
-  font-family: var(--font-family);
-  transition: all 0.3s ease;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: var(--button-bg);
-  box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.2);
 }
 
 .primary-button {
-  width: 100%;
-  padding: 16px;
-  background: var(--button-bg);
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: bold;
   color: white;
+  background-color: #0f0c2c;
   border: none;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
   margin-top: 1rem;
 }
 
-.primary-button:hover {
-  background: var(--button-hover-bg);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 121, 107, 0.3);
+.primary-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
+.error-message, .success-message {
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.error-message { color: #721c24; background-color: #f8d7da; }
+.success-message { color: #155724; background-color: #d4edda; }
+
 .footer-text {
+  text-align: center;
   margin-top: 2rem;
-  color: var(--secondary-text);
+  color: var(--color-texto-secundario);
 }
 
 .footer-text a {
-  color: var(--button-bg);
-  font-weight: 600;
-  text-decoration: none;
-}
-.error-message {
-  background-color: #ffebee;
-  color: #c62828;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  font-weight: 500;
+  font-weight: bold;
+  color: var(--color-primario-activo);
 }

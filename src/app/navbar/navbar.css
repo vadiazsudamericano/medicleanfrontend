@@ -26,8 +26,18 @@
 }
 
 .navbar-brand img {
-  height: 55px;
-  /*margin-right: px;*/
+  height: 52px;  /* <-- ¡Ajusta este número! 32px es un buen tamaño para un navbar. */
+  
+  /* 2. El ancho se ajustará automáticamente para mantener la proporción */
+  width: auto;
+  
+  /* 3. Asegura que la imagen se renderice bien */
+  object-fit: contain;
+
+  /* --- FIN DE LA MAGIA --- */
+  
+  /* Estilos adicionales para que se vea bien */
+  vertical-align: middle;
 }
 
 /* --- BOTÓN HAMBURGUESA (solo visible en móvil) --- */
@@ -50,7 +60,7 @@
 }
 
 .nav-link {
-  color: var(--secondary-text);
+  color: #000839;
   text-decoration: none;
   padding: 10px 20px;
   border-radius: 20px;
@@ -65,7 +75,7 @@
 
 .nav-link.active {
   background-color: var(--button-bg);
-  color: white;
+  color: #000839;
   font-weight: 600;
 }
 

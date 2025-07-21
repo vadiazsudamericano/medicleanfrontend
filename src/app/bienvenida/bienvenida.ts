@@ -16,7 +16,7 @@ export class BienvenidaComponent implements OnInit {
   ngOnInit(): void {
     // Espera 3 segundos y redirige a login
     setTimeout(() => {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/inicio']);
     }, 3000);
   }
 }

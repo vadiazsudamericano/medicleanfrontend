@@ -1,14 +1,14 @@
-// RUTA: src/app/app.routes.ts (Versión Final de Producción)
+// RUTA: src/app/app.routes.ts (Versión Corregida y Simplificada)
 
 import { Routes } from '@angular/router';
 
 // --- 1. IMPORTACIONES DE COMPONENTES ---
-// Layout, Páginas Públicas y el Guardián de Seguridad
 import { MainLayoutComponent } from './layouts/main-layout/main-layout';
-import { RegisterComponent } from './register/register';
-import { BienvenidaComponent } from './bienvenida/bienvenida';
-import { authGuard } from './auth/auth-guard';
 import { LoginComponent } from './login/login';
+import { RegisterComponent } from './register/register';
+import { AuthGuard } from './auth/auth-guard';
+
+import { BienvenidaComponent } from './bienvenida/bienvenida';
 import { DashboardComponent } from './dashboard/dashboard';
 import { EscanerComponent } from './escaner/escaner';
 import { HistorialComponent } from './historial/historial';
@@ -18,21 +18,23 @@ import { RegistrarHerramientaComponent } from './registrar-herramienta/registrar
 import { DetalleHerramientaComponent } from './detalle-herramienta/detalle-herramienta';
 import { HerramientaComponent } from './herramienta/herramienta';
 
-
 // --- 2. DEFINICIÓN DE RUTAS ---
 export const routes: Routes = [
-  // --- GRUPO 1: RUTAS PÚBLICAS (Se renderizan solas, sin Navbar) ---
+  // --- GRUPO 1: RUTAS PÚBLICAS (Sin Navbar, sin protección) ---
+  // Estas son las únicas páginas a las que se puede acceder sin iniciar sesión.
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'bienvenida', component: BienvenidaComponent },
 
-  // --- GRUPO 2: RUTAS PROTEGIDAS (Se renderizan dentro del MainLayout, con Navbar) ---
+  // --- GRUPO 2: RUTAS PROTEGIDAS (Renderizadas dentro de MainLayout) ---
+  // El AuthGuard protege TODO este bloque. Si no estás logueado, te enviará a /login.
   {
     path: '', // La ruta padre para todas las páginas internas
     component: MainLayoutComponent,
-    canActivate: [authGuard], // El "portero" protege todo este grupo de rutas
+    canActivate: [AuthGuard],
     children: [
-      { path: 'inicio', component: DashboardComponent },
+      // La página de bienvenida es la primera página protegida
+      { path: 'bienvenida', component: BienvenidaComponent },
+      { path: 'inicio', component: DashboardComponent }, // 'inicio' y 'dashboard' pueden ser la misma
       { path: 'escaner', component: EscanerComponent },
       { path: 'historial', component: HistorialComponent },
       { path: 'perfil', component: PerfilComponent },
@@ -41,12 +43,16 @@ export const routes: Routes = [
       { path: 'registrar-herramienta', component: RegistrarHerramientaComponent },
       { path: 'detalle-herramienta/:nombre', component: DetalleHerramientaComponent },
       
-      // Si un usuario logueado va a la raíz (ej. localhost:4200), lo mandamos a 'inicio'
-      { path: '', redirectTo: 'inicio', pathMatch: 'full' }
+      // REDIRECCIÓN POR DEFECTO PARA USUARIOS LOGUEADOS:
+      // Si un usuario ya logueado va a la raíz (ej. localhost:4200),
+      // lo redirigimos a la página de bienvenida.
+      { path: '', redirectTo: 'bienvenida', pathMatch: 'full' }
     ]
   },
 
-  // --- RUTA DE REDIRECCIÓN FINAL ---
-  // Si el usuario escribe una URL que no existe, lo mandamos a la página de bienvenida.
-  { path: '**', redirectTo: '/bienvenida' }
+  // --- RUTA "CATCH-ALL" ---
+  // Si se introduce cualquier otra URL que no exista, se redirige a la raíz.
+  // Si el usuario está logueado, el guardia lo enviará a /bienvenida.
+  // Si no está logueado, el guardia lo enviará a /login.
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

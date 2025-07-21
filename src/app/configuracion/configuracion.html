@@ -1,31 +1,44 @@
 <!-- RUTA: src/app/configuracion/configuracion.html -->
-<div class="page-container">
-  <div class="content-card">
-    <div class="page-header">
-      <h1>Configuración</h1>
-      <p>Personaliza tus preferencias.</p>
+
+<div class="config-card">
+  <h2>Configuración</h2>
+  <p class="subtitle">Personaliza tus preferencias.</p>
+
+  <div class="config-item">
+    <div class="info">
+      <label for="notificaciones">Notificaciones por E-mail</label>
+      <p>Recibe resúmenes y alertas importantes.</p>
     </div>
-    <div class="content-body">
-      <div class="setting-item">
-        <div class="setting-info">
-          <h3>Notificaciones por E-mail</h3>
-          <p>Recibe resúmenes y alertas importantes.</p>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" [(ngModel)]="config.notificacionesEmail" (change)="guardarConfiguracion()">
-          <span class="slider"></span>
-        </label>
-      </div>
-      <div class="setting-item">
-        <div class="setting-info">
-          <h3>Modo Oscuro</h3>
-          <p>Activa el tema oscuro (requiere refrescar).</p>
-        </div>
-        <label class="toggle-switch">
-          <input type="checkbox" [(ngModel)]="config.modoOscuro" (change)="guardarConfiguracion()">
-          <span class="slider"></span>
-        </label>
-      </div>
+    <div class="control">
+      <!-- 
+        [(ngModel)] crea un enlace bidireccional.
+        (ngModelChange) se ejecuta cada vez que el valor cambia.
+      -->
+      <label class="switch">
+        <input 
+          id="notificaciones" 
+          type="checkbox" 
+          [(ngModel)]="notificacionesEmail" 
+          (ngModelChange)="onToggleNotificaciones()">
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="config-item">
+    <div class="info">
+      <label for="modo-oscuro">Modo Oscuro</label>
+      <p>Activa el tema oscuro.</p>
+    </div>
+    <div class="control">
+      <label class="switch">
+        <input 
+          id="modo-oscuro" 
+          type="checkbox" 
+          [(ngModel)]="modoOscuro" 
+          (ngModelChange)="onToggleModoOscuro()">
+        <span class="slider round"></span>
+      </label>
     </div>
   </div>
 </div>

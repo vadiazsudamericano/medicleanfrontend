@@ -1,55 +1,51 @@
-// RUTA: [Tu Proyecto de Frontend]/src/app/auth/auth.service.ts
+// RUTA: src/app/auth/auth.service.ts
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
 
 export interface RegisterPayload {
   nombre: string;
   apellido: string;
   email: string;
   password: string;
-  rol: string;
-}
-
-export interface LoginResponse {
-  access_token: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // --- ESTA ES LA LÍNEA IMPORTANTE ---
-  // Apunta a la URL pública y segura (https) de tu backend en Railway.
-  // Reemplaza esto con tu URL real.
-  private apiBase = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3000/auth';
 
+  constructor(private http: HttpClient, private router: Router) {}
 
-  constructor(private http: HttpClient) {}
-
-  login(email: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiBase}/auth/login`, { email, password })
-      .pipe(
-        tap(response => {
-          if (response && response.access_token) {
-            localStorage.setItem('token', response.access_token);
-          }
-        })
-      );
+  login(credentials: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, credentials);
   }
 
-  register(userData: RegisterPayload): Observable<any> {
-    return this.http.post<any>(`${this.apiBase}/auth/register`, userData);
+  register(payload: RegisterPayload): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, payload);
   }
 
-  public isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
-  }
-
-  public logout(): void {
+  logout() {
     localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+
+  // --- ESTA ES LA FUNCIÓN MÁS IMPORTANTE PARA EL GUARDIA ---
+  // Revisa si existe un token en localStorage.
+  // Devuelve 'true' si hay algo, 'false' si no hay nada (null).
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('token');
+    return !!token; // El !! convierte un string en booleano (true si no es nulo/vacío)
+  }
+
+  getProfile(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${this.apiUrl}/profile`, { headers });
   }
 }

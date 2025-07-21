@@ -1,63 +1,53 @@
-// RUTA: src/app/register/register.ts
-
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { AuthService, RegisterPayload } from '../auth/auth.service'; // Importamos la interfaz
+import { FormsModule } from '@angular/forms'; // Necesario para ngModel y ngForm
+import { Router, RouterLink } from '@angular/router'; // RouterLink para el enlace de login
+import { AuthService, RegisterPayload } from '../auth/auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink], // ¡Añadimos FormsModule y RouterLink!
   templateUrl: './register.html',
   styleUrls: ['./register.css']
 })
 export class RegisterComponent {
-  registerData = {
+  
+  // Objeto para almacenar los datos del formulario
+  registerData: RegisterPayload = {
     nombre: '',
     apellido: '',
     email: '',
-    telefono: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   };
 
-  errorMessage: string | null = null;
   successMessage: string | null = null;
+  errorMessage: string | null = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
-  onRegister(): void {
-    this.errorMessage = null;
-    this.successMessage = null;
+  // Esta función se ejecuta cuando el formulario se envía
+  onSubmit(): void {
+    // Creamos el payload a partir de los datos del formulario
+    const payload: RegisterPayload = this.registerData;
 
-    if (this.registerData.password !== this.registerData.confirmPassword) {
-      this.errorMessage = 'Las contraseñas no coinciden.';
-      return;
-    }
-
-    // Creamos el objeto con la estructura que el servicio espera
-    const payload: RegisterPayload = {
-      email: this.registerData.email,
-      nombre: this.registerData.nombre,
-      apellido: this.registerData.apellido,
-      password: this.registerData.password,
-      rol: 'user' // Rol por defecto
-    };
-    
+    // Llamamos al método 'register' de nuestro servicio
     this.authService.register(payload).subscribe({
-      next: (response: any) => {
-        console.log('Registro exitoso:', response);
-        this.successMessage = '¡Cuenta creada! Serás redirigido al login...';
+      next: (response) => {
+        this.successMessage = '¡Registro exitoso! Serás redirigido al login.';
+        this.errorMessage = null;
         
+        // Esperamos un par de segundos para que el usuario vea el mensaje
+        // y luego lo redirigimos a la página de login.
         setTimeout(() => {
           this.router.navigate(['/login']);
-        }, 3000);
+        }, 2000);
       },
-      error: (err: any) => {
+      error: (err) => {
         console.error('Error en el registro:', err);
-        this.errorMessage = err.error?.message || 'El correo electrónico ya está en uso.';
+        // Aquí podrías poner un mensaje de error más específico si el backend lo devuelve
+        this.errorMessage = 'No se pudo completar el registro. El correo ya podría estar en uso.';
+        this.successMessage = null;
       }
     });
   }

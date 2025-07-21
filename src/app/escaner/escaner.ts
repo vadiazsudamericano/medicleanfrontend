@@ -1,18 +1,11 @@
 // RUTA: src/app/escaner/escaner.component.ts
 
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-  ElementRef,
-  NgZone,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import * as tmImage from '@teachablemachine/image';
 import { HerramientaService } from '../servicios/herramienta.service';
+import { HistorialService } from '../servicios/historial.service';
 
 interface Prediction {
   className: string;
@@ -27,13 +20,11 @@ interface Prediction {
   styleUrls: ['./escaner.css']
 })
 export class EscanerComponent implements OnInit, OnDestroy {
-  // URLs del modelo
   readonly MODEL_URL = 'https://teachablemachine.withgoogle.com/models/5L8ADLfMp/model.json';
   readonly METADATA_URL = 'https://teachablemachine.withgoogle.com/models/5L8ADLfMp/metadata.json';
-
+  
   @ViewChild('webcamContainer', { static: true }) webcamContainer!: ElementRef;
-
-  // Propiedades necesarias
+  
   model: any;
   webcam: any;
   predictions: Prediction[] = [];
@@ -44,6 +35,8 @@ export class EscanerComponent implements OnInit, OnDestroy {
   constructor(
     private zone: NgZone,
     private router: Router,
+    private herramientaService: HerramientaService,
+    private historialService: HistorialService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -52,15 +45,12 @@ export class EscanerComponent implements OnInit, OnDestroy {
       this.model = await tmImage.load(this.MODEL_URL, this.METADATA_URL);
       this.statusMessage = 'Modelo cargado. Iniciando cámara...';
       this.cdr.detectChanges();
-
       this.webcam = new tmImage.Webcam(400, 400, true);
       await this.webcam.setup();
-      
       this.webcamContainer.nativeElement.appendChild(this.webcam.canvas);
       await this.webcam.play();
       this.statusMessage = '¡Listo! Apunta a la herramienta.';
       this.cdr.detectChanges();
-
       this.loop();
     } catch (e) {
       console.error('Error al iniciar la webcam o cargar el modelo:', e);
@@ -89,19 +79,36 @@ export class EscanerComponent implements OnInit, OnDestroy {
           break;
         }
       }
-      
       this.zone.run(() => {
         this.predictions = prediction as Prediction[];
         this.herramientaDetectada = deteccionActual;
       });
-
       this.animationFrameId = window.requestAnimationFrame(() => this.loop());
     }
   }
 
-  // Esta es la única función que el botón "Confirmar" necesita.
-  // Su única responsabilidad es llevar al usuario a la página de detalles.
   onConfirmarHerramienta(nombreHerramienta: string) {
-    this.router.navigate(['/detalle-herramienta', nombreHerramienta]);
+    this.herramientaService.getHerramientaPorNombre(nombreHerramienta).subscribe({
+      next: (data) => {
+        if (data && data.id && data.estado) {
+          this.historialService.registrarEscaneo({
+            herramientaId: data.id,
+            estadoAlEscanear: data.estado
+          }).subscribe({
+            next: () => {
+              console.log('Escaneo registrado. Navegando a detalles...');
+              this.router.navigate(['/detalle-herramienta', nombreHerramienta]);
+            },
+            error: (err) => {
+              console.error('Error al registrar, pero navegando de todas formas:', err);
+              this.router.navigate(['/detalle-herramienta', nombreHerramienta]);
+            }
+          });
+        } else {
+          console.error('No se encontraron detalles para la herramienta, no se puede navegar.');
+        }
+      },
+      error: (err) => console.error('Error al buscar la herramienta:', err)
+    });
   }
 }

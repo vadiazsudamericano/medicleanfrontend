@@ -1,37 +1,40 @@
 <!-- RUTA: src/app/perfil/perfil.html -->
-<div class="page-container" *ngIf="usuario; else cargando">
-  <div class="content-card">
-    <div class="page-header">
-      <h1>Tu Perfil</h1>
-      <p>Información de tu cuenta de MediClean.</p>
+
+<div class="profile-card">
+  <h2>Tu Perfil</h2>
+  <p class="subtitle">Información de tu cuenta de MediClean.</p>
+  
+  <!-- Usamos *ngIf para mostrar los datos solo cuando la variable 'user' ya no sea nula -->
+  <div *ngIf="user; else loading">
+    <div class="info-item">
+      <label>Correo (Username)</label>
+      <p>{{ user.email }}</p>
     </div>
-    <div class="content-body">
-      <div class="setting-item">
-        <div class="setting-info">
-          <h3>Correo (Username)</h3>
-          <p>{{ usuario.username }}</p>
-        </div>
-      </div>
-      <div class="setting-item">
-        <div class="setting-info">
-          <h3>Rol</h3>
-          <p style="text-transform: capitalize;">{{ usuario.role }}</p>
-        </div>
-      </div>
-      <div class="setting-item">
-        <div class="setting-info">
-          <h3>ID de Usuario</h3>
-          <p>#{{ usuario.sub }}</p>
-        </div>
-      </div>
-      <div class="setting-item danger-zone">
-        <div class="setting-info">
-          <h3>Eliminar Cuenta</h3>
-          <p>Esta acción es permanente.</p>
-        </div>
-        <button class="danger-button" (click)="onEliminarCuenta()">Eliminar</button>
-      </div>
+    
+    <div class="info-item">
+      <label>Rol</label>
+      <p>{{ user.rol }}</p>
+    </div>
+    
+    <div class="info-item">
+      <label>ID de Usuario</label>
+      <p>#{{ user.id }}</p>
     </div>
   </div>
+
+  <!-- 
+    Esta plantilla se muestra mientras 'user' es nulo.
+    Se activa con el 'else loading' del *ngIf de arriba.
+  -->
+  <ng-template #loading>
+    <p *ngIf="!errorMessage" class="loading-message">Cargando información del perfil...</p>
+    <!-- Mostramos un mensaje de error si la petición falla -->
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </ng-template>
+
+  <div class="danger-zone">
+    <h3>Eliminar Cuenta</h3>
+    <p>Esta acción es permanente.</p>
+    <button (click)="eliminarCuenta()" class="delete-button">Eliminar</button>
+  </div>
 </div>
-<ng-template #cargando><div class="page-container"><p>Cargando perfil...</p></div></ng-template>

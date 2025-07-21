@@ -1,152 +1,129 @@
 /* RUTA: src/app/login/login.css */
 
+/* Contenedor principal para centrar la tarjeta */
 .page-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 80px);
-  padding: 2rem;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: var(--color-fondo);
 }
 
-.login-card {
-  background: var(--card-bg);
-  padding: 2.5rem;
-  border-radius: 24px;
-  box-shadow: 0 10px 40px var(--shadow-color);
+/* La tarjeta que contiene todo el formulario */
+.card-container {
   width: 100%;
   max-width: 420px;
-  text-align: center;
+  padding: 2.5rem;
+  background-color: var(--color-tarjeta);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px var(--color-sombra);
 }
 
+/* Sección del logo y título */
 .logo-container {
+  text-align: center;
   margin-bottom: 2rem;
 }
 
 .logo-container img {
-  height: 60px;
+  height: 50px; /* Ajusta el tamaño de tu logo */
   margin-bottom: 1rem;
 }
 
 .logo-container h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.8rem;
+  color: var(--color-texto-principal);
 }
 
 .logo-container p {
-  color: var(--secondary-text);
+  color: var(--color-texto-secundario);
   margin-top: 0.5rem;
 }
 
+/* El formulario */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
 .form-group {
-  margin-bottom: 1.5rem;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 8px;
   font-weight: 500;
-  color: var(--secondary-text);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-texto-secundario);
 }
 
 .form-group input {
-  width: 100%;
-  padding: 14px 18px;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  background-color: var(--color-fondo);
+  color: var(--color-texto-principal);
   font-size: 1rem;
-  font-family: var(--font-family);
-  transition: all 0.3s ease;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input::placeholder {
+  color: var(--color-texto-secundario);
+  opacity: 0.7;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: var(--button-bg);
-  box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.2);
+  border-color: var(--color-primario-activo);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
 }
 
+/* Botón principal */
 .primary-button {
-  width: 100%;
-  padding: 16px;
-  background: var(--button-bg);
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: bold;
   color: white;
+  background-color: #0f0c2c;
   border: none;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
   margin-top: 1rem;
+  transition: opacity 0.2s;
 }
 
 .primary-button:hover {
-  background: var(--button-hover-bg);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 121, 107, 0.3);
+  opacity: 0.9;
 }
 
+.primary-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Mensajes de error */
+.error-message {
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Enlace inferior */
 .footer-text {
+  text-align: center;
   margin-top: 2rem;
-  color: var(--secondary-text);
+  color: var(--color-texto-secundario);
 }
 
 .footer-text a {
-  color: var(--button-bg);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.error-message {
-  background-color: #ffebee;
-  color: #c62828;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  font-weight: 500;
-}
-
-
-/* --- 🎯 ESTILOS RESPONSIVE PARA CELULARES --- */
-@media (max-width: 768px) {
-  .page-container {
-    padding: 1rem;
-  }
-
-  .login-card {
-    padding: 1.5rem;
-    border-radius: 16px;
-  }
-
-  .logo-container img {
-    height: 50px;
-    margin-bottom: 0.5rem;
-  }
-
-  .logo-container h1 {
-    font-size: 1.5rem;
-  }
-
-  .logo-container p {
-    font-size: 0.95rem;
-  }
-
-  .form-group input {
-    padding: 12px 16px;
-    font-size: 0.95rem;
-  }
-
-  .primary-button {
-    padding: 14px;
-    font-size: 1rem;
-  }
-
-  .footer-text {
-    margin-top: 1.5rem;
-    font-size: 0.95rem;
-  }
-
-  .error-message {
-    font-size: 0.95rem;
-    padding: 8px;
-  }
+  font-weight: bold;
+  color: var(--color-primario-activo);
 }

@@ -35,6 +35,7 @@ export class DetalleHerramientaComponent implements OnInit {
       this.herramientaService.getHerramientaPorNombre(nombreHerramienta).subscribe({
         // Esto se ejecuta si la petición tiene ÉXITO
         next: (data) => {
+          console.log('Datos recibidos del backend:', data);
           this.herramienta = data; // Guardamos los datos recibidos
         },
         // Esto se ejecuta si la petición FALLA (ej: error 404 si se modifica la URL a mano)

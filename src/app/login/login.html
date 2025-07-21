@@ -1,14 +1,15 @@
-<!-- RUTA: [Tu Proyecto de Frontend]/src/app/login/login.html -->
+<!-- RUTA: src/app/login/login.html (Versión Corregida y con Diseño) -->
 
 <div class="page-container">
-  <div class="login-card">
+  <div class="card-container">
     <div class="logo-container">
-      <img src="assets/logo.svg" alt="Logo">
+      <img src="assets/scanner-svgrepo-com.png"> <!-- Asegúrate de que esta ruta al logo sea correcta -->
       <h1>MediClean</h1>
       <p>Bienvenido de nuevo</p>
     </div>
 
-    <form #loginForm="ngForm" (ngSubmit)="onLogin()">
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="form">
+
       <div class="form-group">
         <label for="email">E-mail</label>
         <input 
@@ -17,20 +18,19 @@
           name="email" 
           placeholder="Ingresa tu correo" 
           [(ngModel)]="loginData.email" 
-          required>
+          required 
+          email>
       </div>
 
       <div class="form-group">
         <label for="password">Contraseña</label>
-        <!-- AÑADIMOS autocomplete="new-password" PARA EVITAR EL AUTOCOMPLETADO -->
         <input 
           type="password" 
           id="password" 
           name="password" 
           placeholder="••••••••" 
           [(ngModel)]="loginData.password" 
-          required
-          autocomplete="new-password">
+          required>
       </div>
 
       <div *ngIf="errorMessage" class="error-message">
@@ -40,6 +40,7 @@
       <button type="submit" class="primary-button" [disabled]="!loginForm.form.valid">
         Iniciar Sesión
       </button>
+
     </form>
     
     <p class="footer-text">

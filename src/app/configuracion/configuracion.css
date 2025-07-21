@@ -1,84 +1,65 @@
 /* RUTA: src/app/configuracion/configuracion.css */
 
-/* --- Estilos Generales de la Página (reutilizados de perfil) --- */
-.page-container {
-  max-width: 900px;
-  margin: 2rem auto;
+.config-card {
+  max-width: 600px;
+  margin: 40px auto;
   padding: 2rem;
-}
-
-.content-card {
-  background: var(--card-bg);
+  /* ¡AQUÍ ESTÁ LA MAGIA! Usamos las variables globales */
+  background-color: var(--color-tarjeta);
+  color: var(--color-texto-principal);
   border-radius: 16px;
-  box-shadow: 0 4px 25px var(--shadow-color);
-  padding: 2.5rem;
+  box-shadow: 0 8px 30px var(--color-sombra);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.page-header {
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.page-header h1 {
-  font-size: 2.2rem;
+.config-card h2 {
+  font-size: 2rem;
+  font-weight: bold;
   margin: 0;
+  color: var(--color-texto-principal);
 }
 
-.page-header p {
-  font-size: 1.1rem;
-  color: var(--secondary-text);
+.config-card .subtitle {
+  font-size: 1rem;
+  color: var(--color-texto-secundario);
   margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--color-borde);
+  padding-bottom: 1.5rem;
 }
 
-.setting-item {
+.config-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 0;
 }
 
-.setting-item:last-child {
-  border-bottom: none;
+.config-item:not(:last-child) {
+  border-bottom: 1px solid var(--color-borde);
 }
 
-.setting-info h3 {
-  margin: 0 0 0.25rem 0;
-  font-size: 1.2rem;
+.config-item .info label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-texto-principal);
 }
 
-.setting-info p {
-  margin: 0;
-  color: var(--secondary-text);
+.config-item .info p {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.9rem;
+  color: var(--color-texto-secundario);
 }
 
-.secondary-button {
-  background-color: transparent;
-  color: var(--button-bg);
-  border: 2px solid var(--border-color);
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.secondary-button:hover {
-  background-color: var(--primary-bg);
-  border-color: var(--button-bg);
-}
-
-
-/* --- ESTILOS PARA EL INTERRUPTOR (TOGGLE SWITCH) --- */
-.toggle-switch {
+/* --- ESTILOS PARA EL INTERRUPTOR (SWITCH) --- */
+.switch {
   position: relative;
   display: inline-block;
   width: 50px;
   height: 28px;
 }
 
-.toggle-switch input {
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -93,7 +74,6 @@
   bottom: 0;
   background-color: #ccc;
   transition: .4s;
-  border-radius: 28px;
 }
 
 .slider:before {
@@ -103,50 +83,27 @@
   width: 20px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: white; /* El círculo interior siempre es blanco */
   transition: .4s;
-  border-radius: 50%;
 }
 
+/* Usamos la variable para el color del interruptor activado */
 input:checked + .slider {
-  background-color: var(--button-bg);
+  background-color: var(--color-primario-activo);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--color-primario-activo);
 }
 
 input:checked + .slider:before {
   transform: translateX(22px);
 }
 
+.slider.round {
+  border-radius: 34px;
+}
 
-/* --- 🎯 ESTILOS RESPONSIVE PARA CELULARES --- */
-@media (max-width: 768px) {
-  ::ng-deep .page-container {
-    padding: 1rem !important;
-    margin: 1rem auto !important;
-  }
-
-  ::ng-deep .content-card {
-    padding: 1.5rem !important;
-  }
-
-  ::ng-deep .page-header h1 {
-    font-size: 1.6rem !important;
-    text-align: center !important;
-  }
-
-  ::ng-deep .page-header p {
-    font-size: 1rem !important;
-    text-align: center !important;
-  }
-
-  ::ng-deep .setting-item {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 0.75rem !important;
-  }
-
-  ::ng-deep .secondary-button {
-    width: 100% !important;
-    padding: 0.75rem !important;
-    text-align: center !important;
-  }
+.slider.round:before {
+  border-radius: 50%;
 }
