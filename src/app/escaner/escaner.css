@@ -1,6 +1,5 @@
 /* RUTA: src/app/escaner/escaner.css */
 
-/* --- 🎯 ESTILOS GENERALES DEL CONTENEDOR --- */
 .scan-container {
   display: flex;
   flex-direction: column;
@@ -8,30 +7,24 @@
   gap: 24px;
   padding: 20px;
   width: 100%;
-  --border-color: #e0e7e5; 
-  --secondary-text: #5c706b;
 }
 
-/* --- ✒️ ESTILOS DE TEXTO --- */
 .scan-container h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #1a3a3a;
-  margin-bottom: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-texto-principal);
 }
 
 .status-message {
   font-size: 1.1rem;
-  color: #555;
-  margin-top: 0;
+  color: var(--color-texto-secundario);
 }
 
-/* --- 📹 ESTILOS DE LA CÁMARA --- */
 .video-wrapper {
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  background-color: #e0e0e0;
+  box-shadow: 0 4px 15px var(--color-sombra);
+  background-color: #ccc;
   width: 400px;
   height: 400px;
 }
@@ -41,7 +34,6 @@
     height: auto;
 }
 
-/* --- 📊 ESTILOS DE LAS BARRAS DE PREDICCIÓN --- */
 .results-container {
   width: 100%;
   max-width: 400px;
@@ -59,142 +51,44 @@
 .prediction-item .label {
   width: 100px;
   font-weight: 500;
+  color: var(--color-texto-principal);
 }
 
 .prediction-item .progress {
   flex-grow: 1;
-  background-color: #f0f0f0;
+  background-color: var(--color-fondo);
   border-radius: 8px;
   overflow: hidden;
+  border: 1px solid var(--color-borde);
 }
 
 .prediction-item .progress-bar {
-  background-color: #007bff;
+  background-color: var(--color-primario-activo);
   color: white;
   padding: 4px 8px;
   text-align: center;
   transition: width 0.3s ease;
 }
 
-/* --- ✅ ESTILOS DEL BOTÓN DE CONFIRMAR --- */
 .confirm-container {
   width: 100%;
   max-width: 400px;
-  text-align: center;
+  margin-top: 1rem;
 }
 
 .confirm-button {
-  padding: 12px 24px;
-  font-size: 1rem;
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
   font-weight: bold;
   color: white;
-  background-color: #28a745;
+  background-color: #28a745; /* Verde de éxito */
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s;
-  width: 100%;
 }
 
 .confirm-button:hover {
-  background-color: #218838;
-}
-
-/* --- ℹ️ ESTILOS PARA LOS BLOQUES DE INFORMACIÓN (ESTADO Y DETALLES) --- */
-.details-preview, .info-herramienta {
-  width: 100%;
-  max-width: 400px;
-  background-color: #f5f8f7;
-  padding: 1rem;
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-}
-
-.details-preview h3, .info-herramienta h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1rem;
-  color: var(--secondary-text);
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-.details-preview .estado {
-  font-size: 1.5rem;
-  font-weight: 700;
-  padding: 8px 15px;
-  border-radius: 8px;
-  color: white;
-  display: inline-block;
-}
-
-.info-herramienta ul {
-  padding-left: 20px;
-  margin: 0;
-}
-.info-herramienta li {
-  margin-bottom: 0.5rem;
-}
-
-/* Colores de estado (reutilizados) */
-.details-preview .estado.esterilizado { background-color: #4CAF50; } /* Verde */
-.details-preview .estado.requiere-esterilizacion { background-color: #f44336; } /* Rojo */
-.details-preview .estado.en-mantenimiento { background-color: #ff9800; } /* Naranja */
-.details-preview .estado.no-registrado { background-color: #757575; } /* Gris */
-.details-preview .estado.requiere { background-color: #f44336; }
-.details-preview .estado.en { background-color: #ff9800; }
-
-/* --- ✅ ESTILOS PARA EL NUEVO BOTÓN DE REDIRECCIÓN --- */
-.redirect-container {
-  margin-top: 1rem;
-}
-
-.redirect-button {
-  width: 100%;
-  padding: 12px 24px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #007bff;
-  background-color: transparent;
-  border: 2px solid #007bff;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.redirect-button:hover {
-  background-color: #007bff;
-  color: white;
-}
-
-/* --- 📱 ESTILOS RESPONSIVE PARA CELULARES --- */
-@media (max-width: 768px) {
-  .scan-container h1 {
-    font-size: 1.8rem;
-    text-align: center;
-  }
-  
-  .video-wrapper {
-    width: 90vw;
-    height: 90vw;
-  }
-
-  .details-preview, .info-herramienta {
-    margin-top: 1rem;
-    padding: 0.75rem;
-    border-radius: 10px;
-    max-width: 90vw;
-  }
-
-  .details-preview h3, .info-herramienta h3 {
-    font-size: 0.9rem;
-    text-align: center;
-  }
-
-  .details-preview .estado {
-    font-size: 1.2rem;
-    padding: 6px 12px;
-    text-align: center;
-    display: block;
-    margin: 0 auto;
-  }
+  opacity: 0.9;
 }

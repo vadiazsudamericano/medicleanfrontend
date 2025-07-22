@@ -1,28 +1,24 @@
 // RUTA: src/app/login/login.ts
 
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Necesario para *ngIf
-// --- ¡IMPORTACIONES CLAVE PARA FORMULARIOS Y RUTAS! ---
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
-import { Router, RouterLink } from '@angular/router'; // RouterLink para el enlace de registro
-
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  // --- ¡AÑADIMOS LOS MÓDULOS A LA LISTA DE IMPORTS! ---
   imports: [
     CommonModule, 
-    FormsModule,   // <-- Ahora el componente entiende ngModel, ngForm, etc.
-    RouterLink     // <-- Ahora el componente entiende routerLink
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
 export class LoginComponent {
 
-  // Objeto para almacenar los datos del formulario
   loginData = {
     email: '',
     password: ''
@@ -32,21 +28,19 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  // Esta función se ejecuta cuando el formulario se envía
   onLogin() {
-    // Verificación básica
     if (!this.loginData.email || !this.loginData.password) {
       this.errorMessage = 'Por favor, introduce el correo y la contraseña.';
       return;
     }
 
-    // Llamamos al servicio de login, pasándole el objeto completo
     this.authService.login(this.loginData).subscribe({
       next: (response) => {
         if (response && response.access_token) {
-          // Si el login es exitoso, guardamos el token y navegamos
           localStorage.setItem('token', response.access_token);
-          this.router.navigate(['/bienvenida']); // O a tu página de inicio
+          // --- ¡CAMBIO SUGERIDO! ---
+          // Redirigimos a '/inicio' para que el usuario vea el nuevo y espectacular dashboard.
+          this.router.navigate(['/inicio']);
         } else {
           this.errorMessage = 'Respuesta de login inválida del servidor.';
         }

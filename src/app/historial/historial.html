@@ -1,31 +1,68 @@
-<div class="historial-container">
-  <h1>Historial de Escaneos</h1>
+<!-- RUTA: src/app/historial/historial.html -->
+<div class="page-container">
+  
+  <header class="page-header">
+    <h1 class="page-title">Terminal de Registros</h1>
+    <p>Consulta el historial completo de todos los eventos y escaneos del sistema.</p>
+  </header>
 
-  <div *ngIf="cargando" class="mensaje">Cargando historial...</div>
+  <!-- Usamos la clase global .content-card para el contenedor de la tabla -->
+  <div class="content-card">
+    
+    <!-- Mensaje de Carga -->
+    <div *ngIf="cargando" class="loading-state">
+      <div class="spinner"></div> <!-- Un spinner más elegante -->
+      <p>Cargando historial...</p>
+    </div>
 
-  <div *ngIf="!cargando && historial.length === 0" class="mensaje">
-    Aún no hay registros en el historial.
-  </div>
+    <!-- MEJORA: Estado Vacío Atractivo -->
+    <div *ngIf="!cargando && historial.length === 0" class="empty-state">
+      <i class="fas fa-folder-open"></i>
+      <h3>No hay registros en el historial</h3>
+      <p>Cuando se escanee un instrumento, sus registros aparecerán aquí.</p>
+      <a routerLink="/escaner" class="btn btn-primary">
+        <i class="fas fa-camera"></i>
+        <span>Realizar primer escaneo</span>
+      </a>
+    </div>
 
-  <div *ngIf="!cargando && historial.length > 0" class="lista-historial">
-    <!-- Reemplazamos <li> por <a> para hacerlo clicable -->
-    <a *ngFor="let item of historial"
-       class="item-historial-link"
-       [routerLink]="['/detalle-herramienta', item.herramienta.nombre]">
-      
-      <div class="info">
-        <!-- Mostramos el nombre de la herramienta -->
-        <span class="nombre">{{ item.herramienta.nombre }}</span>
-        <!-- Mostramos el estado como una "píldora" de color -->
-        <span class="estado-pill" [ngClass]="(item.estadoAlEscanear ?? 'no-registrado').toLowerCase().split(' ')[0] || ''">
-          {{ item.estadoAlEscanear }}
-        </span>
-      </div>
+    <!-- La Tabla de Historial -->
+    <div *ngIf="!cargando && historial.length > 0" class="table-container">
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>Instrumento</th>
+            <th>Estado Registrado</th>
+            <th>Fecha de Escaneo</th>
+            <th></th> <!-- Columna para el botón de detalles -->
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Hacemos que toda la fila sea un enlace -->
+          <tr *ngFor="let item of historial" [routerLink]="['/detalle-herramienta', item.herramienta.nombre]">
+            <td>
+              <div class="instrument-cell">
+                <i class="fas fa-syringe"></i> <!-- Icono genérico -->
+                <span>{{ item.herramienta.nombre }}</span>
+              </div>
+            </td>
+            <td>
+              <!-- Usamos un tag de estado rediseñado -->
+              <span class="status-tag" [ngClass]="getEventClass(item.estadoAlEscanear)">
+                {{ item.estadoAlEscanear }}
+              </span>
+            </td>
+            <td>
+              <!-- Usamos el pipe 'date' para formatear la fecha -->
+              {{ item.fechaEscaneo | date:'dd MMM yyyy, h:mm a' }}
+            </td>
+            <td class="details-cell">
+              <span>Ver Detalles →</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      <div class="fecha">
-        <!-- Usamos el pipe 'date' para formatear la fecha -->
-        {{ item.fechaEscaneo | date:'dd/MM/yyyy h:mm a' }}
-      </div>
-    </a>
   </div>
 </div>

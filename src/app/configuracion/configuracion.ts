@@ -2,30 +2,29 @@
 
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// --- ¡IMPORTAMOS FORMSMODULE! ---
 import { FormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-configuracion',
   standalone: true,
-  // --- ¡LO AÑADIMOS A LA LISTA DE IMPORTS! ---
   imports: [CommonModule, FormsModule],
   templateUrl: './configuracion.html',
   styleUrls: ['./configuracion.css']
 })
 export class ConfiguracionComponent implements OnInit {
 
-  // Propiedades para vincularlas a los interruptores en el HTML
+  // Propiedades para los controles
   notificacionesEmail = true;
-  modoOscuro = false;
+  selectedLanguage = 'es';
+  modoOscuro = true; // El modo oscuro será el predeterminado
+  
+  showSuccessMessage = false;
 
-  // Inyectamos Renderer2 para manipular el body del documento de forma segura
   constructor(private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.cargarPreferencias();
-    // Es importante aplicar el modo oscuro al cargar,
-    // para que si el usuario refresca la página, el tema se mantenga.
+    // Aplicamos el tema guardado en cuanto la página carga
     this.aplicarModoOscuro(); 
   }
 
@@ -33,6 +32,11 @@ export class ConfiguracionComponent implements OnInit {
     const notificacionesGuardadas = localStorage.getItem('notificaciones-email');
     if (notificacionesGuardadas !== null) {
       this.notificacionesEmail = JSON.parse(notificacionesGuardadas);
+    }
+
+    const idiomaGuardado = localStorage.getItem('app-language');
+    if (idiomaGuardado) {
+      this.selectedLanguage = idiomaGuardado;
     }
 
     const modoOscuroGuardado = localStorage.getItem('modo-oscuro');
@@ -43,25 +47,32 @@ export class ConfiguracionComponent implements OnInit {
 
   guardarPreferencias(): void {
     localStorage.setItem('notificaciones-email', JSON.stringify(this.notificacionesEmail));
+    localStorage.setItem('app-language', this.selectedLanguage);
     localStorage.setItem('modo-oscuro', JSON.stringify(this.modoOscuro));
-  }
 
-  onToggleNotificaciones(): void {
-    console.log('Notificaciones por E-mail:', this.notificacionesEmail);
-    this.guardarPreferencias();
-  }
-
-  onToggleModoOscuro(): void {
-    console.log('Modo Oscuro:', this.modoOscuro);
-    this.guardarPreferencias();
-    this.aplicarModoOscuro();
+    // Mostramos el mensaje de feedback
+    this.showSuccessMessage = true;
+    setTimeout(() => { this.showSuccessMessage = false; }, 3000);
   }
   
+  // --- LÓGICA DEL CAMBIO DE TEMA Y LENGUAJE ---
+  
+  setTheme(isDark: boolean): void {
+    this.modoOscuro = isDark;
+    this.aplicarModoOscuro();
+  }
+
   aplicarModoOscuro(): void {
     if (this.modoOscuro) {
       this.renderer.addClass(document.body, 'dark-mode');
     } else {
       this.renderer.removeClass(document.body, 'dark-mode');
     }
+  }
+
+  onLanguageChange(): void {
+    // Aquí iría la lógica para cambiar el idioma de la aplicación.
+    // Por ahora, solo mostraremos un mensaje.
+    alert(`Idioma cambiado a: ${this.selectedLanguage}. (Funcionalidad de traducción no implementada)`);
   }
 }

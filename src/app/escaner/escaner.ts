@@ -69,24 +69,35 @@ export class EscanerComponent implements OnInit, OnDestroy {
   }
 
   async loop() {
-    if (this.webcam) {
-      this.webcam.update();
-      const prediction = await this.model.predict(this.webcam.canvas);
-      let deteccionActual: Prediction | null = null;
-      for (const p of prediction) {
-        if (p.probability > 0.95 && p.className.toLowerCase() !== 'fondo' && p.className.toLowerCase() !== 'desconocido') {
-          deteccionActual = p;
-          break;
-        }
-      }
-      this.zone.run(() => {
-        this.predictions = prediction as Prediction[];
-        this.herramientaDetectada = deteccionActual;
-      });
-      this.animationFrameId = window.requestAnimationFrame(() => this.loop());
-    }
-  }
+  if (this.webcam) {
+    this.webcam.update();
+    const prediction = await this.model.predict(this.webcam.canvas);
+    let deteccionActual: Prediction | null = null;
 
+    for (const p of prediction) {
+      // --- ¡AQUÍ ESTÁ LA NUEVA LÓGICA! ---
+      // Ahora solo consideramos una predicción si:
+      // 1. La probabilidad es muy alta (> 0.95)
+      // 2. Y el nombre de la clase NO es 'Fondo' (o como lo hayas llamado)
+      // 3. Y el nombre de la clase NO es 'Desconocido'
+      if (
+        p.probability > 0.95 &&
+        p.className.toLowerCase() !== 'fondo' &&
+        p.className.toLowerCase() !== 'desconocido'
+      ) {
+        deteccionActual = p;
+        break; // Encontramos una herramienta válida, dejamos de buscar.
+      }
+    }
+    
+    this.zone.run(() => {
+      this.predictions = prediction as Prediction[];
+      this.herramientaDetectada = deteccionActual;
+    });
+
+    this.animationFrameId = window.requestAnimationFrame(() => this.loop());
+  }
+}
   onConfirmarHerramienta(nombreHerramienta: string) {
     this.herramientaService.getHerramientaPorNombre(nombreHerramienta).subscribe({
       next: (data) => {

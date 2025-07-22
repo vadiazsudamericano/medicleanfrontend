@@ -1,55 +1,39 @@
 // RUTA: src/app/app.component.ts
 
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core'; // 1. IMPORTA OnInit
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './navbar/navbar';
+import { Router, RouterModule } from '@angular/router'; // Importamos Router para redirigir
+import { NavbarComponent } from './navbar/navbar'; // Importamos el Navbar para que se reconozca
+import { AuthService } from './auth/auth.service';     // Importamos el servicio de autenticación
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule, RouterOutlet, NavbarComponent],
+  // Asegúrate de que NavbarComponent esté en los imports
+  imports: [CommonModule, RouterModule, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-// 2. IMPLEMENTA OnInit
-export class AppComponent implements OnInit {
-  
-  public estaLogueado: boolean = false;
+export class AppComponent {
+  title = 'MediClean'; // O el título que prefieras
 
-  constructor(private router: Router, private cdr: ChangeDetectorRef) {
-    // El constructor debe ser lo más simple posible.
-    // Nos suscribimos a los eventos del router aquí.
-    this.router.events.subscribe(() => {
-      this.actualizarEstadoLogin();
-    });
-  }
-
-  // 3. CREAMOS ngOnInit
-  ngOnInit(): void {
-    // Esta función es el lugar perfecto para la configuración inicial.
-    // Llamamos a la función aquí por primera vez.
-    this.actualizarEstadoLogin();
-  }
+  // 1. Inyectamos los servicios que necesitamos en el constructor
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   /**
-   * Centralizamos la lógica de verificar el token en una función.
+   * 2. ESTA ES LA FUNCIÓN QUE FALTABA.
+   * Se ejecuta cuando el componente hijo (navbar) emite el evento 'logoutRequest'.
    */
-  actualizarEstadoLogin(): void {
-    const estadoActual = !!localStorage.getItem('token');
-    if (this.estaLogueado !== estadoActual) {
-      this.estaLogueado = estadoActual;
-      // Forzamos la detección de cambios, ahora en un contexto seguro.
-      this.cdr.detectChanges(); 
-    }
-  }
+  logoutGlobal(): void {
+    console.log('AppComponent ha recibido la petición de logout desde el Navbar. Procediendo a cerrar sesión.');
 
-  /**
-   * Esta función será llamada por el evento que emite el Navbar.
-   */
-  onLogout(): void {
-    console.log('Cerrando sesión desde AppComponent...');
-    localStorage.removeItem('token');
-    this.actualizarEstadoLogin();
-    this.router.navigate(['/login']);
+    // Llama a la función logout de tu servicio de autenticación
+    this.authService.logout();
+
+    // Redirige al usuario a la página de login
+    this.router.navigate(['/login']); // Asegúrate de que '/login' sea tu ruta de inicio de sesión
   }
 }

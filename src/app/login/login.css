@@ -1,129 +1,93 @@
 /* RUTA: src/app/login/login.css */
 
-/* Contenedor principal para centrar la tarjeta */
-.page-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* El contenedor principal centra la tarjeta y añade el fondo */
+.login-page-container {
   min-height: 100vh;
-  padding: 20px;
-  background-color: var(--color-fondo);
+  display: grid;
+  place-items: center; /* El truco para centrarlo todo perfectamente */
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
 }
 
-/* La tarjeta que contiene todo el formulario */
-.card-container {
+/* Efecto de aurora en el fondo, igual que en el dashboard para consistencia */
+.background-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000px;
+  height: 800px;
+  background: radial-gradient(circle, var(--accent-blue-glow) 0%, transparent 70%);
+  opacity: 0.3;
+}
+
+/* La tarjeta de cristal que contiene todo */
+.login-card {
+  position: relative; /* Para que el glow no se salga */
   width: 100%;
   max-width: 420px;
   padding: 2.5rem;
-  background-color: var(--color-tarjeta);
+  /* ¡Efecto Glassmorphism! */
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
-  box-shadow: 0 8px 30px var(--color-sombra);
+  box-shadow: var(--shadow-medium);
 }
 
-/* Sección del logo y título */
+/* Sección del logo */
 .logo-container {
   text-align: center;
   margin-bottom: 2rem;
 }
-
 .logo-container img {
-  height: 50px; /* Ajusta el tamaño de tu logo */
+  height: 48px;
+  filter: invert(1); /* Hace el logo blanco */
   margin-bottom: 1rem;
 }
-
 .logo-container h1 {
+  font-family: var(--font-display);
   margin: 0;
-  font-size: 1.8rem;
-  color: var(--color-texto-principal);
+  font-size: 2rem;
 }
-
 .logo-container p {
-  color: var(--color-texto-secundario);
+  color: var(--text-secondary);
   margin-top: 0.5rem;
 }
 
-/* El formulario */
+/* El formulario hereda los estilos de styles.css, pero podemos ajustar detalles */
 .form {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--color-texto-secundario);
-}
-
-.form-group input {
-  padding: 14px;
-  border: 1px solid var(--color-borde);
-  border-radius: 8px;
-  background-color: var(--color-fondo);
-  color: var(--color-texto-principal);
-  font-size: 1rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.form-group input::placeholder {
-  color: var(--color-texto-secundario);
-  opacity: 0.7;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: var(--color-primario-activo);
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
-}
-
-/* Botón principal */
-.primary-button {
-  padding: 14px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: white;
-  background-color: #0f0c2c;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+/* El botón primario ahora ocupa todo el ancho */
+.btn-primary {
+  width: 100%;
   margin-top: 1rem;
-  transition: opacity 0.2s;
 }
 
-.primary-button:hover {
-  opacity: 0.9;
-}
-
-.primary-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-/* Mensajes de error */
+/* Mensaje de error con un estilo más integrado */
 .error-message {
   text-align: center;
-  padding: 10px;
+  padding: 0.75rem;
   border-radius: 8px;
   font-weight: 500;
-  margin-top: 0.5rem;
-  background-color: #f8d7da;
-  color: #721c24;
+  background-color: rgba(255, 71, 87, 0.1); /* Fondo rojo semitransparente */
+  color: #ff4757; /* Texto rojo brillante */
+  border: 1px solid #ff4757;
 }
 
 /* Enlace inferior */
 .footer-text {
   text-align: center;
   margin-top: 2rem;
-  color: var(--color-texto-secundario);
+  color: var(--text-secondary);
 }
-
 .footer-text a {
-  font-weight: bold;
-  color: var(--color-primario-activo);
+  font-weight: 700;
+  color: var(--accent-blue);
 }

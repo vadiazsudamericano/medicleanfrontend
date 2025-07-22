@@ -48,4 +48,7 @@ export class AuthService {
     });
     return this.http.get(`${this.apiUrl}/profile`, { headers });
   }
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
 }

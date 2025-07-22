@@ -47,10 +47,11 @@ export class RegistrarHerramientaComponent {
         this.resetForm();
       },
       error: (err) => {
-        console.error('Error al registrar la herramienta', err);
-        this.errorMessage = 'No se pudo registrar la herramienta. Inténtalo de nuevo.';
-        this.successMessage = null;
-      }
+  console.error('Error al registrar la herramienta', err);
+  this.errorMessage = `Error ${err.status}: ${err.statusText}`;
+  this.successMessage = null;
+}
+
     });
   }
 

@@ -1,56 +1,161 @@
-/* RUTA: src/styles.css (Versión Final con la fuente Montserrat) */
+/* RUTA: src/styles.css (El Nuevo Manual de Estilo Global) */
 
-/* --- 1. IMPORTACIÓN DE FUENTE --- */
-/* Importamos la fuente 'Montserrat' desde Google Fonts con varios grosores (weights). */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+/* --- 1. IMPORTACIÓN DE FUENTES --- */
+/* Usaremos 'Lexend' para textos legibles y 'Orbitron' para títulos impactantes. */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&family=Orbitron:wght@800&display=swap');
 
-/* --- 2. VARIABLES DE COLOR (Para el Modo Oscuro) --- */
-
-/* Tema claro (por defecto) */
+/* --- PALETA DE COLORES (TEMA CLARO "COBALTO") --- */
 :root {
-  --color-primario-activo: #023163;
-  --color-fondo: #f4f7f9;
-  --color-tarjeta: #ffffff;
-  --color-texto-principal: #2c3e50;
-  --color-texto-secundario: #2c3e50;
-  --color-borde: #e0e7e5;
-  --color-sombra: rgba(44, 62, 80, 0.1);
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Lexend', sans-serif;
+
+  --bg-dark: #FFFFFF;
+  --bg-card: #F8F9FA;
+  --border-color: #DEE2E6;
+  --text-primary: #212529;
+  --text-secondary: #6C757D;
+  --accent-blue: #3B82F6; /* Un azul fuerte y vibrante */
+  --accent-blue-dark: #2563EB;
+  --accent-blue-glow: rgba(59, 130, 246, 0.2);
+  --alert-yellow: #F59E0B;
+  --accent-green: #10B981;
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-/* Tema oscuro */
+/* --- PALETA DE COLORES (TEMA OSCURO "NOCTURNO") --- */
 body.dark-mode {
-  --color-primario-activo: #3e6e96;
-  --color-fondo: #1a202c;
-  --color-tarjeta: #2d3748;
-  --color-texto-principal: #ffffff;
-  --color-texto-secundario: #ffffff;
-  --color-borde: #4a5568;
-  --color-sombra: rgba(0, 0, 0, 0.2);
+  --bg-dark: #0D1117;
+  --bg-card: #161B22;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --text-primary: #000000;
+  --text-secondary: #8B949E;
+  --accent-blue: #33C1FF;
+  --accent-blue-dark: #00A3FF;
+  --accent-blue-glow: rgba(51, 193, 255, 0.3);
+  --alert-yellow: #FFD700;
+  --accent-green: #28a745;
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
-
-/* --- 3. ESTILOS GLOBALES Y APLICACIÓN DE LA FUENTE --- */
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
+/* --- ESTILOS GLOBALES QUE USAN LAS VARIABLES --- */
 body {
-  /* --- ¡AQUÍ ESTÁ LA MAGIA! --- */
-  /* Aplicamos la fuente 'Montserrat' a toda la aplicación. */
-  font-family: 'Montserrat', sans-serif; 
-  
-  background-color: var(--color-fondo);
-  color: var(--color-texto-principal);
+  margin: 0; padding: 0;
+  background-color: var(--bg-dark);
+  font-family: var(--font-body);
+  color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+
+/* --- 4. CLASES DE COMPONENTES REUTILIZABLES (La parte más importante) --- */
+
+/* --- Tipografía --- */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+p {
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
 a {
-  color: var(--color-primario-activo);
+  color: var(--accent-blue);
   text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: var(--accent-blue-dark);
+}
+
+/* --- Contenedores de Página --- */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  margin: 0 0 0.5rem 0;
+}
+
+/* --- Tarjetas --- */
+.content-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-soft);
+}
+
+/* --- Botones --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-out;
+}
+
+.btn-primary {
+  background-color: var(--accent-blue);
+  color: var(--bg-dark);
+  box-shadow: 0 4px 15px var(--accent-blue-glow);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--accent-blue-glow);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+.btn-secondary:hover {
+  background-color: var(--bg-card);
+  border-color: var(--text-primary);
+}
+
+/* --- Formularios --- */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.form-control {
+  width: 100%;
+  background-color: rgba(0,0,0,0.2);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px var(--accent-blue-glow);
 }

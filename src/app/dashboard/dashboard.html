@@ -1,68 +1,67 @@
 <!-- RUTA: src/app/dashboard/dashboard.html -->
-<div class="page-container">
-  <div class="welcome-header">
-    <!-- Saludo personalizado -->
-    <h1>Bienvenido de nuevo, <span class="username">{{ nombreUsuario }}</span></h1>
-    <p>Este es el resumen de tu inventario de herramientas quirúrgicas.</p>
-  </div>
+<div class="think-u-style-dashboard">
 
-  <!-- Tarjetas de resumen con datos dinámicos -->
-  <div class="summary-grid">
-    <div class="summary-card">
-      <div class="card-icon">🛠️</div>
-      <div class="card-content">
-        <span class="card-value">{{ totalHerramientas }}</span>
-        <span class="card-label">Herramientas Totales</span>
-      </div>
+  <!-- ======================================= -->
+  <!-- SECCIÓN HERO PRINCIPAL                    -->
+  <!-- ======================================= -->
+  <header class="hero-section" [@fadeIn]
+          style="background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiskXtLLKPoyC9zHZKlwqIe5wPSh4g_6W-cKlBohgbqVEuFzVYIiN2ZZuQqeg437GrAktwihnG-IT8ih7HWKqJ8pGkGcPXhquk5i4l4A1hOl1X2X9nzEM8qiAiL6LXl8Wtx0CuIxCSIWJxG/s1600/Instrumental+quirurgico.jpg');">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Reconocimiento y esterilización de herramientas quirúrgicas.</h1>
+      <p class="hero-subtitle">Realiza reconocimiento de herramientas quirúrgicas y y descubre su proceso de esterilización con MediClean</p>
     </div>
-    <div class="summary-card attention">
-      <div class="card-icon">⚠️</div>
-      <div class="card-content">
-        <span class="card-value">{{ requierenAtencion }}</span>
-        <span class="card-label">Requieren Atención</span>
-      </div>
+  </header>
+
+  <div class="stripe-inspired-dashboard" (mousemove)="onMouseMove($event)">
+
+  <!-- Efecto de fondo sutil -->
+  <div class="background-glow"></div>
+
+  <div class="main-grid">
+    <!-- LADO IZQUIERDO: La declaración de intenciones -->
+    <div class="content-left" [@fadeInUp]>
+      <h1 class="hero-title">Tu centro de mando para un entorno quirúrgico más seguro.</h1>
+      <p class="hero-subtitle">Desde el escaneo inicial hasta el almacenamiento estéril, cada paso es registrado y verificado. Accede a las acciones clave a continuación.</p>
+      <a class="btn-primary" routerLink="/escaner">
+        <i class="fas fa-camera-retro"></i>
+        <span>Iniciar Escaneo Ahora</span>
+      </a>
     </div>
-  </div>
 
-  <!-- Atajos de acción (los que ya tenías) -->
-  <div class="actions-grid">
-    <a class="action-card" routerLink="/escaner">
-      <h3>Escanear Herramienta</h3>
-      <p>Identifica un instrumento con la cámara.</p>
-    </a>
-    <a class="action-card" routerLink="/registrar-herramienta">
-      <h3>Registrar Herramienta</h3>
-      <p>Añade un nuevo instrumento al sistema.</p>
-    </a>
-    <a class="action-card" routerLink="/historial">
-      <h3>Ver Historial Completo</h3>
-      <p>Consulta todos los registros.</p>
-    </a>
-  </div>
+    <!-- LADO DERECHO: Los bloques interactivos -->
+    <div class="content-right" [@fadeInUp] [style.animation-delay]="'200ms'">
+      <!-- Métricas -->
+      <div class="metrics-container">
+        <a class="info-card metric" routerLink="/inventario">
+          <div class="card-border"></div>
+          <span class="card-label">Inventario Total </span>
+          <span class="card-value">{{ totalHerramientas }}</span>
+        </a>
+        <a class="info-card metric alert" routerLink="/inventario/atencion">
+          <div class="card-border"></div>
+          <span class="card-label">Requieren Atención </span>
+          <span class="card-value">{{ requierenAtencion }}</span>
+        </a>
+      </div>
 
-  <!-- Tabla de actividad reciente -->
-  <div class="recent-activity">
-    <h2>Actividad Reciente</h2>
-    <div class="table-container">
-      <div *ngIf="cargando" class="loading-message">Cargando actividad...</div>
-      <table *ngIf="!cargando && ultimosRegistros.length > 0" class="history-table">
-        <thead>
-          <tr>
-            <th>ID Herramienta</th>
-            <th>Evento</th>
-            <th>Fecha</th>
-            <th>Responsable</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let registro of ultimosRegistros">
-            <td>#{{ registro.herramientaId }}</td>
-            <td><span class="tag" [ngClass]="'tag-' + registro.evento.toLowerCase().replace(' ', '-')">{{ registro.evento }}</span></td>
-            <td>{{ registro.fecha | date:'medium' }}</td>
-            <td>{{ registro.responsable }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- Acciones -->
+      <a class="info-card action" routerLink="/registrar-herramienta">
+        <div class="card-border"></div>
+        <i class="fas fa-plus-circle"></i>
+        <div class="card-text">
+          <span class="card-title">Registrar Nuevo</span>
+          <span class="card-description">Añadir instrumento →</span>
+        </div>
+      </a>
+      <a class="info-card action" routerLink="/historial">
+        <div class="card-border"></div>
+        <i class="fas fa-history"></i>
+        <div class="card-text">
+          <span class="card-title">Ver Historial</span>
+          <span class="card-description">Consultar registros →</span>
+        </div>
+      </a>
     </div>
   </div>
 </div>

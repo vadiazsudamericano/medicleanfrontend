@@ -1,10 +1,15 @@
-<!-- RUTA: src/app/escaner/escaner.html -->
+<!-- RUTA: src/app/escaner/escaner.html (Versión Final) -->
 
 <div class="scan-container">
   <h1>Escanear Herramienta</h1>
+
   <p class="status-message">{{ statusMessage }}</p>
+
+  <!-- El canvas de la cámara se inyectará aquí desde el TypeScript -->
   <div #webcamContainer class="video-wrapper"></div>
 
+  <!-- Contenedor para las barras de predicción -->
+  <!-- Solo se muestra si hay alguna predicción -->
   <div *ngIf="predictions.length > 0" class="results-container">
     <div *ngFor="let p of predictions" class="prediction-item">
       <div class="label">{{ p.className }}</div>
@@ -16,6 +21,13 @@
     </div>
   </div>
 
+  <!-- 
+    ¡ESTA ES LA PARTE MÁS IMPORTANTE!
+    Este contenedor (y el botón) solo aparecerá en la pantalla
+    cuando la variable 'herramientaDetectada' tenga un valor.
+    Gracias a la lógica que añadimos en el .ts, esto solo ocurrirá
+    cuando se detecte una herramienta real, no el fondo.
+  -->
   <div *ngIf="herramientaDetectada" class="confirm-container">
     <button class="confirm-button" (click)="onConfirmarHerramienta(herramientaDetectada.className)">
       Confirmar {{ herramientaDetectada.className }}

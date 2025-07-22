@@ -1,57 +1,71 @@
 <!-- RUTA: src/app/registrar-herramienta/registrar-herramienta.html -->
+<div class="page-container">
+  
+  <header class="page-header">
+    <h1 class="page-title">Registrar Nuevo Instrumento</h1>
+    <p>Añade una nueva herramienta quirúrgica a la base de datos del sistema.</p>
+  </header>
 
-<div class="form-container">
-  <h1>Registrar Herramienta</h1>
+  <!-- Usamos la clase global .content-card para el contenedor del formulario -->
+  <div class="content-card">
+    <form (ngSubmit)="onSubmit()" #herramientaForm="ngForm" class="form">
 
-  <form (ngSubmit)="onSubmit()" #herramientaForm="ngForm" class="form">
+      <!-- Layout de dos columnas para el formulario -->
+      <div class="form-grid">
+        <!-- Columna Izquierda -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="nombre" class="form-label">Nombre del Instrumento</label>
+            <input type="text" id="nombre" name="nombre" class="form-control" [(ngModel)]="nuevaHerramienta.nombre" required>
+          </div>
 
-    <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <input type="text" id="nombre" name="nombre" [(ngModel)]="nuevaHerramienta.nombre" required>
-    </div>
+          <div class="form-group">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea id="descripcion" name="descripcion" class="form-control" [(ngModel)]="nuevaHerramienta.descripcion" required></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="uso" class="form-label">Uso Principal</label>
+            <input type="text" id="uso" name="uso" class="form-control" [(ngModel)]="nuevaHerramienta.uso">
+          </div>
+        </div>
 
-    <div class="form-group">
-      <label for="descripcion">Descripción</label>
-      <textarea id="descripcion" name="descripcion" [(ngModel)]="nuevaHerramienta.descripcion" required></textarea>
-    </div>
-    
-    <div class="form-group">
-      <label for="uso">Uso</label>
-      <input type="text" id="uso" name="uso" [(ngModel)]="nuevaHerramienta.uso">
-    </div>
+        <!-- Columna Derecha -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="esterilizacion" class="form-label">Método de Esterilización</label>
+            <input type="text" id="esterilizacion" name="esterilizacion" class="form-control" [(ngModel)]="nuevaHerramienta.esterilizacion">
+          </div>
 
-    <div class="form-group">
-      <label for="esterilizacion">Método de Esterilización</label>
-      <input type="text" id="esterilizacion" name="esterilizacion" [(ngModel)]="nuevaHerramienta.esterilizacion">
-    </div>
+          <div class="form-group">
+            <label for="estado" class="form-label">Estado Inicial</label>
+            <select id="estado" name="estado" class="form-control" [(ngModel)]="nuevaHerramienta.estado">
+              <option value="Esterilizado">Esterilizado</option>
+              <option value="Requiere esterilizacion">Requiere esterilización</option>
+              <option value="En mantenimiento">En mantenimiento</option>
+            </select>
+          </div>
 
-    <div class="form-group">
-      <label for="estado">Estado</label>
-      <select id="estado" name="estado" [(ngModel)]="nuevaHerramienta.estado">
-        <option value="Esterilizado">Esterilizado</option>
-        <option value="Requiere esterilizacion">Requiere esterilización</option>
-        <option value="En mantenimiento">En mantenimiento</option>
-      </select>
-    </div>
+          <div class="form-group">
+            <label for="proceso" class="form-label">Pasos del Proceso (separados por comas)</label>
+            <textarea id="proceso" name="proceso" class="form-control" [(ngModel)]="nuevaHerramienta.proceso" placeholder="Limpieza, Desinfección..."></textarea>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Contenedor para los mensajes y el botón -->
+      <div class="form-footer">
+        <div class="message-container">
+          <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+          <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+        </div>
+        <!-- Usamos las clases globales .btn y .btn-primary -->
+        <button type="submit" class="btn btn-primary" [disabled]="!herramientaForm.form.valid">
+          <i class="fas fa-plus-circle"></i>
+          <span>Registrar Herramienta</span>
+        </button>
+      </div>
 
-    <div class="form-group">
-      <label for="proceso">Proceso (separado por comas)</label>
-      <textarea id="proceso" name="proceso" [(ngModel)]="nuevaHerramienta.proceso" placeholder="Limpieza, Desinfección, Empaquetado..."></textarea>
-    </div>
-    
-    <button type="submit" class="submit-button" [disabled]="!herramientaForm.form.valid">Registrar</button>
-
-  </form>
-
-  <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
-  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
-
-</div>```
-
-### Plan de Acción
-
-1.  **Reemplaza** el contenido de los tres archivos (`.ts`, `.html`, `.css`) con el código que te he proporcionado.
-2.  **Guarda** todo.
-3.  Tu backend ya tiene la ruta `POST /herramientas` que `crearHerramienta()` necesita, así que no tienes que tocarlo.
-
-Ahora, cuando vayas a la página, verás un formulario mucho más limpio y profesional. Además, se adaptará automáticamente al modo oscuro porque hemos usado las variables CSS. ¡Felicidades, tu aplicación está casi completa
+    </form>
+  </div>
+</div>

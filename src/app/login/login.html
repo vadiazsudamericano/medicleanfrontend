@@ -1,50 +1,59 @@
-<!-- RUTA: src/app/login/login.html (Versión Corregida y con Diseño) -->
+<!-- RUTA: src/app/login/login.html -->
+<div class="login-page-container">
 
-<div class="page-container">
-  <div class="card-container">
+  <!-- Efecto de fondo sutil -->
+  <div class="background-glow"></div>
+
+  <!-- La tarjeta de cristal que contiene el formulario -->
+  <div class="login-card">
     <div class="logo-container">
-      <img src="assets/scanner-svgrepo-com.png"> <!-- Asegúrate de que esta ruta al logo sea correcta -->
-      <h1>MediClean</h1>
-      <p>Bienvenido de nuevo</p>
+      <img src="assets/scanner-svgrepo-com.png" alt="MediClean Logo">
+      <h1>Iniciar Sesión</h1>
+      <p>Accede a tu centro de mando.</p>
     </div>
 
     <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="form">
 
+      <!-- Usamos las clases globales .form-group y .form-label -->
       <div class="form-group">
-        <label for="email">E-mail</label>
+        <label for="email" class="form-label">Dirección de E-mail</label>
         <input 
           type="email" 
           id="email" 
           name="email" 
-          placeholder="Ingresa tu correo" 
+          class="form-control" 
+          placeholder="tu@email.com" 
           [(ngModel)]="loginData.email" 
           required 
           email>
       </div>
 
       <div class="form-group">
-        <label for="password">Contraseña</label>
+        <label for="password" class="form-label">Contraseña</label>
         <input 
           type="password" 
           id="password" 
           name="password" 
+          class="form-control" 
           placeholder="••••••••" 
           [(ngModel)]="loginData.password" 
           required>
       </div>
 
+      <!-- El mensaje de error ahora se integra mejor con el diseño -->
       <div *ngIf="errorMessage" class="error-message">
         {{ errorMessage }}
       </div>
 
-      <button type="submit" class="primary-button" [disabled]="!loginForm.form.valid">
-        Iniciar Sesión
+      <!-- ¡El botón ahora usa las clases globales .btn y .btn-primary! -->
+      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">
+        Acceder al Sistema
       </button>
 
     </form>
     
     <p class="footer-text">
-      ¿No tienes una cuenta? <a routerLink="/register">Regístrate</a>
+      ¿No tienes una cuenta? <a routerLink="/register">Regístrate ahora</a>
     </p>
   </div>
 </div>

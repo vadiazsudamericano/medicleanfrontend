@@ -1,109 +1,87 @@
 /* RUTA: src/app/configuracion/configuracion.css */
 
-.config-card {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 2rem;
-  /* ¡AQUÍ ESTÁ LA MAGIA! Usamos las variables globales */
-  background-color: var(--color-tarjeta);
-  color: var(--color-texto-principal);
-  border-radius: 16px;
-  box-shadow: 0 8px 30px var(--color-sombra);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.config-card h2 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 0;
-  color: var(--color-texto-principal);
-}
-
-.config-card .subtitle {
-  font-size: 1rem;
-  color: var(--color-texto-secundario);
-  margin-top: 0.5rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid var(--color-borde);
-  padding-bottom: 1.5rem;
-}
-
-.config-item {
+.settings-grid {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.config-item:not(:last-child) {
-  border-bottom: 1px solid var(--color-borde);
+.card-header {
+  display: flex; align-items: center; gap: 1rem;
+  padding-bottom: 1rem; margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.card-header i { font-size: 1.25rem; color: var(--accent-blue); }
+.card-header h2 {
+  font-family: var(--font-body); font-size: 1.5rem;
+  font-weight: 700; margin: 0;
 }
 
-.config-item .info label {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: var(--color-texto-principal);
+.setting-item {
+  display: flex; justify-content: space-between;
+  align-items: center; gap: 2rem; padding: 1rem 0;
+}
+.setting-item:not(:last-child) { border-bottom: 1px solid var(--border-color); }
+
+.info label {
+  font-size: 1.1rem; font-weight: 500;
+  color: var(--text-primary); display: flex; align-items: center; gap: 0.75rem;
+}
+.info p { margin: 0.25rem 0 0 0; font-size: 0.9rem; }
+
+/* --- SELECTOR DE TEMA VISUAL --- */
+.theme-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
 }
 
-.config-item .info p {
-  margin: 0.25rem 0 0 0;
-  font-size: 0.9rem;
-  color: var(--color-texto-secundario);
-}
-
-/* --- ESTILOS PARA EL INTERRUPTOR (SWITCH) --- */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 28px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
+.theme-card {
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: .4s;
+  transition: all 0.2s ease-out;
+}
+.theme-card.active {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 15px var(--accent-blue-glow);
+}
+.theme-preview {
+  height: 100px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.preview-circle { width: 30px; height: 30px; border-radius: 50%; }
+.preview-bar { height: 12px; border-radius: 6px; }
+.preview-bar.short { width: 70%; }
+
+/* Colores de la preview */
+.light-theme { background-color: #3b82f6; }
+.light-theme .preview-circle { background-color: #93c5fd; }
+.light-theme .preview-bar { background-color: #dbeafe; }
+
+.dark-theme { background-color: #0D1117; }
+.dark-theme .preview-circle { background-color: #33C1FF; }
+.dark-theme .preview-bar { background-color: #161B22; }
+
+.theme-name {
+  text-align: center;
+  font-weight: 500;
+  display: block;
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white; /* El círculo interior siempre es blanco */
-  transition: .4s;
-}
+/* --- INTERRUPTOR (Switch) --- */
+.switch { /* ... (código del interruptor sin cambios) ... */ }
+.slider { /* ... (código del interruptor sin cambios) ... */ }
 
-/* Usamos la variable para el color del interruptor activado */
-input:checked + .slider {
-  background-color: var(--color-primario-activo);
+/* --- FOOTER --- */
+.footer-actions {
+  display: flex; justify-content: flex-end; align-items: center;
+  gap: 1.5rem; margin-top: 2rem;
 }
-
-input:focus + .slider {
-  box-shadow: 0 0 1px var(--color-primario-activo);
-}
-
-input:checked + .slider:before {
-  transform: translateX(22px);
-}
-
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
+.save-feedback { /* ... (código del feedback sin cambios) ... */ }

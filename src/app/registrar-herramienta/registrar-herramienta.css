@@ -1,95 +1,74 @@
 /* RUTA: src/app/registrar-herramienta/registrar-herramienta.css */
 
-.form-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 2rem;
-  background-color: var(--color-tarjeta);
-  border-radius: 16px;
-  box-shadow: 0 8px 30px var(--color-sombra);
+/* La mayoría de los estilos (fondos, fuentes, botones)
+   vienen del styles.css global. Aquí solo definimos la estructura de esta página. */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Creamos dos columnas */
+  gap: 2rem; /* Espacio entre las columnas */
 }
 
-.form-container h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--color-texto-principal);
-  margin: 0 0 2rem 0;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--color-borde);
-}
-
-.form {
+.form-column {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.5rem; /* Espacio entre los campos del formulario */
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: var(--color-texto-secundario);
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid var(--color-borde);
-  border-radius: 8px;
-  background-color: var(--color-fondo);
-  color: var(--color-texto-principal);
-  font-family: inherit;
-  font-size: 1rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: var(--color-primario-activo);
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
-}
-
-.form-group textarea {
+/* Redefinimos los textareas para que se ajusten a nuestro diseño */
+textarea.form-control {
   resize: vertical;
-  min-height: 100px;
+  min-height: 120px;
 }
 
-.submit-button {
-  padding: 14px 20px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: white;
-  background-color: var(--color-primario-activo);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  align-self: flex-end; /* Alinea el botón a la derecha */
-  margin-top: 1rem;
+/* El pie del formulario, con el botón a la derecha */
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
 }
 
-.submit-button:hover {
-  opacity: 0.9;
+/* Estilos para los mensajes de éxito y error */
+.message-container {
+  flex-grow: 1;
 }
-
+.success-message, .error-message {
+  margin: 0;
+  font-weight: 500;
+  text-align: left;
+}
 .success-message {
-  color: #4CAF50;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 1rem;
+  color: var(--accent-green); /* Usaremos una variable de color que añadiremos a styles.css si no existe */
+}
+.error-message {
+  color: #ff4757; /* Un rojo brillante */
 }
 
-.error-message {
-  color: #f44336;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 1rem;
+/* Ajustes para el botón de envío */
+.btn-primary i {
+  font-size: 1.2rem;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr; /* En móvil, una sola columna */
+  }
+
+  .form-footer {
+    flex-direction: column-reverse; /* El botón aparecerá arriba de los mensajes */
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  
+  .btn-primary {
+    width: 100%; /* El botón ocupa todo el ancho */
+  }
+  
+  .message-container {
+    text-align: center;
+  }
 }
