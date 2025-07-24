@@ -7,9 +7,24 @@ import * as tmImage from '@teachablemachine/image';
 import { HerramientaService } from '../servicios/herramienta.service';
 import { HistorialService } from '../servicios/historial.service';
 
+// --- Interfaces para un tipado más fuerte ---
 interface Prediction {
   className: string;
   probability: number;
+}
+interface TeachableMachineModel {
+  predict(canvas: HTMLCanvasElement): Promise<Prediction[]>;
+}
+
+// --- ¡CORRECCIÓN! ---
+// La interfaz ahora refleja EXACTAMENTE lo que la librería nos da.
+interface Webcam {
+  setup: () => Promise<void>;
+  play: () => Promise<void>;
+  stop: () => void;
+  update: () => void;
+  canvas: HTMLCanvasElement;
+  // playing: boolean; <-- SE ELIMINA ESTA LÍNEA
 }
 
 @Component({
@@ -20,17 +35,20 @@ interface Prediction {
   styleUrls: ['./escaner.css']
 })
 export class EscanerComponent implements OnInit, OnDestroy {
-  readonly MODEL_URL = 'https://teachablemachine.withgoogle.com/models/5L8ADLfMp/model.json';
-  readonly METADATA_URL = 'https://teachablemachine.withgoogle.com/models/5L8ADLfMp/metadata.json';
-  
+  // --- Constantes para una configuración más sencilla ---
+  private readonly MODEL_URL = 'https://teachablemachine.withgoogle.com/models/5L8ADLfMp/model.json';
+  private readonly METADATA_URL = 'https://teachablemachine.withgoogle.com/models/5L8ADLfMp/metadata.json';
+  private readonly PREDICTION_THRESHOLD = 0.95;
+  private readonly IGNORED_CLASSES = ['fondo', 'desconocido'];
+
   @ViewChild('webcamContainer', { static: true }) webcamContainer!: ElementRef;
   
-  model: any;
-  webcam: any;
-  predictions: Prediction[] = [];
-  statusMessage = 'Cargando modelo...';
-  herramientaDetectada: Prediction | null = null;
+  private model!: TeachableMachineModel;
+  private webcam!: Webcam;
   private animationFrameId: number | null = null;
+  
+  public statusMessage = 'Cargando modelo...';
+  public herramientaDetectada: Prediction | null = null;
 
   constructor(
     private zone: NgZone,
@@ -45,12 +63,15 @@ export class EscanerComponent implements OnInit, OnDestroy {
       this.model = await tmImage.load(this.MODEL_URL, this.METADATA_URL);
       this.statusMessage = 'Modelo cargado. Iniciando cámara...';
       this.cdr.detectChanges();
+
       this.webcam = new tmImage.Webcam(400, 400, true);
       await this.webcam.setup();
-      this.webcamContainer.nativeElement.appendChild(this.webcam.canvas);
       await this.webcam.play();
+      this.webcamContainer.nativeElement.appendChild(this.webcam.canvas);
+      
       this.statusMessage = '¡Listo! Apunta a la herramienta.';
       this.cdr.detectChanges();
+      
       this.loop();
     } catch (e) {
       console.error('Error al iniciar la webcam o cargar el modelo:', e);
@@ -59,46 +80,42 @@ export class EscanerComponent implements OnInit, OnDestroy {
     }
   }
 
-  async ngOnDestroy() {
+  ngOnDestroy() {
     if (this.animationFrameId) {
       window.cancelAnimationFrame(this.animationFrameId);
     }
-    if (this.webcam && this.webcam.playing) {
-      await this.webcam.stop();
+    // --- ¡MEJORA! ---
+    // Comprobamos si la webcam existe antes de intentar detenerla. Es más seguro.
+    if (this.webcam) {
+      this.webcam.stop();
     }
   }
 
-  async loop() {
-  if (this.webcam) {
-    this.webcam.update();
-    const prediction = await this.model.predict(this.webcam.canvas);
-    let deteccionActual: Prediction | null = null;
+  private async loop() {
+    if (this.webcam) {
+      this.webcam.update();
+      const predictions = await this.model.predict(this.webcam.canvas);
+      let deteccionActual: Prediction | null = null;
 
-    for (const p of prediction) {
-      // --- ¡AQUÍ ESTÁ LA NUEVA LÓGICA! ---
-      // Ahora solo consideramos una predicción si:
-      // 1. La probabilidad es muy alta (> 0.95)
-      // 2. Y el nombre de la clase NO es 'Fondo' (o como lo hayas llamado)
-      // 3. Y el nombre de la clase NO es 'Desconocido'
-      if (
-        p.probability > 0.95 &&
-        p.className.toLowerCase() !== 'fondo' &&
-        p.className.toLowerCase() !== 'desconocido'
-      ) {
-        deteccionActual = p;
-        break; // Encontramos una herramienta válida, dejamos de buscar.
+      for (const p of predictions) {
+        if (
+          p.probability > this.PREDICTION_THRESHOLD &&
+          !this.IGNORED_CLASSES.includes(p.className.toLowerCase())
+        ) {
+          deteccionActual = p;
+          break;
+        }
       }
-    }
-    
-    this.zone.run(() => {
-      this.predictions = prediction as Prediction[];
-      this.herramientaDetectada = deteccionActual;
-    });
+      
+      this.zone.run(() => {
+        this.herramientaDetectada = deteccionActual;
+      });
 
-    this.animationFrameId = window.requestAnimationFrame(() => this.loop());
+      this.animationFrameId = window.requestAnimationFrame(() => this.loop());
+    }
   }
-}
-  onConfirmarHerramienta(nombreHerramienta: string) {
+
+  public onConfirmarHerramienta(nombreHerramienta: string) {
     this.herramientaService.getHerramientaPorNombre(nombreHerramienta).subscribe({
       next: (data) => {
         if (data && data.id && data.estado) {
@@ -116,10 +133,15 @@ export class EscanerComponent implements OnInit, OnDestroy {
             }
           });
         } else {
-          console.error('No se encontraron detalles para la herramienta, no se puede navegar.');
+          this.statusMessage = `Error: No se encontraron detalles para "${nombreHerramienta}" en la base de datos.`;
+          this.cdr.detectChanges();
         }
       },
-      error: (err) => console.error('Error al buscar la herramienta:', err)
+      error: (err) => {
+        console.error('Error al buscar la herramienta en la base de datos:', err);
+        this.statusMessage = 'Error de conexión con la base de datos.';
+        this.cdr.detectChanges();
+      }
     });
   }
 }

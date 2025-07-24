@@ -1,94 +1,117 @@
 /* RUTA: src/app/escaner/escaner.css */
 
-.scan-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  padding: 20px;
-  width: 100%;
+.scanner-ui-container {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr; /* La cámara es más grande */
+  gap: 2rem;
+  align-items: flex-start;
 }
 
-.scan-container h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--color-texto-principal);
-}
-
-.status-message {
-  font-size: 1.1rem;
-  color: var(--color-texto-secundario);
-}
-
-.video-wrapper {
+/* --- Visor de la Cámara --- */
+.camera-viewport {
+  position: relative;
+  border: 1px solid var(--border-color);
   border-radius: 12px;
+  background-color: #000;
+  box-shadow: var(--shadow-medium);
   overflow: hidden;
-  box-shadow: 0 4px 15px var(--color-sombra);
-  background-color: #ccc;
-  width: 400px;
-  height: 400px;
+  /* Aspect ratio 1:1 para que sea un cuadrado */
+  aspect-ratio: 1 / 1;
+}
+.webcam-container, .webcam-container canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 
-.video-wrapper canvas {
-    max-width: 100%;
-    height: auto;
-}
-
-.results-container {
-  width: 100%;
-  max-width: 400px;
+/* Mensaje de estado superpuesto */
+.status-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 17, 23, 0.8);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-.prediction-item {
-  display: flex;
   align-items: center;
-  gap: 10px;
-}
-
-.prediction-item .label {
-  width: 100px;
-  font-weight: 500;
-  color: var(--color-texto-principal);
-}
-
-.prediction-item .progress {
-  flex-grow: 1;
-  background-color: var(--color-fondo);
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid var(--color-borde);
-}
-
-.prediction-item .progress-bar {
-  background-color: var(--color-primario-activo);
-  color: white;
-  padding: 4px 8px;
+  justify-content: center;
   text-align: center;
-  transition: width 0.3s ease;
+  padding: 2rem;
+  z-index: 10;
 }
-
-.confirm-container {
-  width: 100%;
-  max-width: 400px;
-  margin-top: 1rem;
+.status-overlay i {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--accent-blue);
 }
-
-.confirm-button {
-  width: 100%;
-  padding: 14px;
+.status-overlay p {
   font-size: 1.1rem;
-  font-weight: bold;
-  color: white;
-  background-color: #28a745; /* Verde de éxito */
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  font-weight: 500;
 }
 
-.confirm-button:hover {
-  opacity: 0.9;
+/* Retícula del escáner animada */
+.scanner-reticle {
+  position: absolute;
+  inset: 20px;
+  border: 2px solid rgba(51, 193, 255, 0.3);
+  border-radius: 8px;
+  pointer-events: none; /* Para que no interfiera con el ratón */
+}
+.scanner-reticle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+  animation: scan-line 3s infinite ease-in-out;
+}
+@keyframes scan-line {
+  0% { transform: translateY(-150px); opacity: 0; }
+  20%, 80% { opacity: 1; }
+  100% { transform: translateY(150px); opacity: 0; }
+}
+
+
+/* --- Panel de Información --- */
+.info-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.card-header {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding-bottom: 1rem; margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.card-header i { color: var(--accent-blue); }
+.card-header h2 { font-family: var(--font-body); font-size: 1.25rem; margin: 0; }
+
+.detection-card .card-body { text-align: center; }
+.detected-label { color: var(--text-secondary); margin: 0; }
+.detected-name { font-family: var(--font-display); font-size: 2rem; margin: 0.5rem 0; }
+.detected-confidence { font-family: var(--font-mono); font-size: 1.2rem; color: var(--accent-green); margin: 0 0 1.5rem 0; }
+.btn-confirm { width: 100%; }
+
+.no-detection-state { padding: 2rem 0; }
+.no-detection-state i { font-size: 2rem; color: var(--text-secondary); animation: pulse-search 2s infinite; }
+.no-detection-state p { font-weight: 500; margin-top: 1rem; }
+@keyframes pulse-search {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.help-card ol {
+  padding-left: 20px;
+  margin: 0;
+  line-height: 1.8;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+  .scanner-ui-container {
+    grid-template-columns: 1fr;
+  }
 }

@@ -55,15 +55,16 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  border: 1px solid var(--border-color);
 }
 .preview-circle { width: 30px; height: 30px; border-radius: 50%; }
 .preview-bar { height: 12px; border-radius: 6px; }
 .preview-bar.short { width: 70%; }
 
-/* Colores de la preview */
-.light-theme { background-color: #3b82f6; }
-.light-theme .preview-circle { background-color: #93c5fd; }
-.light-theme .preview-bar { background-color: #dbeafe; }
+/* --- ¡CORRECCIÓN! Colores de la preview --- */
+.light-theme { background-color: #FFFFFF; }
+.light-theme .preview-circle { background-color: #3B82F6; }
+.light-theme .preview-bar { background-color: #E5E7EB; }
 
 .dark-theme { background-color: #0D1117; }
 .dark-theme .preview-circle { background-color: #33C1FF; }
@@ -76,12 +77,46 @@
 }
 
 /* --- INTERRUPTOR (Switch) --- */
-.switch { /* ... (código del interruptor sin cambios) ... */ }
-.slider { /* ... (código del interruptor sin cambios) ... */ }
+.switch { position: relative; display: inline-block; width: 54px; height: 30px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+  position: absolute; cursor: pointer; inset: 0;
+  background-color: rgba(0,0,0,0.3);
+  border: 1px solid var(--border-color);
+  border-radius: 30px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.slider:before {
+  position: absolute; content: "";
+  height: 22px; width: 22px; left: 3px; bottom: 3px;
+  background-color: var(--text-secondary);
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+input:checked + .slider {
+  background-color: var(--accent-blue);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 10px var(--accent-blue-glow);
+}
+input:checked + .slider:before {
+  background-color: #fff;
+  transform: translateX(24px);
+}
 
 /* --- FOOTER --- */
 .footer-actions {
   display: flex; justify-content: flex-end; align-items: center;
   gap: 1.5rem; margin-top: 2rem;
 }
-.save-feedback { /* ... (código del feedback sin cambios) ... */ }
+.save-feedback {
+  color: var(--accent-green);
+  font-weight: 500; opacity: 0; transform: translateY(10px);
+  transition: all 0.3s ease-out;
+}
+.save-feedback.show { opacity: 1; transform: translateY(0); }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .setting-item { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .control { width: 100%; }
+}

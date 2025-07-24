@@ -1,324 +1,129 @@
 /* RUTA: src/app/dashboard/css */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;700&display=swap');
 
-:root {
-  --font-serif: 'Playfair Display', serif;
-  --font-sans: 'Inter', sans-serif;
-  --bg-dark-blue: #1C2532;
-  --bg-light: #F8F9FA;
-  --card-bg: #FFFFFF;
-  --text-dark: #212529;
-  --text-light: #FFFFFF;
-  --text-muted: #6C757D;
-  --accent-blue: #007BFF;
-  --accent-blue-darker: #0056b3;
-  --alert-orange: #FD7E14;
-  --border-color: #DEE2E6;
-  --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-}
-
-.think-u-style-dashboard {
-  font-family: var(--font-sans);
-}
-
-/* --- HERO CON IMAGEN --- */
-.hero-section {
-  position: relative;
-  background-size: cover;
-  background-position: center;
-  padding: 6rem 2rem;
-  text-align: center;
-  color: var(--text-light);
-}
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgba(28, 37, 50, 0.7) 0%, rgba(28, 37, 50, 0.4) 100%);
-}
-.hero-content {
-  position: relative; z-index: 2;
-  max-width: 700px; margin: 0 auto;
-}
-.hero-title {
-  font-family: var(--font-serif);
-  font-size: 3.5rem;
-  margin: 0 0 1rem 0;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-.hero-subtitle {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  max-width: 50ch;
-  margin: 0 auto;
-  color: #E9ECEF;
-}
-
-/* --- SECCIÓN DE CONTENIDO ASIMÉTRICO --- */
-.content-section {
-  background-color: var(--bg-light);
-  padding: 5rem 2rem;
-}
-.content-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
+/* --- GRID PRINCIPAL DE MÉTRICAS Y ACCIONES --- */
+.main-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
+  grid-template-columns: 1fr 1fr 1.5fr; /* 3 columnas: métrica, métrica, botón grande */
+  gap: 1.5rem;
+  margin-bottom: 3rem;
 }
 
-/* Lado Izquierdo */
-.content-left .section-headline {
-  font-family: var(--font-serif);
-  font-size: 2.5rem;
-  color: var(--text-dark);
-  line-height: 1.2;
-  margin: 0 0 1.5rem 0;
+.metric-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  text-decoration: none;
+  transition: all 0.2s ease-out;
 }
-.content-left .section-description {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin: 0 0 2.5rem 0;
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
 }
-.btn-primary {
+.metric-icon-wrapper {
+  font-size: 1.75rem;
+  color: var(--accent-blue);
+  background-color: rgba(56, 189, 248, 0.1);
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.metric-value { font-size: 2.5rem; font-weight: 800; color: var(--text-primary); }
+.metric-label { font-size: 1rem; color: var(--text-secondary); }
+
+.metric-card.alert .metric-icon-wrapper {
+  color: var(--alert-yellow);
+  background-color: rgba(251, 191, 36, 0.1);
+}
+.metric-card.alert .metric-value { color: var(--alert-yellow); }
+
+.action-button-card {
   background-color: var(--accent-blue);
   color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  transition: all 0.2s ease-out;
-}
-.btn-primary:hover {
-  background-color: var(--accent-blue-darker);
-  transform: translateY(-2px);
-}
-
-/* Lado Derecho */
-.content-right {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
-.info-card {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  box-shadow: var(--shadow-soft);
-  text-decoration: none;
-  color: var(--text-dark);
-  padding: 1.5rem;
-  transition: all 0.2s ease-out;
-}
-.info-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-}
-
-.card-text h4 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--text-muted);
-}
-.metric-value {
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1;
-}
-.info-card.alert .metric-value {
-  color: var(--alert-orange);
-}
-
-.info-card.with-image {
-  grid-column: span 2; /* Ocupan todo el ancho */
-  min-height: 120px;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  background-size: cover;
-  background-position: center;
-  color: var(--text-light);
-}
-.card-overlay-text {
-  position: relative; z-index: 2;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-}
-.card-overlay-text h4 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text-light);
-}
-.card-overlay-text span {
-  font-weight: 500;
-}
-/* Añadimos un degradado oscuro a las tarjetas con imagen */
-.info-card.with-image::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, transparent 100%);
-}
-/* RUTA: src/app/dashboard/css */
-:root {
-  --font-sans: 'Inter', sans-serif;
-  --bg-dark: #0A0F1E;
-  --card-bg: rgba(22, 29, 47, 0.5);
-  --card-border: rgba(255, 255, 255, 0.1);
-  --text-primary: #E4E6EB;
-  --text-secondary: #B0B3B8;
-  --accent-blue: #4A88F4;
-  --alert-yellow: #FFC107;
-}
-
-.stripe-inspired-dashboard {
-  background-color: var(--bg-dark);
-  color: var(--text-primary);
-  min-height: 100vh;
-  padding: 4rem;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Efecto de aurora en el fondo */
-.background-glow {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 800px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(74, 136, 244, 0.15) 0%, transparent 70%);
-  opacity: 0.5;
-  z-index: 0;
-}
-
-/* --- GRID PRINCIPAL --- */
-.main-grid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: flex-start;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* Lado Izquierdo */
-.content-left { padding-top: 1rem; }
-.hero-title {
-  font-size: 3rem;
-  font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 1.5rem;
-}
-.hero-subtitle {
-  color: var(--text-secondary);
-  font-size: 1.1rem;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
-  max-width: 45ch;
-}
-.btn-primary {
-  background: var(--accent-blue);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 1rem 1.75rem;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  box-shadow: 0 4px 15px rgba(74, 136, 244, 0.2);
-  transition: all 0.2s ease-out;
-}
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(74, 136, 244, 0.3);
-}
-
-/* Lado Derecho */
-.content-right {
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 700;
+  gap: 1rem;
+  text-align: center;
+  padding: 1rem;
+  box-shadow: 0 4px 15px var(--accent-blue-glow);
+  transition: all 0.2s ease-out;
+}
+.action-button-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px var(--accent-blue-glow);
+}
+.action-button-card i { font-size: 2.5rem; }
+
+
+/* --- SECCIONES DE CONTENIDO ADICIONALES --- */
+.content-section {
+  margin-bottom: 3rem;
+}
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Herramientas Destacadas */
+.featured-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
 }
-.metrics-container {
+.tool-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.2s ease-out;
+}
+.tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
+}
+.tool-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+.tool-info {
+  padding: 1.5rem;
+}
+.tool-info h4 { margin: 0 0 0.5rem 0; font-size: 1.2rem; color: var(--text-primary); }
+.tool-info p { margin: 0; font-size: 0.9rem; color: var(--text-secondary); }
+
+/* Módulo Informativo */
+.info-module {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
-
-/* --- LA TARJETA INTERACTIVA (LA ESTRELLA) --- */
-.info-card {
-  position: relative;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-decoration: none;
-  color: var(--text-primary);
-  backdrop-filter: blur(10px);
-  overflow: hidden; /* Importante para el efecto de luz */
-  transition: transform 0.3s ease;
-}
-.info-card:hover {
-  transform: translateY(-5px);
-}
-/* Efecto de luz que sigue al ratón */
-.info-card .card-border {
-  position: absolute;
-  inset: 0;
-  border-radius: 12px;
-  background: radial-gradient(400px circle at var(--x) var(--y), rgba(74, 136, 244, 0.3), transparent 40%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.info-card:hover .card-border {
-  opacity: 1;
-}
-
-.info-card.metric { text-align: center; }
-.card-label {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-}
-.card-value {
-  font-size: 3rem;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.info-card.action {
-  display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 3rem;
+  background-color: var(--bg-card);
+  padding: 3rem;
+  border-radius: 16px;
 }
-.action i {
-  font-size: 1.5rem;
-  color: var(--accent-blue);
-}
-.card-title { font-weight: 500; font-size: 1.1rem; }
-.card-description { color: var(--text-secondary); font-size: 0.9rem; }
-
-.info-card.alert .card-value { color: var(--alert-yellow); }
-.info-card.alert:hover .card-border {
-  background: radial-gradient(400px circle at var(--x) var(--y), rgba(255, 193, 7, 0.3), transparent 40%);
+.info-module-image img {
+  width: 100%;
+  border-radius: 12px;
 }
 
+/* --- RESPONSIVE --- */
 @media (max-width: 992px) {
-  .content-wrapper { grid-template-columns: 1fr; }
-  .content-left { text-align: center; }
+  .main-grid { grid-template-columns: 1fr; }
+  .action-button-card { min-height: 150px; }
+  .info-module { grid-template-columns: 1fr; }
 }

@@ -1,9 +1,10 @@
 // RUTA: src/app/dashboard/dashboard.ts
-import { Component, ElementRef, OnInit } from '@angular/core';
+
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-import { HerramientaService } from '../servicios/herramienta.service';
+import { HerramientaService, HerramientaBackend } from '../servicios/herramienta.service';
 import { RegistroService, Registro } from '../servicios/registro.service';
 import { jwtDecode } from 'jwt-decode';
 import { trigger, style, transition, animate } from '@angular/animations';
@@ -17,23 +18,18 @@ interface UserTokenPayload { sub: number; username: string; role: string; }
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
   animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('600ms ease-out', style({ opacity: 1 }))
-      ])
-    ]),
     trigger('fadeInUp', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(20px)' }),
         animate('600ms 200ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
       ])
     ])
+    // ... añade otras animaciones si las necesitas ...
   ]
 })
 export class DashboardComponent implements OnInit {
 
-  // Tu lógica original de datos se mantiene intacta
+  // Tus propiedades originales
   nombreUsuario: string = '';
   totalHerramientas: number = 0;
   requierenAtencion: number = 0;
@@ -43,12 +39,11 @@ export class DashboardComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private herramientaService: HerramientaService,
-    private registroService: RegistroService,
-    private el: ElementRef // Inyectamos ElementRef para los efectos
+    private registroService: RegistroService
   ) {}
 
   ngOnInit(): void {
-    // Tu lógica de carga original
+    // 1. Obtener el nombre del usuario del token
     const token = localStorage.getItem('token');
     if (token) {
       try {
@@ -60,29 +55,30 @@ export class DashboardComponent implements OnInit {
       }
     }
 
+    // 2. Cargar los datos de las herramientas
     this.herramientaService.getHerramientas().subscribe(herramientas => {
       this.totalHerramientas = herramientas.length;
       this.requierenAtencion = herramientas.filter(h => h.estado !== 'Esterilizado y listo para usar').length;
     });
 
+    // 3. Cargar los registros recientes
     this.registroService.getRegistros().subscribe(registros => {
+      // Ordenamos por fecha (más reciente primero) y tomamos los últimos 5
       this.ultimosRegistros = registros
         .sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime())
         .slice(0, 5);
+      
       this.cargando = false;
     });
   }
-
-  // --- FUNCIÓN AÑADIDA PARA EL EFECTO DE LUZ INTERACTIVO ---
-  onMouseMove(event: MouseEvent) {
-    const cards = this.el.nativeElement.querySelectorAll('.info-card');
-    cards.forEach((card: HTMLElement) => {
-      const rect = card.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-      
-      card.style.setProperty('--x', `${x}px`);
-      card.style.setProperty('--y', `${y}px`);
-    });
+  
+  /**
+   * Genera una clase CSS a partir del string de evento para colorear los tags.
+   * @param evento El string del evento (ej. "En Uso").
+   * @returns Una clase CSS formateada (ej. "tag-en-uso").
+   */
+  getEventClass(evento: string): string {
+    if (!evento) return 'tag-desconocido';
+    return 'tag-' + evento.toLowerCase().replace(/\s+/g, '-');
   }
 }

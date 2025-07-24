@@ -1,64 +1,60 @@
-/* RUTA: src/styles.css (El Nuevo Manual de Estilo Global) */
+/* RUTA: src/styles.css (El Manual de Estilo Global y Definitivo) */
 
-/* --- 1. IMPORTACIÓN DE FUENTES --- */
-/* Usaremos 'Lexend' para textos legibles y 'Orbitron' para títulos impactantes. */
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&family=Orbitron:wght@800&display=swap');
+/* --- 1. IMPORTACIÓN DE LA NUEVA FUENTE "POPPINS" --- */
+/* Esta fuente es más suave, moderna y profesional, ideal para un entorno clínico. */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
-/* --- PALETA DE COLORES (TEMA CLARO "COBALTO") --- */
+/* --- 2. LA PALETA DE COLORES (Variables CSS para el Tema Oscuro) --- */
+/* Este es el panel de control de todo el diseño. Cambiar un color aquí lo cambiará en toda la app. */
 :root {
-  --font-display: 'Orbitron', sans-serif;
-  --font-body: 'Lexend', sans-serif;
+  --font-body: 'Poppins', sans-serif; /* ¡La nueva fuente principal! */
+  --font-display: 'Poppins', sans-serif;
 
-  --bg-dark: #FFFFFF;
-  --bg-card: #F8F9FA;
-  --border-color: #DEE2E6;
-  --text-primary: #212529;
-  --text-secondary: #6C757D;
-  --accent-blue: #3B82F6; /* Un azul fuerte y vibrante */
-  --accent-blue-dark: #2563EB;
-  --accent-blue-glow: rgba(59, 130, 246, 0.2);
-  --alert-yellow: #F59E0B;
-  --accent-green: #10B981;
-  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
+  /* Colores Base */
+  --bg-dark: #121828; /* Un azul marino muy oscuro y sofisticado */
+  --bg-card: #1B2333; /* El color de las tarjetas y contenedores */
+  --border-color: rgba(255, 255, 255, 0.1); /* Un borde sutil para separar */
 
-/* --- PALETA DE COLORES (TEMA OSCURO "NOCTURNO") --- */
-body.dark-mode {
-  --bg-dark: #0D1117;
-  --bg-card: #161B22;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --text-primary: #000000;
-  --text-secondary: #8B949E;
-  --accent-blue: #33C1FF;
-  --accent-blue-dark: #00A3FF;
-  --accent-blue-glow: rgba(51, 193, 255, 0.3);
-  --alert-yellow: #FFD700;
-  --accent-green: #28a745;
+  /* Colores de Texto */
+  --text-primary: #FFFFFF;
+  --text-secondary: #A0AEC0; /* Un gris-azulado suave para subtítulos */
+  
+  /* Colores de Acento (¡Aquí está lo llamativo!) */
+  --accent-blue: #38BDF8; /* Un azul cian brillante */
+  --accent-blue-dark: #0EA5E9;
+  --accent-blue-glow: rgba(56, 189, 248, 0.3);
+  --alert-yellow: #FBBF24; /* Un amarillo-oro para alertas */
+  --accent-green: #34D399; /* Un verde menta para mensajes de éxito */
+  
+  /* Sombras */
   --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.2);
   --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
-/* --- ESTILOS GLOBALES QUE USAN LAS VARIABLES --- */
+/* --- 3. ESTILOS GLOBALES Y RESET --- */
+* {
+  box-sizing: border-box;
+}
+
 body {
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   background-color: var(--bg-dark);
   font-family: var(--font-body);
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 
 /* --- 4. CLASES DE COMPONENTES REUTILIZABLES (La parte más importante) --- */
 
 /* --- Tipografía --- */
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 p {
-  line-height: 1.6;
+  line-height: 1.7;
   color: var(--text-secondary);
 }
 
@@ -79,11 +75,12 @@ a:hover {
 }
 
 .page-header {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .page-title {
   font-size: 2.5rem;
+  font-weight: 800;
   margin: 0 0 0.5rem 0;
 }
 
@@ -91,8 +88,8 @@ a:hover {
 .content-card {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 1.5rem;
+  border-radius: 16px;
+  padding: 2rem;
   box-shadow: var(--shadow-soft);
 }
 
@@ -101,9 +98,9 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   font-family: var(--font-body);
-  font-weight: 700;
+  font-weight: 600;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
   border: none;
@@ -149,8 +146,9 @@ a:hover {
   background-color: rgba(0,0,0,0.2);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1rem;
   font-size: 1rem;
+  font-family: var(--font-body);
   color: var(--text-primary);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }

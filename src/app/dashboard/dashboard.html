@@ -1,67 +1,81 @@
 <!-- RUTA: src/app/dashboard/dashboard.html -->
-<div class="think-u-style-dashboard">
-
-  <!-- ======================================= -->
-  <!-- SECCIÓN HERO PRINCIPAL                    -->
-  <!-- ======================================= -->
-  <header class="hero-section" [@fadeIn]
-          style="background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiskXtLLKPoyC9zHZKlwqIe5wPSh4g_6W-cKlBohgbqVEuFzVYIiN2ZZuQqeg437GrAktwihnG-IT8ih7HWKqJ8pGkGcPXhquk5i4l4A1hOl1X2X9nzEM8qiAiL6LXl8Wtx0CuIxCSIWJxG/s1600/Instrumental+quirurgico.jpg');">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1 class="hero-title">Reconocimiento y esterilización de herramientas quirúrgicas.</h1>
-      <p class="hero-subtitle">Realiza reconocimiento de herramientas quirúrgicas y y descubre su proceso de esterilización con MediClean</p>
-    </div>
+<div class="page-container">
+  
+  <header class="page-header">
+    <h1 class="page-title">Centro de Mando</h1>
+    <p>Bienvenido, {{ nombreUsuario }}. Sistema de verificación activado y listo para operar.</p>
   </header>
 
-  <div class="stripe-inspired-dashboard" (mousemove)="onMouseMove($event)">
-
-  <!-- Efecto de fondo sutil -->
-  <div class="background-glow"></div>
-
+  <!-- GRID DE MÉTRICAS Y ACCIONES PRINCIPALES -->
   <div class="main-grid">
-    <!-- LADO IZQUIERDO: La declaración de intenciones -->
-    <div class="content-left" [@fadeInUp]>
-      <h1 class="hero-title">Tu centro de mando para un entorno quirúrgico más seguro.</h1>
-      <p class="hero-subtitle">Desde el escaneo inicial hasta el almacenamiento estéril, cada paso es registrado y verificado. Accede a las acciones clave a continuación.</p>
-      <a class="btn-primary" routerLink="/escaner">
-        <i class="fas fa-camera-retro"></i>
-        <span>Iniciar Escaneo Ahora</span>
-      </a>
-    </div>
-
-    <!-- LADO DERECHO: Los bloques interactivos -->
-    <div class="content-right" [@fadeInUp] [style.animation-delay]="'200ms'">
-      <!-- Métricas -->
-      <div class="metrics-container">
-        <a class="info-card metric" routerLink="/inventario">
-          <div class="card-border"></div>
-          <span class="card-label">Inventario Total </span>
-          <span class="card-value">{{ totalHerramientas }}</span>
-        </a>
-        <a class="info-card metric alert" routerLink="/inventario/atencion">
-          <div class="card-border"></div>
-          <span class="card-label">Requieren Atención </span>
-          <span class="card-value">{{ requierenAtencion }}</span>
-        </a>
+    <!-- Tarjeta de Inventario -->
+    <a class="metric-card" routerLink="/inventario">
+      <div class="metric-icon-wrapper"><i class="fas fa-tools"></i></div>
+      <div class="metric-text">
+        <span class="metric-value">{{ totalHerramientas }}</span>
+        <span class="metric-label">Instrumentos Totales</span>
       </div>
-
-      <!-- Acciones -->
-      <a class="info-card action" routerLink="/registrar-herramienta">
-        <div class="card-border"></div>
-        <i class="fas fa-plus-circle"></i>
-        <div class="card-text">
-          <span class="card-title">Registrar Nuevo</span>
-          <span class="card-description">Añadir instrumento →</span>
-        </div>
-      </a>
-      <a class="info-card action" routerLink="/historial">
-        <div class="card-border"></div>
-        <i class="fas fa-history"></i>
-        <div class="card-text">
-          <span class="card-title">Ver Historial</span>
-          <span class="card-description">Consultar registros →</span>
-        </div>
-      </a>
-    </div>
+    </a>
+    <!-- Tarjeta de Alertas -->
+    <a class="metric-card alert" routerLink="/inventario/atencion">
+      <div class="metric-icon-wrapper"><i class="fas fa-exclamation-triangle"></i></div>
+      <div class="metric-text">
+        <span class="metric-value">{{ requierenAtencion }}</span>
+        <span class="metric-label">Requieren Atención</span>
+      </div>
+    </a>
+    <!-- Botón Principal de Escaneo -->
+    <a class="action-button-card" routerLink="/escaner">
+      <i class="fas fa-camera"></i>
+      <span>Iniciar Escaneo Visual</span>
+    </a>
   </div>
+
+  <!-- ========================================================== -->
+  <!-- SECCIÓN DE HERRAMIENTAS DESTACADAS (La que habías pedido)  -->
+  <!-- ========================================================== -->
+  <section class="content-section">
+    <h2 class="section-title">Herramientas Destacadas</h2>
+    <div class="featured-tools-grid">
+      <!-- Tarjeta de Herramienta 1 -->
+      <div class="tool-card">
+        <img src="assets/bisturi.jpg" alt="Bisturí">
+        <div class="tool-info">
+          <h4>Bisturí</h4>
+          <p>Instrumento de corte preciso esencial en procedimientos quirúrgicos.</p>
+        </div>
+      </div>
+      <!-- Tarjeta de Herramienta 2 -->
+      <div class="tool-card">
+        <img src="assets/pinza_diseccion.jpg" alt="Pinzas">
+        <div class="tool-info">
+          <h4>Pinzas de Disección</h4>
+          <p>Utilizadas para sujetar tejidos de forma segura y delicada.</p>
+        </div>
+      </div>
+      <!-- Tarjeta de Herramienta 3 -->
+      <div class="tool-card">
+        <img src="assets/tijera_mayo.png" alt="Tijeras">
+        <div class="tool-info">
+          <h4>Tijeras Mayo</h4>
+          <p>Diseñadas para cortar tejidos, suturas y material quirúrgico.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================== -->
+  <!-- MÓDULO INFORMATIVO SOBRE ESTERILIZACIÓN (El que habías pedido) -->
+  <!-- ========================================================== -->
+  <section class="content-section info-module">
+    <div class="info-module-text">
+      <h2 class="section-title">La Importancia Crítica de la Esterilización</h2>
+      <p>Un proceso de esterilización verificado y trazable es la primera línea de defensa contra las infecciones nosocomiales. Nuestro sistema garantiza que cada instrumento cumpla con los más altos estándares de seguridad antes de cada uso.</p>
+      <a routerLink="/historial" class="btn btn-secondary">Ver Protocolos</a>
+    </div>
+    <div class="info-module-image">
+      <img src="assets/proceso_est.jpg" alt="Proceso de esterilización">
+    </div>
+  </section>
+
 </div>

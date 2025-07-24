@@ -1,36 +1,74 @@
-<!-- RUTA: src/app/escaner/escaner.html (Versión Final) -->
+<!-- RUTA: src/app/escaner/escaner.html -->
+<div class="page-container">
+  
+  <header class="page-header">
+    <h1 class="page-title">Terminal de Análisis Visual</h1>
+    <p>Apunta la cámara hacia el instrumental quirúrgico para su identificación y registro.</p>
+  </header>
 
-<div class="scan-container">
-  <h1>Escanear Herramienta</h1>
+  <div class="scanner-ui-container">
+    <!-- Columna Izquierda: El visor de la cámara -->
+    <div class="camera-viewport">
+      <!-- El contenedor donde Teachable Machine insertará el <canvas> -->
+      <div #webcamContainer class="webcam-container"></div>
+      
+      <!-- Mensaje de estado superpuesto -->
+      <div class="status-overlay" *ngIf="statusMessage">
+        <i class="fas fa-spinner fa-spin" *ngIf="statusMessage.includes('Cargando') || statusMessage.includes('Iniciando')"></i>
+        <i class="fas fa-exclamation-triangle" *ngIf="statusMessage.includes('No se pudo')"></i>
+        <p>{{ statusMessage }}</p>
+      </div>
 
-  <p class="status-message">{{ statusMessage }}</p>
+      <!-- El "marco" o retícula del escáner -->
+      <div class="scanner-reticle"></div>
+    </div>
 
-  <!-- El canvas de la cámara se inyectará aquí desde el TypeScript -->
-  <div #webcamContainer class="video-wrapper"></div>
+    <!-- Columna Derecha: Información y Acciones -->
+    <div class="info-panel">
+      <!-- Sección de Detección en Vivo -->
+      <div class="content-card detection-card">
+        <div class="card-header">
+          <i class="fas fa-brain"></i>
+          <h2>Análisis en Tiempo Real</h2>
+        </div>
+        <div class="card-body">
+          <!-- Si se detecta una herramienta, se muestra el botón de confirmación -->
+          <div *ngIf="herramientaDetectada; else noDetection">
+            <p class="detected-label">Instrumento Detectado:</p>
+            <h3 class="detected-name">{{ herramientaDetectada.className }}</h3>
+            <p class="detected-confidence">
+              Confianza: {{ (herramientaDetectada.probability * 100).toFixed(1) }}%
+            </p>
+            <button class="btn btn-primary btn-confirm" (click)="onConfirmarHerramienta(herramientaDetectada.className)">
+              <i class="fas fa-check-circle"></i>
+              <span>Confirmar y Ver Detalles</span>
+            </button>
+          </div>
+          <!-- Si no se detecta nada, se muestra un mensaje -->
+          <ng-template #noDetection>
+            <div class="no-detection-state">
+              <i class="fas fa-search"></i>
+              <p>Buscando instrumento...</p>
+            </div>
+          </ng-template>
+        </div>
+      </div>
 
-  <!-- Contenedor para las barras de predicción -->
-  <!-- Solo se muestra si hay alguna predicción -->
-  <div *ngIf="predictions.length > 0" class="results-container">
-    <div *ngFor="let p of predictions" class="prediction-item">
-      <div class="label">{{ p.className }}</div>
-      <div class="progress">
-        <div class="progress-bar" [style.width.%]="p.probability * 100">
-          {{ (p.probability * 100).toFixed(0) }}%
+      <!-- Sección de Ayuda -->
+      <div class="content-card help-card">
+        <div class="card-header">
+          <i class="fas fa-info-circle"></i>
+          <h2>Instrucciones</h2>
+        </div>
+        <div class="card-body">
+          <ol>
+            <li>Asegura una buena iluminación sobre el instrumento.</li>
+            <li>Coloca la herramienta en el centro del visor.</li>
+            <li>Mantén la cámara estable para una mejor precisión.</li>
+            <li>Confirma la detección cuando aparezca el botón.</li>
+          </ol>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- 
-    ¡ESTA ES LA PARTE MÁS IMPORTANTE!
-    Este contenedor (y el botón) solo aparecerá en la pantalla
-    cuando la variable 'herramientaDetectada' tenga un valor.
-    Gracias a la lógica que añadimos en el .ts, esto solo ocurrirá
-    cuando se detecte una herramienta real, no el fondo.
-  -->
-  <div *ngIf="herramientaDetectada" class="confirm-container">
-    <button class="confirm-button" (click)="onConfirmarHerramienta(herramientaDetectada.className)">
-      Confirmar {{ herramientaDetectada.className }}
-    </button>
   </div>
 </div>
