@@ -1,50 +1,45 @@
-// RUTA: src/app/historial/historial.ts
+// RUTA: src/app/historial/historial.component.ts
 
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HistorialService, HistorialEntry } from '../servicios/historial.service';
-import { RouterModule } from '@angular/router';
+import { HistorialService, HistorialEntry } from '../servicios/historial.service'; // Asegúrate de que la ruta es correcta
+import { AuthService } from '../auth/auth.service'; // Si usas un servicio de autenticación
 
 @Component({
   selector: 'app-historial',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule],
   templateUrl: './historial.html',
   styleUrls: ['./historial.css']
 })
 export class HistorialComponent implements OnInit {
-  
   historial: HistorialEntry[] = [];
-  cargando = true;
+  isLoading = true;
+  errorMessage: string = '';
 
-  constructor(private historialService: HistorialService) { }
+  constructor(
+    private historialService: HistorialService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    const token = this.authService.getToken();
+    if (!token) {
+      this.errorMessage = 'Debes iniciar sesión para ver el historial.';
+      this.isLoading = false;
+      return;
+    }
+
     this.historialService.getHistorial().subscribe({
       next: (data: HistorialEntry[]) => {
-        // Ordenamos por fecha para mostrar lo más reciente primero
-        this.historial = data.sort((a, b) => new Date(b.fechaEscaneo).getTime() - new Date(a.fechaEscaneo).getTime());
-        this.cargando = false;
+        this.historial = data;
+        this.isLoading = false;
       },
       error: (err: any) => {
-        console.error('Error al cargar el historial', err);
-        this.cargando = false;
+        console.error('Error al cargar el historial:', err);
+        this.errorMessage = 'Token inválido o expirado. Por favor, inicia sesión nuevamente.';
+        this.isLoading = false;
       }
     });
-  }
-
-  // --- ¡MEJORA AÑADIDA! ---
-  /**
-   * Genera una clase CSS a partir del string de estado para colorear los tags.
-   * @param estado El string del estado (ej. "Requiere esterilizacion").
-   * @returns Una clase CSS formateada (ej. "tag-requiere").
-   */
-  getEventClass(estado?: string): string {
-    if (!estado) {
-      return 'tag-no-registrado';
-    }
-    // Tomamos solo la primera palabra para simplificar (ej. "en" de "en mantenimiento")
-    const primeraPalabra = estado.toLowerCase().split(' ')[0];
-    return `tag-${primeraPalabra}`;
   }
 }

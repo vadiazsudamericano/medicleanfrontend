@@ -1,33 +1,42 @@
 // RUTA: src/app/navbar/navbar.ts
-import { Component, EventEmitter, Output } from '@angular/core';
+
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { ThemeService } from '../servicios/theme.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './navbar.html',
-  styleUrls: ['./navbar.css']
+  styleUrls: ['./navbar.css'],
 })
 export class NavbarComponent {
-  // 1. Creamos un emisor de eventos.
-  // El decorador @Output() lo hace visible para el componente padre.
-  @Output() logoutRequest = new EventEmitter<void>();
   menuAbierto = false;
+  currentTheme: 'dark' | 'cobalt';
 
-  constructor() {}
+  constructor(
+    private themeService: ThemeService,
+    private router: Router,
+    private authService: AuthService
+  ) {
+    this.currentTheme = this.themeService.getTheme();
+  }
 
-  /**
-   * Esta función se llama cuando se hace clic en el botón de cerrar sesión.
-   */
-  toggleMenu() {
+  toggleMenu(): void {
     this.menuAbierto = !this.menuAbierto;
   }
 
+  toggleTheme(): void {
+    const next = this.currentTheme === 'dark' ? 'cobalt' : 'dark';
+    this.themeService.setTheme(next);
+    this.currentTheme = next;
+  }
+
   onLogout(): void {
-    console.log('Navbar está pidiendo cerrar sesión...');
-    // 2. Emitimos el evento para que el padre (AppComponent) lo escuche.
-    this.logoutRequest.emit();
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

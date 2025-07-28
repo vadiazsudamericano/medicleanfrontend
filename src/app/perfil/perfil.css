@@ -1,144 +1,48 @@
-.profile-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem; /* Espacio entre la tarjeta de perfil y la zona de peligro */
-}
-
-/* --- Tarjeta de Información del Perfil --- */
-.profile-info-card {
+.perfil-container {
+  max-width: 600px;
+  margin: 2rem auto;
   padding: 2rem;
+  border-radius: 12px;
+  background-color: var(--bg-secondary, #f4f4f4);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.profile-header {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding-bottom: 1.5rem;
+.perfil-titulo {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: var(--text-primary, #222);
+}
+
+.perfil-item {
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
 }
 
-.user-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background-color: var(--accent-blue);
-  color: var(--bg-dark);
-  font-family: var(--font-display);
-  font-size: 2.5rem;
-  font-weight: 800;
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
+.perfil-item label {
+  display: block;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 0.5rem;
 }
 
-.user-identity h2 {
-  font-family: var(--font-body);
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0;
+.perfil-item span {
+  font-size: 1.1rem;
+  color: #000;
 }
 
-.user-role {
-  display: inline-block;
-  background-color: rgba(139, 148, 158, 0.2);
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  font-weight: 700;
-  padding: 0.25rem 0.75rem;
-  border-radius: 50px;
-  margin-top: 0.5rem;
+.rol-tag {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-weight: bold;
   text-transform: capitalize;
 }
 
-.info-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+.rol-tag.admin {
+  background-color: #ffdbb5;
+  color: #8a4b00;
 }
 
-.info-item label {
-  display: block;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  margin-bottom: 0.25rem;
-}
-
-.info-item p {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 500;
-}
-
-.info-item .status-active {
-  color: var(--accent-green); /* Un verde brillante para el estado "Activa" */
-}
-
-
-/* --- Zona de Peligro Rediseñada --- */
-.danger-zone {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
-  /* Usamos un borde rojo para resaltar el peligro */
-  border-left: 5px solid #ff4757;
-}
-
-.danger-text h3 {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  color: #ff4757; /* Texto rojo */
-  margin: 0 0 0.5rem 0;
-}
-.danger-text p {
-  margin: 0;
-}
-
-/* Creamos un nuevo estilo de botón para acciones peligrosas */
-.btn-danger {
-  background-color: #ff4757;
-  color: #fff;
-  white-space: nowrap; /* Evita que el texto se rompa */
-}
-.btn-danger:hover {
-  background-color: #e03141;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 15px rgba(255, 71, 87, 0.2);
-}
-
-/* Estados de carga y error */
-.loading-state, .error-message {
-  padding: 3rem 0;
-  text-align: center;
-}
-.spinner {
-  width: 40px; height: 40px;
-  border: 4px solid var(--border-color);
-  border-top-color: var(--accent-blue);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 1rem;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.error-message {
-  color: #ff4757;
-  font-weight: 500;
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 768px) {
-  .profile-header {
-    flex-direction: column;
-    text-align: center;
-  }
-  .info-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  .danger-zone {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.5rem;
-  }
+.rol-tag.user {
+  background-color: #dbeafe;
+  color: #1e40af;
 }

@@ -1,75 +1,40 @@
-<!-- RUTA: src/app/configuracion/configuracion.html -->
-<div class="page-container">
-  
-  <header class="page-header">
-    <h1 class="page-title">Centro de Control</h1>
-    <p>Personaliza la apariencia y el idioma de tu interfaz.</p>
-  </header>
+<div class="page-header">
+  <h1 class="page-title"><i class="fas fa-cogs"></i> Configuración</h1>
+</div>
 
-  <div class="settings-grid">
-    <!-- Módulo de Apariencia -->
-    <div class="content-card">
-      <div class="card-header">
-        <i class="fas fa-palette"></i>
-        <h2>Apariencia de la Interfaz</h2>
-      </div>
-      <div class="card-body theme-selector">
-        
-        <!-- --- ¡CORRECCIÓN AQUÍ! --- -->
-        <!-- Tarjeta para el Tema Claro (Cobalto), ahora con (click) -->
-        <div class="theme-card" [class.active]="!modoOscuro" (click)="setTheme(false)">
-          <div class="theme-preview light-theme">
-            <div class="preview-circle"></div>
-            <div class="preview-bar"></div>
-            <div class="preview-bar short"></div>
-          </div>
-          <span class="theme-name">Tema Cobalto</span>
-        </div>
-
-        <!-- --- ¡CORRECCIÓN AQUÍ! --- -->
-        <!-- Tarjeta para el Tema Oscuro (Nocturno), ahora con (click) -->
-        <div class="theme-card" [class.active]="modoOscuro" (click)="setTheme(true)">
-          <div class="theme-preview dark-theme">
-            <div class="preview-circle"></div>
-            <div class="preview-bar"></div>
-            <div class="preview-bar short"></div>
-          </div>
-          <span class="theme-name">Tema Nocturno</span>
-        </div>
-      </div>
+<!-- APARIENCIA -->
+<div class="card">
+  <h2><i class="fas fa-palette"></i> Apariencia de la Interfaz</h2>
+  <div class="theme-options">
+    <div class="theme-card" 
+         [class.active]="currentTheme === 'dark'" 
+         (click)="setTheme('dark')">
+      <div class="theme-preview theme-dark"></div>
+      <span>Tema Nocturno</span>
     </div>
 
-    <!-- Módulo de Idioma y Notificaciones -->
-    <div class="content-card">
-      <div class="card-header">
-        <i class="fas fa-cogs"></i>
-        <h2>Ajustes Generales</h2>
-      </div>
-      <div class="card-body">
-        <!-- ... (resto de las opciones sin cambios) ... -->
-        <div class="setting-item">
-          <div class="info">
-            <label for="notificaciones"><i class="fas fa-bell"></i> Notificaciones</label>
-            <p>Recibe resúmenes y alertas por e-mail.</p>
-          </div>
-          <div class="control">
-            <label class="switch">
-              <input 
-                id="notificaciones" 
-                type="checkbox" 
-                [(ngModel)]="notificacionesEmail">
-              <span class="slider"></span>
-            </label>
-          </div>
-        </div>
-      </div>
+    <div class="theme-card" 
+         [class.active]="currentTheme === 'cobalt'" 
+         (click)="setTheme('cobalt')">
+      <div class="theme-preview theme-cobalt"></div>
+      <span>Tema Cobalto</span>
     </div>
   </div>
+</div>
 
-  <div class="footer-actions">
-    <p class="save-feedback" [class.show]="showSuccessMessage">
-      <i class="fas fa-check-circle"></i> Preferencias guardadas
-    </p>
-    <button class="btn btn-primary" (click)="guardarPreferencias()">Guardar Cambios</button>
+<!-- ACCESIBILIDAD -->
+<div class="card">
+  <h2><i class="fas fa-universal-access"></i> Accesibilidad</h2>
+  <div class="setting-item">
+    <div class="setting-text">
+      <h4>Modo de Alto Contraste</h4>
+      <p>Aumenta el contraste de los textos y bordes para mejorar la legibilidad.</p>
+    </div>
+    <div class="setting-toggle">
+      <label class="switch">
+        <input type="checkbox" (change)="toggleHighContrast($event)" />
+        <span class="slider round"></span>
+      </label>
+    </div>
   </div>
 </div>

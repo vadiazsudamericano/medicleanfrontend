@@ -1,56 +1,17 @@
-<!-- RUTA: src/app/detalle-herramienta/detalle-herramienta.component.html -->
+<div class="detalle-container" *ngIf="herramienta; else cargando">
+  <h2 class="titulo">{{ herramienta.nombre }}</h2>
 
-<div class="detalle-container">
-
-  <ng-container *ngIf="herramienta as h; else cargando">
-
-    <div class="tarjeta-herramienta">
-      
-      <div class="header">
-        <h1 class="nombre">{{ h.nombre }}</h1>
-        <!-- 
-          ESTA ES LA VERSIÓN A PRUEBA DE BALAS:
-          (h.estado ?? 'no-registrado') se asegura de que, si el estado es nulo,
-          se use 'no-registrado' ANTES de intentar el .toLowerCase().
-        -->
-        <div class="estado" [ngClass]="(h.estado ?? 'no-registrado').toLowerCase().split(' ')[0] || ''">
-          <!-- También nos protegemos aquí al mostrarlo, por si acaso -->
-          {{ h.estado || 'No definido' }}
-        </div>
-      </div>
-  
-      <div class="seccion">
-        <h3>DESCRIPCIÓN</h3>
-        <p>{{ h.descripcion || 'No disponible.' }}</p>
-      </div>
-  
-      <div class="seccion">
-        <h3>USO PRINCIPAL</h3>
-        <p>{{ h.uso || 'No disponible.' }}</p>
-      </div>
-  
-      <div class="seccion">
-        <h3>PROCESO DE ESTERILIZACIÓN</h3>
-        <ul *ngIf="(h.proceso?.length ?? 0) > 0; else sinProceso">
-          <li *ngFor="let paso of h.proceso">{{ paso }}</li>
-        </ul>
-        <ng-template #sinProceso>
-          <p>No hay un proceso registrado.</p>
-        </ng-template>
-      </div>
-      
-    </div>
-
-  </ng-container>
-
-  <ng-template #cargando>
-    <div class="mensaje-carga">
-      <p>{{ mensajeCarga }}</p>
-    </div>
-  </ng-template>
-
-  <div class="acciones">
-    <a routerLink="/escaner" class="boton-volver">← Volver al Escáner</a>
+  <div class="tarjeta">
+    <p><strong>Descripción:</strong> {{ herramienta.descripcion }}</p>
+    <p><strong>Uso:</strong> {{ herramienta.uso }}</p>
+    <p><strong>Esterilización:</strong> {{ herramienta.esterilizacion }}</p>
+    <p><strong>Estado actual:</strong> {{ herramienta.estado }}</p>
+    <p><strong>Proceso:</strong> {{ herramienta.proceso.join(', ') }}</p>
   </div>
 
+  <a class="btn-volver" routerLink="/escaner">← Escanear otra herramienta</a>
 </div>
+
+<ng-template #cargando>
+  <p class="cargando">{{ mensajeCarga }}</p>
+</ng-template>

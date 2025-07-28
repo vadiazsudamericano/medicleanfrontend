@@ -1,108 +1,47 @@
-/* RUTA: src/app/historial/historial.css */
-
-/* La mayoría de los estilos (fondos, fuentes, botones)
-   vienen del styles.css global. Aquí solo definimos la estructura de la tabla. */
-
-/* Contenedor para la tabla para manejar el overflow en móvil */
-.table-container {
-  overflow-x: auto;
+.contenedor-historial {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #f3f6f9;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.history-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-/* Estilos de la cabecera de la tabla */
-.history-table thead th {
-  padding: 1rem 1.5rem;
-  text-align: left;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-bottom: 2px solid var(--border-color);
-}
-
-/* Estilos de las filas del cuerpo de la tabla */
-.history-table tbody tr {
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-.history-table tbody tr:hover {
-  background-color: rgba(0,0,0,0.2); /* Un hover sutil */
-}
-
-.history-table tbody td {
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--border-color);
-  color: var(--text-secondary);
-}
-.history-table tbody tr:last-child td {
-  border-bottom: none; /* Quitamos el borde de la última fila */
-}
-
-/* Celda con el nombre del instrumento */
-.instrument-cell {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  color: var(--text-primary);
-  font-weight: 500;
-}
-.instrument-cell i {
-  color: var(--accent-blue);
-}
-
-/* Tags de estado rediseñados */
-.status-tag {
-  display: inline-block;
-  padding: 0.3rem 0.8rem;
-  border-radius: 50px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: capitalize;
-}
-
-/* Clases de color para los tags */
-.tag-esterilizado { background-color: rgba(16, 185, 129, 0.1); color: #003c28; }
-.tag-requiere { background-color: rgba(255, 71, 87, 0.1); color: #ff4757; }
-.tag-en { background-color: rgba(245, 158, 11, 0.1); color: #F59E0B; }
-.tag-no-registrado { background-color: rgba(139, 148, 158, 0.1); color: var(--text-secondary); }
-
-/* Celda "Ver Detalles" */
-.details-cell {
-  text-align: right;
-  font-weight: 500;
-}
-.details-cell span {
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-tr:hover .details-cell span {
-  opacity: 1; /* El texto solo aparece en el hover */
-}
-
-/* Estado de carga y vacío */
-.loading-state, .empty-state {
-  padding: 4rem 2rem;
+h2 {
   text-align: center;
-}
-.spinner {
-  width: 40px; height: 40px;
-  border: 4px solid var(--border-color);
-  border-top-color: var(--accent-blue);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 1rem;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.empty-state i {
-  font-size: 3rem;
-  color: var(--border-color);
+  color: #007acc;
   margin-bottom: 1rem;
 }
-.empty-state h3 { font-family: var(--font-display); font-size: 1.5rem; margin: 0 0 0.5rem 0; }
-.empty-state p { margin: 0 0 1.5rem 0; }
+
+.mensaje-carga,
+.mensaje-error,
+.mensaje-vacio {
+  text-align: center;
+  color: #888;
+  margin-top: 1.5rem;
+  font-size: 16px;
+}
+
+.lista-historial {
+  list-style: none;
+  padding: 0;
+}
+
+.item-historial {
+  padding: 1rem;
+  background-color: white;
+  margin-bottom: 0.8rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.titulo {
+  font-weight: bold;
+  font-size: 17px;
+  margin-bottom: 0.3rem;
+}
+
+.detalle {
+  color: #555;
+  font-size: 14px;
+}

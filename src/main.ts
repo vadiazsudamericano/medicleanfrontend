@@ -5,8 +5,6 @@ import { routes } from './app/app.routes';  // Asegúrate de que las rutas esté
 import { provideHttpClient } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-// Importa los componentes standalone directamente
 import { NavbarComponent } from './app/navbar/navbar';  // Importa el Navbar
 import { DashboardComponent } from './app/dashboard/dashboard';  // Importa el Dashboard
 import { EscanerComponent } from './app/escaner/escaner';  // Importa el Scan
@@ -16,7 +14,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),  // Proporciona las rutas
     provideHttpClient(),
-    importProvidersFrom(FormsModule),  // Importa FormsModule
+    importProvidersFrom(FormsModule), // Importa FormsModule
     // Aquí solo incluyes los componentes standalone si los necesitas globalmente
     NavbarComponent,
     DashboardComponent,

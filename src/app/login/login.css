@@ -1,93 +1,70 @@
-/* RUTA: src/app/login/login.css */
-
-/* El contenedor principal centra la tarjeta y añade el fondo */
-.login-page-container {
-  min-height: 100vh;
-  display: grid;
-  place-items: center; /* El truco para centrarlo todo perfectamente */
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Efecto de aurora en el fondo, igual que en el dashboard para consistencia */
-.background-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 1000px;
-  height: 800px;
-  background: radial-gradient(circle, var(--accent-blue-glow) 0%, transparent 70%);
-  opacity: 0.3;
-}
-
-/* La tarjeta de cristal que contiene todo */
-.login-card {
-  position: relative; /* Para que el glow no se salga */
-  width: 100%;
-  max-width: 420px;
-  padding: 2.5rem;
-  /* ¡Efecto Glassmorphism! */
-  background: var(--card-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  box-shadow: var(--shadow-medium);
-}
-
-/* Sección del logo */
-.logo-container {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-.logo-container img {
-  height: 48px;
-  filter: invert(1); /* Hace el logo blanco */
-  margin-bottom: 1rem;
-}
-.logo-container h1 {
-  font-family: var(--font-display);
-  margin: 0;
-  font-size: 2rem;
-}
-.logo-container p {
-  color: var(--text-secondary);
-  margin-top: 0.5rem;
-}
-
-/* El formulario hereda los estilos de styles.css, pero podemos ajustar detalles */
-.form {
+.login-container {
   display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #e9f0ff;
 }
 
-/* El botón primario ahora ocupa todo el ancho */
-.btn-primary {
+.login-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+  color: #001d3d;
+}
+
+label {
+  display: block;
+  text-align: left;
   margin-top: 1rem;
+  margin-bottom: 0.3rem;
+  color: #003566;
 }
 
-/* Mensaje de error con un estilo más integrado */
-.error-message {
-  text-align: center;
-  padding: 0.75rem;
+input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  font-weight: 500;
-  background-color: rgba(255, 71, 87, 0.1); /* Fondo rojo semitransparente */
-  color: #ff4757; /* Texto rojo brillante */
-  border: 1px solid #ff4757;
+  margin-bottom: 0.5rem;
 }
 
-/* Enlace inferior */
-.footer-text {
-  text-align: center;
-  margin-top: 2rem;
-  color: var(--text-secondary);
+.login-btn, .register-btn, .toggle-btn {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
 }
-.footer-text a {
-  font-weight: 700;
-  color: var(--accent-blue);
+
+.login-btn {
+  background-color: #001d3d;
+  color: white;
+}
+
+.register-btn {
+  background-color: #f0f0f0;
+  color: #003566;
+}
+
+.toggle-btn {
+  background: none;
+  color: #0077b6;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.error {
+  color: red;
+  margin-top: 1rem;
 }

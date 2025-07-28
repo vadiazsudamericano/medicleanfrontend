@@ -1,0 +1,28 @@
+<div class="tabla-container">
+  <h2>Gestión de Usuarios</h2>
+  <table class="tabla-usuarios">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th *ngIf="currentUserRol === 'admin'">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of usuarios">
+        <td>{{ user.nombre }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td *ngIf="currentUserRol === 'admin'">
+          <button class="btn-delete" (click)="eliminarUsuario(user.id)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18M8 6v14h8V6M10 6V4h4v2" />
+            </svg>
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

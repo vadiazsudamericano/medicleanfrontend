@@ -1,10 +1,6 @@
 <!-- RUTA: src/app/layouts/main-layout/main-layout.component.html -->
+<!-- SÚPER SIMPLIFICADO Y CORRECTO -->
 
-<!-- El Navbar que se mostrará en todas las páginas protegidas -->
 <app-navbar (logoutRequest)="onLogout()"></app-navbar>
 
-<!-- 
-  Este router-outlet es el "espacio" donde Angular
-  renderizará el contenido de las rutas hijas (/inicio, /escaner, etc.)
--->
 <router-outlet></router-outlet>

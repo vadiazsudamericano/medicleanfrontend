@@ -1,11 +1,4 @@
-/* RUTA: src/app/app.component.css */
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@500;700;800&display=swap');
-
-/* Este estilo se aplicará a TODA la aplicación */
+/* Elimina estilos repetidos, deja solo esto si tienes cosas muy específicas */
 :host {
-  font-family: 'Lexend', sans-serif;
-  background-color: #0D1117; /* Fondo oscuro y profesional */
-  color: #FFFFFF;
   display: block;
-  min-height: 100vh;
 }

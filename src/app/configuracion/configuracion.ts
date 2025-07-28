@@ -1,61 +1,30 @@
-// RUTA: src/app/configuracion/configuracion.ts
-
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; 
+import { ThemeService } from '../servicios/theme.service';
 
 @Component({
   selector: 'app-configuracion',
   standalone: true,
-  // Ya no importamos nada de ngx-translate aquí
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './configuracion.html',
-  styleUrls: ['./configuracion.css']
+  styleUrls: ['./configuracion.css'],
 })
 export class ConfiguracionComponent implements OnInit {
+  currentTheme: 'dark' | 'cobalt' = 'dark';
 
-  // Propiedades para los controles
-  notificacionesEmail = true;
-  modoOscuro = true;
-  showSuccessMessage = false;
-
-  constructor(private renderer: Renderer2) { }
+  constructor(private themeService: ThemeService) {}
 
   ngOnInit(): void {
-    this.cargarPreferencias();
-    this.aplicarModoOscuro(); 
+    this.currentTheme = this.themeService.getTheme();
   }
 
-  cargarPreferencias(): void {
-    const notificacionesGuardadas = localStorage.getItem('notificaciones-email');
-    if (notificacionesGuardadas !== null) {
-      this.notificacionesEmail = JSON.parse(notificacionesGuardadas);
-    }
-
-    const modoOscuroGuardado = localStorage.getItem('modo-oscuro');
-    if (modoOscuroGuardado !== null) {
-      this.modoOscuro = JSON.parse(modoOscuroGuardado);
-    }
+  setTheme(theme: 'dark' | 'cobalt') {
+    this.themeService.setTheme(theme);
+    this.currentTheme = theme;
   }
 
-  guardarPreferencias(): void {
-    localStorage.setItem('notificaciones-email', JSON.stringify(this.notificacionesEmail));
-    localStorage.setItem('modo-oscuro', JSON.stringify(this.modoOscuro));
-
-    this.showSuccessMessage = true;
-    setTimeout(() => { this.showSuccessMessage = false; }, 3000);
-  }
-  
-  setTheme(isDark: boolean): void {
-    this.modoOscuro = isDark;
-    this.aplicarModoOscuro();
-  }
-
-  aplicarModoOscuro(): void {
-    if (this.modoOscuro) {
-      this.renderer.addClass(document.body, 'dark-mode');
-    } else {
-      this.renderer.removeClass(document.body, 'dark-mode');
-    }
+  toggleHighContrast(event: Event): void {
+    const isEnabled = (event.target as HTMLInputElement).checked;
+    this.themeService.toggleContrast(isEnabled);
   }
 }

@@ -1,4 +1,4 @@
-// RUTA: src/app/app.routes.ts (Versión Corregida y Optimizada)
+// RUTA: src/app/app.routes.ts (Versión Final Corregida)
 
 import { Routes } from '@angular/router';
 
@@ -8,7 +8,6 @@ import { LoginComponent } from './login/login';
 import { RegisterComponent } from './register/register';
 import { AuthGuard } from './auth/auth-guard';
 
-// Se quita BienvenidaComponent porque el Dashboard será la nueva bienvenida
 import { DashboardComponent } from './dashboard/dashboard';
 import { EscanerComponent } from './escaner/escaner';
 import { HistorialComponent } from './historial/historial';
@@ -20,17 +19,16 @@ import { HerramientaComponent } from './herramienta/herramienta';
 
 // --- 2. DEFINICIÓN DE RUTAS ---
 export const routes: Routes = [
-  // --- GRUPO 1: RUTAS PÚBLICAS (Sin Navbar, sin protección) ---
+  // --- RUTAS PÚBLICAS ---
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
-  // --- GRUPO 2: RUTAS PROTEGIDAS (Renderizadas dentro de MainLayout) ---
+  // --- RUTAS PROTEGIDAS ---
   {
     path: '',
     component: MainLayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      // { path: 'bienvenida', component: BienvenidaComponent }, // <-- 1. ELIMINAMOS ESTA LÍNEA
       { path: 'inicio', component: DashboardComponent },
       { path: 'escaner', component: EscanerComponent },
       { path: 'historial', component: HistorialComponent },
@@ -39,13 +37,18 @@ export const routes: Routes = [
       { path: 'herramientas', component: HerramientaComponent },
       { path: 'registrar-herramienta', component: RegistrarHerramientaComponent },
       { path: 'detalle-herramienta/:nombre', component: DetalleHerramientaComponent },
-      
-      // --- CAMBIO CLAVE ---
-      // 2. AHORA, la página por defecto para usuarios logueados es el DASHBOARD.
+
+      // ✅ Ruta standalone
+      {
+        path: 'usuarios',
+        loadComponent: () =>
+          import('./usuarios/usuarios').then(m => m.UsuariosComponent)
+      },
+
       { path: '', redirectTo: 'inicio', pathMatch: 'full' }
     ]
   },
 
-  // --- RUTA "CATCH-ALL" ---
+  // --- RUTA CATCH-ALL ---
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

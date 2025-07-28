@@ -1,55 +1,50 @@
-// RUTA: src/app/perfil/perfil.ts
+// RUTA: src/app/perfil/perfil.component.ts
 
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AuthService } from '../auth/auth.service';
+import { CommonModule, NgClass } from '@angular/common'; // NgClass para los estilos del rol
+import { Router } from '@angular/router'; // Lo necesitarás para futuras acciones
 
-// Creamos una interfaz para darle una estructura clara a los datos del perfil
-interface UserProfile {
-  id: number;
-  email: string;
-  rol?: string; // El rol es opcional por ahora
-}
+// --- ¡ESTAS SON LAS IMPORTACIONES CORREGIDAS! ---
+import { AuthService } from '../auth/auth.service'; // Importamos el servicio
+import { UserProfile } from '../models/auth.models'; // Importamos la interfaz desde su nuevo archivo
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgClass], // Asegúrate de que NgClass esté aquí
   templateUrl: './perfil.html',
   styleUrls: ['./perfil.css']
 })
 export class PerfilComponent implements OnInit {
   
-  user: UserProfile | null = null;
+  // Usamos el nombre 'userProfile' para ser consistentes con el servicio y la interfaz
+  userProfile: UserProfile | null = null;
   errorMessage: string | null = null;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService, 
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    // Cuando el componente se carga, llamamos al servicio para obtener los datos del perfil
+    // Cuando el componente se carga, llamamos al servicio para obtener los datos
     this.authService.getProfile().subscribe({
       next: (profileData) => {
-        // El backend nos devuelve un objeto como { sub: 3, email: '...' }
-        // Lo transformamos para que coincida con nuestra interfaz UserProfile.
-        this.user = {
-          id: profileData.sub,
-          email: profileData.email,
-          rol: profileData.rol || 'Usuario Estándar' // Usamos un valor por defecto si el rol no viene
-        };
+        // Asignamos directamente la respuesta, ya que coincide con nuestra interfaz
+        console.log('Perfil recibido:', profileData);
+        this.userProfile = profileData;
       },
       error: (err) => {
-        console.error('Error al obtener el perfil', err);
+        console.error('Error al obtener el perfil:', err);
+        // Si el token es inválido (error 401), podríamos redirigir al login
         this.errorMessage = 'No se pudo cargar la información del perfil. Por favor, intenta iniciar sesión de nuevo.';
       }
     });
   }
 
-  // Lógica para el botón de eliminar
-  eliminarCuenta() {
-    if (confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) {
-      console.log('Lógica para eliminar cuenta aquí...');
-      // Aquí en el futuro llamarías a un método en tu servicio:
-      // this.authService.deleteAccount(this.user.id).subscribe(...);
-    }
-  }
+  // Puedes añadir aquí futuras funciones, como 'editarPerfil' o 'cambiarContraseña'
+  // por ejemplo:
+  // goToEditProfile(): void {
+  //   this.router.navigate(['/perfil/editar']);
+  // }
 }

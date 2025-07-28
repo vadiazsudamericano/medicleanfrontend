@@ -10,6 +10,7 @@ export interface Registro {
   fecha: string;
   evento: string;
   responsable: string;
+  proceso: string[]; 
   // ... añade aquí otros campos si vienen de tu backend
 }
 

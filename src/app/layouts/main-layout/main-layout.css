@@ -1,0 +1,47 @@
+/* RUTA: src/app/layouts/main-layout/main-layout.component.css */
+/* REEMPLAZA TODO EL CONTENIDO CON ESTO */
+
+/* 
+  :host se refiere al propio componente <app-main-layout>.
+  Le decimos que ocupe toda la altura de la pantalla y que organice
+  sus hijos (navbar y contenido) en una columna.
+*/
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/*
+  Seleccionamos el componente app-navbar que está DENTRO de este layout.
+  - position: fixed -> La desvincula del flujo normal y la clava en la ventana.
+  - top/left/width -> La expande para que ocupe toda la parte superior.
+  - z-index -> Asegura que esté por encima de todo lo demás.
+*/
+app-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/*
+  Este es el contenedor del contenido de la página (donde se carga el router-outlet).
+  - padding-top -> Es la regla CRÍTICA. Crea un espacio vacío en la parte
+    superior del contenido, exactamente del tamaño de la navbar (70px), para
+    que la navbar fija no lo tape.
+  - max-width/margin -> Centra el contenido como ya lo tenías.
+  - flex-grow -> Asegura que el área de contenido se expanda para ocupar
+    todo el espacio vertical disponible.
+*/
+.page-content {
+  padding-top: 70px; /* ¡La altura exacta de tu navbar! */
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 2rem;
+  flex-grow: 1;
+}

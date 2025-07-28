@@ -1,60 +1,18 @@
-<!-- RUTA: src/app/perfil/perfil.html -->
-<div class="page-container">
+<div class="perfil-container">
+  <h2 class="perfil-titulo">👤 Perfil de Usuario</h2>
 
-  <!-- Usamos las clases globales de cabecera -->
-  <header class="page-header">
-    <h1 class="page-title">Perfil de Operador</h1>
-    <p>Gestiona la información de tu cuenta y los ajustes de seguridad.</p>
-  </header>
+  <div class="perfil-item">
+    <label>Nombre completo:</label>
+    <span>{{ userProfile?.nombre }} {{ userProfile?.apellido }}</span>
+  </div>
 
-  <!-- Contenedor principal de la página de perfil -->
-  <div class="profile-container">
+  <div class="perfil-item">
+    <label>Correo electrónico:</label>
+    <span>{{ userProfile?.email }}</span>
+  </div>
 
-    <!-- Tarjeta de información del perfil (usando .content-card) -->
-    <div class="content-card profile-info-card">
-      <div *ngIf="user; else loading">
-        <div class="profile-header">
-          <!-- MEJORA: Avatar visual para el usuario -->
-          <div class="user-avatar">{{ user.email.charAt(0).toUpperCase() }}</div>
-          <div class="user-identity">
-            <h2>{{ user.email }}</h2>
-            <span class="user-role">{{ user.rol }}</span>
-          </div>
-        </div>
-
-        <div class="info-grid">
-          <div class="info-item">
-            <label>ID de Usuario</label>
-            <p>#{{ user.id }}</p>
-          </div>
-          <div class="info-item">
-            <label>Estado de la Cuenta</label>
-            <p class="status-active">Activa</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Plantilla de carga y error -->
-      <ng-template #loading>
-        <div *ngIf="!errorMessage" class="loading-state">
-          <div class="spinner"></div>
-          <p>Cargando perfil...</p>
-        </div>
-        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
-      </ng-template>
-    </div>
-
-    <!-- Zona de Peligro (rediseñada para ser más impactante) -->
-    <div class="content-card danger-zone">
-      <div class="danger-text">
-        <h3>Eliminar cuenta</h3>
-        <p>Eliminar tu cuenta es una acción irreversible. Todos tus datos y registros asociados serán eliminados permanentemente.</p>
-      </div>
-      <button (click)="eliminarCuenta()" class="btn btn-danger">
-        <i class="fas fa-trash-alt"></i>
-        <span>Eliminar Mi Cuenta</span>
-      </button>
-    </div>
-
+  <div class="perfil-item">
+    <label>Rol del sistema:</label>
+<span class="rol-tag" [ngClass]="userProfile?.role">{{ userProfile?.role | titlecase }}</span>
   </div>
 </div>

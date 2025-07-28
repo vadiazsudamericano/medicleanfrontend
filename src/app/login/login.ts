@@ -1,54 +1,55 @@
-// RUTA: src/app/login/login.ts
-
+// src/app/login/login.component.ts
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; 
-import { Router, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    CommonModule, 
-    FormsModule,
-    RouterLink
-  ],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
 export class LoginComponent {
+  email = '';
+  password = '';
+  error = '';
+  showPassword = false;
 
-  loginData = {
-    email: '',
-    password: ''
-  };
+  constructor(private authService: AuthService, private router: Router) {}
 
-  errorMessage: string | null = null;
-
-  constructor(private authService: AuthService, private router: Router) { }
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
   onLogin() {
-    if (!this.loginData.email || !this.loginData.password) {
-      this.errorMessage = 'Por favor, introduce el correo y la contraseña.';
-      return;
-    }
+    const credentials = {
+      email: this.email,
+      password: this.password
+    };
 
-    this.authService.login(this.loginData).subscribe({
-      next: (response) => {
-        if (response && response.access_token) {
-          localStorage.setItem('token', response.access_token);
-          // --- ¡CAMBIO SUGERIDO! ---
-          // Redirigimos a '/inicio' para que el usuario vea el nuevo y espectacular dashboard.
-          this.router.navigate(['/inicio']);
+    this.authService.login(credentials).subscribe({
+      next: (res: any) => {
+        this.authService.saveToken(res.access_token);
+        const decoded: any = jwtDecode(res.access_token);
+        if (decoded.role === 'admin') {
+          this.router.navigate(['/admin']);
         } else {
-          this.errorMessage = 'Respuesta de login inválida del servidor.';
+          this.router.navigate(['/dashboard']);
         }
       },
-      error: (err) => {
-        console.error('Error en el login:', err);
-        this.errorMessage = 'Correo o contraseña incorrectos. Por favor, inténtalo de nuevo.';
+      error: (err: any) => {
+        this.error = err.error?.message || 'Credenciales incorrectas';
+        console.error('Error de login:', err);
       }
     });
+  }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
   }
 }

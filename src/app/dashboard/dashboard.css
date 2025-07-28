@@ -1,15 +1,25 @@
-/* RUTA: src/app/dashboard/css */
+/* =====================
+   VARIABLES SUGERIDAS
+===================== */
+:root {
+  --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
 
 /* --- GRID PRINCIPAL DE MÉTRICAS Y ACCIONES --- */
 .main-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1.5fr; /* 3 columnas: métrica, métrica, botón grande */
+ display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
+  justify-content: center;
+  align-items: stretch;
   margin-bottom: 3rem;
+  padding: 0 1rem;
 }
 
+/* --- TARJETAS DE MÉTRICAS --- */
 .metric-card {
-  background-color: var(--bg-card);
+  background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 1.5rem;
@@ -17,7 +27,8 @@
   align-items: center;
   gap: 1.5rem;
   text-decoration: none;
-  transition: all 0.2s ease-out;
+  transition: all 0.3s ease-out;
+  box-shadow: var(--shadow-soft);
 }
 .metric-card:hover {
   transform: translateY(-5px);
@@ -25,25 +36,54 @@
 }
 .metric-icon-wrapper {
   font-size: 1.75rem;
-  color: var(--accent-blue);
+  color: var(--accent-primary);
   background-color: rgba(56, 189, 248, 0.1);
   width: 60px; height: 60px;
   border-radius: 50%;
   display: grid; place-items: center;
   flex-shrink: 0;
 }
-.metric-value { font-size: 2.5rem; font-weight: 800; color: var(--text-primary); }
-.metric-label { font-size: 1rem; color: var(--text-secondary); }
-
+.metric-text {
+  display: flex;
+  flex-direction: column;
+}
+.metric-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+}
+.metric-label {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
 .metric-card.alert .metric-icon-wrapper {
-  color: var(--alert-yellow);
+  color: var(--accent-warning);
   background-color: rgba(251, 191, 36, 0.1);
 }
-.metric-card.alert .metric-value { color: var(--alert-yellow); }
+.metric-card.alert .metric-value {
+  color: var(--accent-warning);
+}
 
+/* --- TARJETA DE ADMIN --- */
+.metric-card.admin-card .metric-icon-wrapper {
+  color: var(--accent-success);
+  background-color: rgba(52, 211, 153, 0.1);
+}
+.admin-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.admin-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* --- BOTÓN DE ACCIÓN GRANDE --- */
 .action-button-card {
-  background-color: var(--accent-blue);
-  color: #fff;
+  background-color: var(--accent-primary);
+  color: var(--accent-text-on-primary);
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -55,14 +95,22 @@
   gap: 1rem;
   text-align: center;
   padding: 1rem;
-  box-shadow: 0 4px 15px var(--accent-blue-glow);
-  transition: all 0.2s ease-out;
+  box-shadow: 0 4px 15px var(--accent-primary-glow);
+  transition: all 0.3s ease-out;
+  min-height: 160px;
 }
 .action-button-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px var(--accent-blue-glow);
+  box-shadow: 0 8px 25px var(--accent-primary-glow);
 }
-.action-button-card i { font-size: 2.5rem; }
+.action-button-card i {
+  font-size: 2.5rem;
+  justify-self: center;
+}
+.metric-card,
+.action-button-card {
+  min-height: 160px;
+}
 
 
 /* --- SECCIONES DE CONTENIDO ADICIONALES --- */
@@ -75,21 +123,28 @@
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+  justify-content:center;
+}
+.section-title{
+  text-align: center;
 }
 
-/* Herramientas Destacadas */
+/* --- HERRAMIENTAS DESTACADAS --- */
 .featured-tools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas exactas */
   gap: 1.5rem;
+  justify-items: center;
 }
 .tool-card {
-  background-color: var(--bg-card);
+  background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow-soft);
-  transition: all 0.2s ease-out;
+  transition: all 0.3s ease-out;
+  width: 260px;
 }
 .tool-card:hover {
   transform: translateY(-5px);
@@ -103,27 +158,102 @@
 .tool-info {
   padding: 1.5rem;
 }
-.tool-info h4 { margin: 0 0 0.5rem 0; font-size: 1.2rem; color: var(--text-primary); }
-.tool-info p { margin: 0; font-size: 0.9rem; color: var(--text-secondary); }
+.tool-info h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+}
+.tool-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
 
-/* Módulo Informativo */
+/* --- MÓDULOS INFORMATIVOS --- */
 .info-module {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 3rem;
-  background-color: var(--bg-card);
+  background-color: var(--bg-secondary);
   padding: 3rem;
   border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
 }
 .info-module-image img {
   width: 100%;
   border-radius: 12px;
 }
+.info-module-text {
+  color: var(--text-secondary);
+}
+.info-module-text h2 {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+/* --- CABECERA DEL DASHBOARD --- */
+.page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.page-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+.page-header p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+/* --- CARGA (SPINNER) --- */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+.loading-container::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--accent-blue);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- ANIMACIÓN DE ENTRADA --- */
+.animate-on-load {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease forwards;
+}
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* --- RESPONSIVE --- */
 @media (max-width: 992px) {
-  .main-grid { grid-template-columns: 1fr; }
-  .action-button-card { min-height: 150px; }
-  .info-module { grid-template-columns: 1fr; }
+  .featured-tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .info-module {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .featured-tools-grid {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,81 +1,123 @@
 <!-- RUTA: src/app/dashboard/dashboard.html -->
 <div class="page-container">
-  
   <header class="page-header">
-    <h1 class="page-title">Centro de Mando</h1>
+    <h1 class="page-title">MediClean</h1>
     <p>Bienvenido, {{ nombreUsuario }}. Sistema de verificación activado y listo para operar.</p>
   </header>
 
-  <!-- GRID DE MÉTRICAS Y ACCIONES PRINCIPALES -->
-  <div class="main-grid">
-    <!-- Tarjeta de Inventario -->
-    <a class="metric-card" routerLink="/inventario">
-      <div class="metric-icon-wrapper"><i class="fas fa-tools"></i></div>
-      <div class="metric-text">
-        <span class="metric-value">{{ totalHerramientas }}</span>
-        <span class="metric-label">Instrumentos Totales</span>
+  <!-- Usamos un *ngIf para mostrar el contenido solo cuando 'cargando' sea falso -->
+  <div *ngIf="!cargando; else loadingTemplate">
+
+    <!-- Tarjetas de Métricas y Acciones -->
+    <div class="main-grid">
+      <a class="metric-card animate-on-load" routerLink="/inventario">
+        <div class="metric-icon-wrapper"><i class="fas fa-tools"></i></div>
+        <div class="metric-text">
+          <span class="metric-value">{{ totalHerramientas }}</span>
+          <span class="metric-label">Instrumentos Totales</span>
+        </div>
+      </a>
+      <a class="metric-card alert animate-on-load" routerLink="/inventario">
+        <div class="metric-icon-wrapper"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="metric-text">
+          <span class="metric-value">{{ requierenAtencion }}</span>
+          <span class="metric-label">Requieren Atención</span>
+        </div>
+      </a>
+      <a class="action-button-card animate-on-load" routerLink="/escaner">
+        <i class="fas fa-camera"></i>
+        <span>Iniciar Escaneo Visual</span>
+      </a>
+
+      <!-- ✅ TARJETA DE ADMIN -->
+      <!-- Se mostrará solo si la variable booleana 'isAdmin' es true -->
+      <a *ngIf="isAdmin" class="metric-card admin-card animate-on-load" routerLink="/usuarios">
+        <div class="metric-icon-wrapper"><i class="fas fa-users-cog"></i></div>
+        <div class="metric-text">
+          <span class="admin-title">Panel de Administrador</span>
+          <span class="admin-description">Gestionar usuarios y sistema</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Herramientas Destacadas -->
+    <section class="content-section">
+      <h2 class="section-title animate-on-load">Herramientas Destacadas</h2>
+      <div class="featured-tools-grid">
+        <div class="tool-card animate-on-load">
+          <img src="assets/bisturi.jpg" alt="Bisturí">
+          <div class="tool-info">
+            <h4>Bisturí</h4>
+            <p>Instrumento de corte preciso esencial en procedimientos quirúrgicos.</p>
+          </div>
+        </div>
+        <div class="tool-card animate-on-load">
+          <img src="assets/pinza_diseccion.jpg" alt="Pinzas de Disección">
+          <div class="tool-info">
+            <h4>Pinzas de Disección</h4>
+            <p>Utilizadas para sujetar tejidos de forma segura y delicada.</p>
+          </div>
+        </div>
+        <div class="tool-card animate-on-load">
+          <img src="assets/tijera_mayo.png" alt="Tijeras Mayo">
+          <div class="tool-info">
+            <h4>Tijeras Mayo</h4>
+            <p>Diseñadas para cortar tejidos, suturas y material quirúrgico.</p>
+          </div>
+        </div>
+        <div class="tool-card animate-on-load">
+          <img src="assets/porta agujas.jpg" alt="Porta Agujas">
+          <div class="tool-info">
+            <h4>Porta Agujas</h4>
+            <p>Sujeta la aguja de sutura para cerrar heridas con máxima precisión.</p>
+          </div>
+        </div>
+        <div class="tool-card animate-on-load">
+          <img src="assets/separador.jpg" alt="Separador Farabeuf">
+          <div class="tool-info">
+            <h4>Separador Farabeuf</h4>
+            <p>Mantiene los tejidos u órganos apartados para exponer el campo quirúrgico.</p>
+          </div>
+        </div>
+        <div class="tool-card animate-on-load">
+          <img src="assets/tijera boton.jpg" alt="Tijera de Botón">
+          <div class="tool-info">
+            <h4>Tijera de Botón</h4>
+            <p>Ideal para cortar vendajes y ropa sin dañar la piel del paciente.</p>
+          </div>
+        </div>
       </div>
-    </a>
-    <!-- Tarjeta de Alertas -->
-    <a class="metric-card alert" routerLink="/inventario/atencion">
-      <div class="metric-icon-wrapper"><i class="fas fa-exclamation-triangle"></i></div>
-      <div class="metric-text">
-        <span class="metric-value">{{ requierenAtencion }}</span>
-        <span class="metric-label">Requieren Atención</span>
+    </section>
+
+    <!-- Módulos de Información -->
+    <section class="content-section info-module animate-on-load">
+      <div class="info-module-image">
+        <img src="assets/proceso_est.jpg" alt="Proceso de esterilización en un autoclave">
       </div>
-    </a>
-    <!-- Botón Principal de Escaneo -->
-    <a class="action-button-card" routerLink="/escaner">
-      <i class="fas fa-camera"></i>
-      <span>Iniciar Escaneo Visual</span>
-    </a>
+      <div class="info-module-text">
+        <h2 class="section-title">Esterilización: La Base de la Seguridad Quirúrgica</h2>
+        <p>La esterilización no es un paso opcional, es el pilar fundamental que previene las infecciones del sitio quirúrgico (ISQ). Un proceso meticuloso elimina todos los microorganismos, garantizando que cada instrumento sea una herramienta de curación, no una fuente de riesgo.</p>
+        
+      </div>
+    </section>
+
+    <section class="content-section info-module animate-on-load">
+      <div class="info-module-image">
+        <img src="assets/ciclo_quirofano.jpg" alt="Ciclo de vida de una herramienta estéril">
+      </div>
+      <div class="info-module-text">
+        <h2 class="section-title">El Ciclo de Vida de una Herramienta Estéril</h2>
+        <p>Todo instrumento quirúrgico sigue un viaje crítico: limpieza profunda, empaquetado, esterilización por autoclave y almacenamiento seguro. La trazabilidad digital valida que el ciclo se ha completado sin fallos antes de su llegada al quirófano.</p>
+        
+      </div>
+    </section>
   </div>
 
-  <!-- ========================================================== -->
-  <!-- SECCIÓN DE HERRAMIENTAS DESTACADAS (La que habías pedido)  -->
-  <!-- ========================================================== -->
-  <section class="content-section">
-    <h2 class="section-title">Herramientas Destacadas</h2>
-    <div class="featured-tools-grid">
-      <!-- Tarjeta de Herramienta 1 -->
-      <div class="tool-card">
-        <img src="assets/bisturi.jpg" alt="Bisturí">
-        <div class="tool-info">
-          <h4>Bisturí</h4>
-          <p>Instrumento de corte preciso esencial en procedimientos quirúrgicos.</p>
-        </div>
-      </div>
-      <!-- Tarjeta de Herramienta 2 -->
-      <div class="tool-card">
-        <img src="assets/pinza_diseccion.jpg" alt="Pinzas">
-        <div class="tool-info">
-          <h4>Pinzas de Disección</h4>
-          <p>Utilizadas para sujetar tejidos de forma segura y delicada.</p>
-        </div>
-      </div>
-      <!-- Tarjeta de Herramienta 3 -->
-      <div class="tool-card">
-        <img src="assets/tijera_mayo.png" alt="Tijeras">
-        <div class="tool-info">
-          <h4>Tijeras Mayo</h4>
-          <p>Diseñadas para cortar tejidos, suturas y material quirúrgico.</p>
-        </div>
-      </div>
+  <!-- Plantilla de Carga -->
+  <ng-template #loadingTemplate>
+    <div class="loading-container">
+      <!-- Puedes poner aquí un spinner o un esqueleto de carga más elaborado en el futuro -->
+      <p>Cargando datos del dashboard...</p>
     </div>
-  </section>
-
-  <!-- ========================================================== -->
-  <!-- MÓDULO INFORMATIVO SOBRE ESTERILIZACIÓN (El que habías pedido) -->
-  <!-- ========================================================== -->
-  <section class="content-section info-module">
-    <div class="info-module-text">
-      <h2 class="section-title">La Importancia Crítica de la Esterilización</h2>
-      <p>Un proceso de esterilización verificado y trazable es la primera línea de defensa contra las infecciones nosocomiales. Nuestro sistema garantiza que cada instrumento cumpla con los más altos estándares de seguridad antes de cada uso.</p>
-      <a routerLink="/historial" class="btn btn-secondary">Ver Protocolos</a>
-    </div>
-    <div class="info-module-image">
-      <img src="assets/proceso_est.jpg" alt="Proceso de esterilización">
-    </div>
-  </section>
-
+  </ng-template>
 </div>

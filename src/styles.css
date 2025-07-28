@@ -1,159 +1,338 @@
-/* RUTA: src/styles.css (El Manual de Estilo Global y Definitivo) */
+/* =====================
+   FUENTES Y BASE
+====================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-/* --- 1. IMPORTACIÓN DE LA NUEVA FUENTE "POPPINS" --- */
-/* Esta fuente es más suave, moderna y profesional, ideal para un entorno clínico. */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
-
-/* --- 2. LA PALETA DE COLORES (Variables CSS para el Tema Oscuro) --- */
-/* Este es el panel de control de todo el diseño. Cambiar un color aquí lo cambiará en toda la app. */
 :root {
-  --font-body: 'Poppins', sans-serif; /* ¡La nueva fuente principal! */
-  --font-display: 'Poppins', sans-serif;
-
-  /* Colores Base */
-  --bg-dark: #121828; /* Un azul marino muy oscuro y sofisticado */
-  --bg-card: #1B2333; /* El color de las tarjetas y contenedores */
-  --border-color: rgba(255, 255, 255, 0.1); /* Un borde sutil para separar */
-
-  /* Colores de Texto */
-  --text-primary: #FFFFFF;
-  --text-secondary: #A0AEC0; /* Un gris-azulado suave para subtítulos */
-  
-  /* Colores de Acento (¡Aquí está lo llamativo!) */
-  --accent-blue: #38BDF8; /* Un azul cian brillante */
-  --accent-blue-dark: #0EA5E9;
-  --accent-blue-glow: rgba(56, 189, 248, 0.3);
-  --alert-yellow: #FBBF24; /* Un amarillo-oro para alertas */
-  --accent-green: #34D399; /* Un verde menta para mensajes de éxito */
-  
-  /* Sombras */
-  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.2);
-  --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.4);
-}
-
-/* --- 3. ESTILOS GLOBALES Y RESET --- */
-* {
-  box-sizing: border-box;
+  --font-main: 'Poppins', sans-serif;
+  --transition: all 0.3s ease;
+  --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.15);
+  /* Default (light/cobalt) */
+  --bg-primary: #e9f0ff;
+  --bg-secondary: #d2e4ff;
+  --text-primary: #0a1f33;
+  --text-secondary: #243c63;
+  --accent-blue: #0051ff;
+  --accent-blue-glow: rgba(0, 81, 255, 0.6);
+  --border-color: #b0c6e6;
+  --card-radius: 12px;
 }
 
 body {
   margin: 0;
-  padding: 0;
-  background-color: var(--bg-dark);
-  font-family: var(--font-body);
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
   color: var(--text-primary);
+  transition: var(--transition);
 }
 
-/* --- 4. CLASES DE COMPONENTES REUTILIZABLES (La parte más importante) --- */
-
-/* --- Tipografía --- */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
+h1, h2, h3 {
   font-weight: 700;
+  margin: 0;
   color: var(--text-primary);
 }
 
-p {
-  line-height: 1.7;
+p, span, label, input, button, select {
+  font-weight: 400;
+  font-size: 16px;
   color: var(--text-secondary);
 }
 
-a {
-  color: var(--accent-blue);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-a:hover {
-  color: var(--accent-blue-dark);
-}
-
-/* --- Contenedores de Página --- */
-.page-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.page-header {
-  margin-bottom: 2.5rem;
-}
-
-.page-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin: 0 0 0.5rem 0;
-}
-
-/* --- Tarjetas --- */
-.content-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: var(--shadow-soft);
-}
-
-/* --- Botones --- */
-.btn {
-  display: inline-flex;
+/* =====================
+   NAVBAR
+====================== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  font-family: var(--font-body);
-  font-weight: 600;
-  padding: 0.75rem 1.5rem;
+  background-color: var(--text-secondary);
+  padding: 12px 24px;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navbar a {
+  color: #cbd8f0;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.navbar a.active,
+.navbar a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 5px var(--accent-blue-glow);
+}
+
+.btn-logout {
+  background-color: var(--accent-blue);
+  color: white;
+  padding: 8px 14px;
   border-radius: 8px;
+  font-weight: 600;
   border: none;
   cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s ease-out;
+  transition: background 0.3s ease;
 }
 
-.btn-primary {
-  background-color: var(--accent-blue);
-  color: var(--bg-dark);
-  box-shadow: 0 4px 15px var(--accent-blue-glow);
-}
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px var(--accent-blue-glow);
+.btn-logout:hover {
+  background-color: #0039cc;
 }
 
-.btn-secondary {
-  background-color: transparent;
+/* =====================
+   DASHBOARD
+====================== */
+.dashboard-container {
+  padding: 30px 20px;
+  background-color: var(--bg-secondary);
+  border-radius: var(--card-radius);
+  margin: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.dashboard-subtitle {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.metrics-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.metric-card {
+  background-color: #f0f4ff;
+  border-radius: 10px;
+  padding: 16px;
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.metric-card i {
+  font-size: 30px;
+  color: #8b9acb;
+}
+
+.metric-number {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--accent-blue);
+}
+
+.metric-label {
+  font-size: 14px;
+  color: #444;
+}
+
+.scan-button {
+  background-color: var(--text-secondary);
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* =====================
+   HERRAMIENTAS
+====================== */
+.tool-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.tool-card {
+  background-color: white;
+  border-radius: var(--card-radius);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  text-align: center;
+  padding: 20px;
+}
+
+.tool-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.tool-title {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.tool-description {
+  font-size: 14px;
+  color: #444;
+}
+
+/* =====================
+   MODOS TEMÁTICOS
+====================== */
+body.theme-dark {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --accent-blue: #60a5fa;
+  --accent-blue-glow: rgba(96, 165, 250, 0.6);
+  --border-color: #333;
+  --card-radius: 12px;
+  background-color: var(--bg-primary);
   color: var(--text-primary);
-  border: 1px solid var(--border-color);
-}
-.btn-secondary:hover {
-  background-color: var(--bg-card);
-  border-color: var(--text-primary);
 }
 
-/* --- Formularios --- */
-.form-group {
-  margin-bottom: 1.5rem;
+body.theme-dark .navbar a {
+  color: #a0aec0;
+}
+body.theme-dark .navbar a.active {
+  color: #ffffff;
 }
 
-.form-label {
+/* === MODO COBALTO === */
+body.theme-cobalt {
+  --bg-primary: #e9f0ff;
+  --bg-secondary: #d2e4ff;
+  --text-primary: #0a1f33;
+  --text-secondary: #243c63;
+  --accent-blue: #0051ff;
+  --accent-blue-glow: rgba(0, 81, 255, 0.6);
+  --border-color: #b0c6e6;
+  --card-radius: 12px;
+}
+
+/* === MODO ALTO CONTRASTE === */
+body.high-contrast {
+  --bg-primary: #000000;
+  --bg-secondary: #111111;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --accent-blue: #00bfff;
+  --accent-blue-glow: rgba(0, 191, 255, 0.7);
+  --border-color: #888888;
+  --card-radius: 12px;
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+body.high-contrast *,
+body.high-contrast .navbar a,
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast p,
+body.high-contrast .btn,
+body.high-contrast label,
+body.high-contrast input,
+body.high-contrast select {
+  color: var(--text-primary) !important;
+  background-color: transparent !important;
+  border-color: var(--border-color) !important;
+}
+
+body.high-contrast input,
+body.high-contrast select {
+  border: 1px solid var(--border-color) !important;
+  background-color: #121212 !important;
+}
+/* =====================
+   LOGIN BONITO
+====================== */
+.login-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: var(--card-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.login-container label {
   display: block;
+  margin-bottom: 6px;
   font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: var(--text-secondary);
 }
 
-.form-control {
+.login-container input[type="email"],
+.login-container input[type="password"] {
   width: 100%;
-  background-color: rgba(0,0,0,0.2);
+  padding: 12px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 0.85rem 1rem;
-  font-size: 1rem;
-  font-family: var(--font-body);
-  color: var(--text-primary);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 20px;
+  background-color: var(--bg-secondary);
+  font-size: 16px;
+  transition: var(--transition);
 }
-.form-control:focus {
+
+.login-container input:focus {
   outline: none;
   border-color: var(--accent-blue);
-  box-shadow: 0 0 0 3px var(--accent-blue-glow);
+  box-shadow: 0 0 4px var(--accent-blue-glow);
+}
+
+.login-container button {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--accent-blue);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.login-container button:hover {
+  background-color: #0039cc;
+  box-shadow: 0 0 10px var(--accent-blue-glow);
+}
+
+/* =====================
+   RESPONSIVE
+====================== */
+@media (max-width: 768px) {
+  .metrics-container {
+    flex-direction: column;
+  }
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

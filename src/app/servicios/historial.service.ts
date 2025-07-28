@@ -1,34 +1,51 @@
-// RUTA: src/app/servicios/historial.service.ts
+// RUTA: src/app/services/historial.service.ts
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
-// --- ¡INTERFAZ ACTUALIZADA! ---
-// Ahora esperamos un objeto 'herramienta' que contiene el nombre.
+// --- INTERFACES PARA LOS DATOS DEL HISTORIAL ---
+// Interfaz para los datos que RECIBIMOS del backend
 export interface HistorialEntry {
   id: number;
+  fechaEscaneo: string;
+  estadoAlEscanear: string;
   herramienta: {
     id: number;
     nombre: string;
   };
+}
+
+// Interfaz para los datos que ENVIAMOS al backend para crear un registro
+export interface CreateHistorialPayload {
+  herramientaId: number;
   estadoAlEscanear: string;
-  fechaEscaneo: Date;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class HistorialService {
-  private apiUrl = 'http://localhost:3000/historial';
+  private apiUrl = 'https://backend-restablecido-production.up.railway.app/historial';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
+
+  // ==========================================================
+  // === ¡AÑADE ESTE NUEVO MÉTODO PARA SOLUCIONAR EL ERROR! ===
+  // ==========================================================
+  registrarEscaneo(payload: CreateHistorialPayload): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    
+    // Hacemos una petición POST para crear el nuevo registro
+    return this.http.post(this.apiUrl, payload, { headers });
+  }
   getHistorial(): Observable<HistorialEntry[]> {
-    return this.http.get<HistorialEntry[]>(this.apiUrl);
-  }
-  
-  registrarEscaneo(datos: { herramientaId: number; estadoAlEscanear: string }): Observable<any> {
-    return this.http.post(this.apiUrl, datos);
-  }
+  const token = this.authService.getToken();
+  const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+  return this.http.get<HistorialEntry[]>(this.apiUrl, { headers });
+}
+
 }

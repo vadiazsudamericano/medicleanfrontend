@@ -1,59 +1,23 @@
-<!-- RUTA: src/app/login/login.html -->
-<div class="login-page-container">
+<div class="login-container">
+  <div class="login-box">
+    <h2>Iniciar Sesión</h2>
 
-  <!-- Efecto de fondo sutil -->
-  <div class="background-glow"></div>
+    <label>Correo</label>
+    <input type="email" [(ngModel)]="email" placeholder="Ingresa tu correo" />
 
-  <!-- La tarjeta de cristal que contiene el formulario -->
-  <div class="login-card">
-    <div class="logo-container">
-      <img src="assets/scanner-svgrepo-com.png" alt="MediClean Logo">
-      <h1>Iniciar Sesión</h1>
-      <p>Accede a tu centro de mando.</p>
-    </div>
+    <label>Contraseña</label>
+    <input
+      [type]="showPassword ? 'text' : 'password'"
+      [(ngModel)]="password"
+      placeholder="Ingresa tu contraseña"
+    />
+    <button (click)="togglePassword()" class="toggle-btn">
+      {{ showPassword ? 'Ocultar' : 'Mostrar' }}
+    </button>
 
-    <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="form">
+    <button (click)="onLogin()" class="login-btn">Acceder</button>
+    <button (click)="goToRegister()" class="register-btn">¿No tienes cuenta? Regístrate</button>
 
-      <!-- Usamos las clases globales .form-group y .form-label -->
-      <div class="form-group">
-        <label for="email" class="form-label">Dirección de E-mail</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
-          class="form-control" 
-          placeholder="tu@email.com" 
-          [(ngModel)]="loginData.email" 
-          required 
-          email>
-      </div>
-
-      <div class="form-group">
-        <label for="password" class="form-label">Contraseña</label>
-        <input 
-          type="password" 
-          id="password" 
-          name="password" 
-          class="form-control" 
-          placeholder="••••••••" 
-          [(ngModel)]="loginData.password" 
-          required>
-      </div>
-
-      <!-- El mensaje de error ahora se integra mejor con el diseño -->
-      <div *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
-      </div>
-
-      <!-- ¡El botón ahora usa las clases globales .btn y .btn-primary! -->
-      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">
-        Acceder al Sistema
-      </button>
-
-    </form>
-    
-    <p class="footer-text">
-      ¿No tienes una cuenta? <a routerLink="/register">Regístrate ahora</a>
-    </p>
+    <div class="error" *ngIf="error">{{ error }}</div>
   </div>
 </div>
