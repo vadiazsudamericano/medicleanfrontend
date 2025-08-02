@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RegistroService {
-  private apiUrl = 'http://localhost:3000/registros'; // Ajusta si tu backend usa otra ruta
+  private apiUrl = 'https://backend-restablecido-production.up.railway.app/auth/register';
+ // Ajusta si tu backend usa otra ruta
 
   constructor(private http: HttpClient) {}
 

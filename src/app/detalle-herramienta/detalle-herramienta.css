@@ -1,46 +1,44 @@
 .detalle-container {
   max-width: 600px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  border-radius: 12px;
-  background-color: #f5f5f5;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 3rem auto;
+  background-color: #f8f9fc;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.titulo {
-  text-align: center;
-  margin-bottom: 1rem;
-  font-size: 24px;
+.detalle-container h2 {
+  margin-bottom: 1.5rem;
+  color: #1a1a1a;
+}
+
+.detalle-card p {
+  font-size: 1rem;
+  margin: 0.7rem 0;
   color: #333;
 }
 
-.tarjeta {
-  background: white;
-  border-radius: 10px;
-  padding: 1rem;
-  line-height: 1.6;
-  font-size: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+.detalle-card strong {
+  color: #0d47a1;
 }
 
 .btn-volver {
   display: inline-block;
   margin-top: 1.5rem;
+  color: #0d47a1;
   text-decoration: none;
-  background-color: #007acc;
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
 .btn-volver:hover {
-  background-color: #005b9f;
+  color: #08306b;
 }
 
 .cargando {
   text-align: center;
-  font-size: 18px;
   margin-top: 2rem;
-  color: gray;
+  font-size: 1.1rem;
+  color: #666;
 }

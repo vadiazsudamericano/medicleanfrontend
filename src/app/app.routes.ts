@@ -1,5 +1,3 @@
-// RUTA: src/app/app.routes.ts (Versión Final Corregida)
-
 import { Routes } from '@angular/router';
 
 // --- 1. IMPORTACIONES DE COMPONENTES ---
@@ -16,6 +14,7 @@ import { ConfiguracionComponent } from './configuracion/configuracion';
 import { RegistrarHerramientaComponent } from './registrar-herramienta/registrar-herramienta';
 import { DetalleHerramientaComponent } from './detalle-herramienta/detalle-herramienta';
 import { HerramientaComponent } from './herramienta/herramienta';
+import { BienvenidaComponent } from './bienvenida/bienvenida';
 
 // --- 2. DEFINICIÓN DE RUTAS ---
 export const routes: Routes = [
@@ -29,6 +28,7 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     canActivate: [AuthGuard],
     children: [
+      { path: '', component: BienvenidaComponent }, // ruta raíz (pantalla inicial)
       { path: 'inicio', component: DashboardComponent },
       { path: 'escaner', component: EscanerComponent },
       { path: 'historial', component: HistorialComponent },
@@ -36,9 +36,9 @@ export const routes: Routes = [
       { path: 'configuracion', component: ConfiguracionComponent },
       { path: 'herramientas', component: HerramientaComponent },
       { path: 'registrar-herramienta', component: RegistrarHerramientaComponent },
-      { path: 'detalle-herramienta/:nombre', component: DetalleHerramientaComponent },
+      { path: 'detalle-herramienta/:id', component: DetalleHerramientaComponent }, // ✅ Corregido
 
-      // ✅ Ruta standalone
+      // ✅ Ruta standalone cargada dinámicamente
       {
         path: 'usuarios',
         loadComponent: () =>

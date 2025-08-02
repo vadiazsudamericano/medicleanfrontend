@@ -20,6 +20,7 @@ export class PerfilComponent implements OnInit {
   // Usamos el nombre 'userProfile' para ser consistentes con el servicio y la interfaz
   userProfile: UserProfile | null = null;
   errorMessage: string | null = null;
+  
 
   constructor(
     private authService: AuthService, 

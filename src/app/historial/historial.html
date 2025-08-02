@@ -1,21 +1,19 @@
-<div class="contenedor-historial">
-  <h2>📜 Historial de escaneos</h2>
+<h1>Historial</h1>
 
-  <div *ngIf="isLoading" class="mensaje-carga">Cargando historial...</div>
-
-  <div *ngIf="errorMessage" class="mensaje-error">{{ errorMessage }}</div>
-
-  <div *ngIf="!isLoading && !errorMessage && historial.length === 0" class="mensaje-vacio">
-    No hay registros aún.
+<ng-container *ngFor="let item of historial">
+  <div
+    *ngIf="item.herramienta; else sinHerramienta"
+    [routerLink]="['/detalle-herramienta', item.herramienta.id]"
+    class="historial-item"
+  >
+    <strong>{{ item.herramienta.nombre }}</strong>
+    <span>{{ item.fecha | date:'M/d/yy, h:mm a' }}</span>
   </div>
 
-  <ul *ngIf="!isLoading && !errorMessage && historial.length > 0" class="lista-historial">
-    <li *ngFor="let item of historial" class="item-historial">
-      <div class="titulo">{{ item.herramienta.nombre }}</div>
-      <div class="detalle">
-        Estado: <strong>{{ item.estadoAlEscanear }}</strong> |
-        Fecha: {{ item.fechaEscaneo | date: 'short' }}
-      </div>
-    </li>
-  </ul>
-</div>
+  <ng-template #sinHerramienta>
+    <div class="historial-item">
+      <strong>Sin nombre</strong>
+      <span>{{ item.fecha | date:'M/d/yy, h:mm a' }}</span>
+    </div>
+  </ng-template>
+</ng-container>

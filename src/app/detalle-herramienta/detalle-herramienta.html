@@ -1,15 +1,15 @@
 <div class="detalle-container" *ngIf="herramienta; else cargando">
-  <h2 class="titulo">{{ herramienta.nombre }}</h2>
+  <h2>{{ herramienta.nombre }}</h2>
 
-  <div class="tarjeta">
-    <p><strong>Descripción:</strong> {{ herramienta.descripcion }}</p>
-    <p><strong>Uso:</strong> {{ herramienta.uso }}</p>
-    <p><strong>Esterilización:</strong> {{ herramienta.esterilizacion }}</p>
-    <p><strong>Estado actual:</strong> {{ herramienta.estado }}</p>
-    <p><strong>Proceso:</strong> {{ herramienta.proceso.join(', ') }}</p>
+  <div class="detalle-card">
+    <p><strong>Descripción:</strong> {{ herramienta.descripcion || 'Sin descripción' }}</p>
+    <p><strong>Uso:</strong> {{ herramienta.uso || 'No especificado' }}</p>
+    <p><strong>Esterilización:</strong> {{ herramienta.esterilizacion ? 'Sí' : 'No' }}</p>
+    <p><strong>Estado actual:</strong> {{ herramienta.estado || 'Desconocido' }}</p>
+    <p><strong>Proceso:</strong> {{ herramienta.proceso || 'No especificado' }}</p>
   </div>
 
-  <a class="btn-volver" routerLink="/escaner">← Escanear otra herramienta</a>
+  <a routerLink="/escaner" class="btn-volver">← Escanear otra herramienta</a>
 </div>
 
 <ng-template #cargando>

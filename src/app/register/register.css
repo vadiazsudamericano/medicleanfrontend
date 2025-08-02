@@ -1,45 +1,41 @@
-/* RUTA: src/app/register/register.css */
-
 .page-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background-color: var(--color-fondo);
+  background-color: #e9f0ff;
 }
 
 .card-container {
   width: 100%;
   max-width: 420px;
   padding: 2.5rem;
-  background-color: var(--color-tarjeta);
+  background-color: white;
   border-radius: 16px;
-  box-shadow: 0 8px 30px var(--color-sombra);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* --- ESTILOS PARA EL LOGO (LA CLAVE) --- */
 .logo-container {
   text-align: center;
   margin-bottom: 2rem;
 }
 
 .logo-container img {
-  height: 50px; /* Ajusta este valor si quieres el logo más grande o pequeño */
+  height: 50px;
   margin-bottom: 1rem;
 }
 
 .logo-container h1 {
   margin: 0;
   font-size: 1.8rem;
-  color: var(--color-texto-principal);
+  color: #001d3d;
 }
 
 .logo-container p {
-  color: var(--color-texto-secundario);
+  color: #444;
   margin-top: 0.5rem;
 }
-/* --- FIN DE LOS ESTILOS PARA EL LOGO --- */
 
 .form {
   display: flex;
@@ -56,16 +52,16 @@
   font-weight: 500;
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
-  color: var(--color-texto-secundario);
+  color: #003566;
 }
 
 .form-group input {
   padding: 14px;
-  border: 1px solid var(--color-borde);
+  border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: var(--color-fondo);
-  color: var(--color-texto-principal);
+  background-color: #f9f9f9;
   font-size: 1rem;
+  color: #000;
 }
 
 .primary-button {
@@ -73,7 +69,7 @@
   font-size: 1rem;
   font-weight: bold;
   color: white;
-  background-color: #0f0c2c;
+  background-color: #001d3d;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -85,23 +81,31 @@
   cursor: not-allowed;
 }
 
-.error-message, .success-message {
+.error-message,
+.success-message {
   text-align: center;
   padding: 10px;
   border-radius: 8px;
   font-weight: 500;
 }
 
-.error-message { color: #721c24; background-color: #f8d7da; }
-.success-message { color: #155724; background-color: #d4edda; }
+.error-message {
+  color: #721c24;
+  background-color: #f8d7da;
+}
+
+.success-message {
+  color: #155724;
+  background-color: #d4edda;
+}
 
 .footer-text {
   text-align: center;
   margin-top: 2rem;
-  color: var(--color-texto-secundario);
+  color: #666;
 }
 
 .footer-text a {
   font-weight: bold;
-  color: var(--color-primario-activo);
+  color: #001d3d;
 }

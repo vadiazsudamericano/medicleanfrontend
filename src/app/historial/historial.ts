@@ -1,45 +1,39 @@
-// RUTA: src/app/historial/historial.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HistorialService, HistorialEntry } from '../servicios/historial.service'; // Asegúrate de que la ruta es correcta
-import { AuthService } from '../auth/auth.service'; // Si usas un servicio de autenticación
+import { Router, RouterModule } from '@angular/router';
+import { HistorialService } from '../servicios/historial.service';
 
 @Component({
   selector: 'app-historial',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './historial.html',
-  styleUrls: ['./historial.css']
+  styleUrls: ['./historial.css'],
+  imports: [CommonModule, RouterModule]
 })
 export class HistorialComponent implements OnInit {
-  historial: HistorialEntry[] = [];
-  isLoading = true;
-  errorMessage: string = '';
+  historial: any[] = [];
 
   constructor(
     private historialService: HistorialService,
-    private authService: AuthService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    const token = this.authService.getToken();
-    if (!token) {
-      this.errorMessage = 'Debes iniciar sesión para ver el historial.';
-      this.isLoading = false;
-      return;
-    }
-
     this.historialService.getHistorial().subscribe({
-      next: (data: HistorialEntry[]) => {
-        this.historial = data;
-        this.isLoading = false;
+      next: (res) => {
+        this.historial = res;
       },
-      error: (err: any) => {
-        console.error('Error al cargar el historial:', err);
-        this.errorMessage = 'Token inválido o expirado. Por favor, inicia sesión nuevamente.';
-        this.isLoading = false;
+      error: (err) => {
+        console.error('❌ Error al cargar historial:', err);
       }
     });
   }
+
+  verDetalle(id: number | undefined) {
+  console.log('ID de herramienta seleccionado:', id);
+  if (id !== undefined && id !== null) {
+    this.router.navigate(['/detalle-herramienta', id]);
+  }
+}
+
 }

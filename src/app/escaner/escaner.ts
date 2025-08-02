@@ -1,6 +1,14 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, NgZone, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  NgZone,
+  ChangeDetectorRef
+} from '@angular/core';
 import { CommonModule, NgClass } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import * as tmImage from '@teachablemachine/image';
 import { HerramientaService } from '../servicios/herramienta.service';
 import { HistorialService } from '../servicios/historial.service';
@@ -23,7 +31,7 @@ interface Webcam {
 @Component({
   selector: 'app-escaner',
   standalone: true,
-  imports: [CommonModule, NgClass],
+  imports: [CommonModule, NgClass, RouterModule],
   templateUrl: './escaner.html',
   styleUrls: ['./escaner.css']
 })
@@ -42,6 +50,9 @@ export class EscanerComponent implements OnInit, OnDestroy {
 
   public statusMessage: string | null = 'Cargando modelo...';
   public herramientaDetectada: Prediction | null = null;
+
+  private confirmacionTimer: any = null;
+  private herramientaPendiente: string | null = null;
 
   constructor(
     private zone: NgZone,
@@ -83,6 +94,9 @@ export class EscanerComponent implements OnInit, OnDestroy {
     }
     if (this.webcam) {
       this.webcam.stop();
+    }
+    if (this.confirmacionTimer) {
+      clearTimeout(this.confirmacionTimer);
     }
   }
 
@@ -130,40 +144,66 @@ export class EscanerComponent implements OnInit, OnDestroy {
       if (this.herramientaDetectada?.className !== deteccionFinal?.className) {
         this.herramientaDetectada = deteccionFinal;
         this.cdr.detectChanges();
+
+        if (deteccionFinal) {
+          this.iniciarConfirmacionConRetardo(deteccionFinal.className);
+        }
+
+        if (!deteccionFinal && this.confirmacionTimer) {
+          clearTimeout(this.confirmacionTimer);
+          this.confirmacionTimer = null;
+          this.herramientaPendiente = null;
+        }
       }
     });
   }
 
-  /**
-   * Se ejecuta cuando el usuario confirma la herramienta detectada.
-   */
-  public onConfirmarHerramienta(nombreHerramienta: string) {
-    this.herramientaService.getHerramientaPorNombre(nombreHerramienta.trim()).subscribe({
-      next: (data) => {
-        if (data && data.id && data.estado) {
-          this.historialService.registrarEscaneo({
-            herramientaId: data.id,
-            estadoAlEscanear: data.estado
-          }).subscribe({
-            next: () => {
-              console.log('✅ Escaneo registrado. Navegando a detalles...');
-              this.router.navigate(['/detalle-herramienta', nombreHerramienta]);
-            },
-            error: (err: any) => {
-              console.error('⚠️ Error al registrar escaneo, pero navegando igual:', err);
-              this.router.navigate(['/detalle-herramienta', nombreHerramienta]);
-            }
-          });
-        } else {
-          this.statusMessage = `❌ No se encontraron detalles para "${nombreHerramienta}".`;
-          this.cdr.detectChanges();
+  private iniciarConfirmacionConRetardo(nombreHerramienta: string) {
+    if (this.herramientaPendiente !== nombreHerramienta) {
+      this.herramientaPendiente = nombreHerramienta;
+
+      if (this.confirmacionTimer) {
+        clearTimeout(this.confirmacionTimer);
+      }
+
+      this.confirmacionTimer = setTimeout(() => {
+        if (this.herramientaDetectada?.className === nombreHerramienta) {
+          this.onConfirmarHerramienta(nombreHerramienta);
         }
-      },
-      error: (err: any) => {
-        console.error('❌ Error al buscar la herramienta en la base de datos:', err);
-        this.statusMessage = '❌ Error de conexión o herramienta no encontrada.';
+        this.confirmacionTimer = null;
+        this.herramientaPendiente = null;
+      }, 2000); // 2 segundos de retardo antes de confirmar
+    }
+  }
+private onConfirmarHerramienta(nombreHerramienta: string) {
+  this.herramientaService.getHerramientaPorNombre(nombreHerramienta.trim()).subscribe({
+    next: (data) => {
+      if (data && data.id) {
+        // ✅ Aquí enviamos los 3 campos necesarios
+        this.historialService.registrarEscaneo({
+          herramientaId: data.id,
+          accion: 'escaneo',
+          referenciaVisual: 'Escaneo automático desde cámara'
+        }).subscribe({
+          next: () => {
+            console.log('✅ Escaneo registrado en historial');
+            this.router.navigate(['/detalle-herramienta', nombreHerramienta]);
+          },
+          error: (err: any) => {
+            console.error('⚠️ Error al guardar en historial, pero se navegará igual:', err);
+            this.router.navigate(['/detalle-herramienta', nombreHerramienta]);
+          }
+        });
+      } else {
+        this.statusMessage = `❌ No se encontraron detalles para "${nombreHerramienta}".`;
         this.cdr.detectChanges();
       }
-    });
-  }
+    },
+    error: (err: any) => {
+      console.error('❌ Error al buscar herramienta:', err);
+      this.statusMessage = '❌ Error de conexión o herramienta no encontrada.';
+      this.cdr.detectChanges();
+    }
+  });
+}
 }

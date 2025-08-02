@@ -1,5 +1,4 @@
 <div class="page-container">
-  
   <header class="page-header">
     <h1 class="page-title">Terminal de Análisis Visual</h1>
     <p>Apunta la cámara hacia el instrumental quirúrgico para su identificación y registro.</p>
@@ -9,8 +8,8 @@
     <!-- Columna Izquierda: El visor de la cámara -->
     <div class="camera-viewport">
       <div #webcamContainer class="webcam-container"></div>
-      
-      <!-- Mensaje de estado superpuesto (para carga inicial y errores) -->
+
+      <!-- Mensaje de estado superpuesto -->
       <div class="status-overlay" *ngIf="statusMessage">
         <i class="fas fa-spinner fa-spin" *ngIf="statusMessage.includes('Cargando') || statusMessage.includes('Iniciando')"></i>
         <i class="fas fa-exclamation-triangle" *ngIf="statusMessage.includes('No se pudo')"></i>
@@ -28,38 +27,29 @@
           <h2>Análisis en Tiempo Real</h2>
         </div>
         <div class="card-body">
-          <!--
-            AQUÍ ESTÁ LA LÓGICA CLAVE:
-            - Si 'herramientaDetectada' tiene datos, muestra el primer bloque.
-            - Si no (es null), muestra el bloque dentro de 'ng-template #noDetection'.
-          -->
           <div *ngIf="herramientaDetectada; else noDetection">
             <p class="detected-label">Instrumento Detectado:</p>
             <h3 class="detected-name">{{ herramientaDetectada.className }}</h3>
             <p class="detected-confidence">
               Confianza: {{ (herramientaDetectada.probability * 100).toFixed(1) }}%
             </p>
-            <button class="btn btn-primary btn-confirm" (click)="onConfirmarHerramienta(herramientaDetectada.className)">
-              <i class="fas fa-check-circle"></i>
-              <span>Confirmar y Ver Detalles</span>
-            </button>
-            
-            <!-- ===== Bloque de Notificación ELIMINADO de aquí ===== -->
-
+            <p class="detected-confidence">
+              ⏳ Confirmando automáticamente...
+            </p>
           </div>
-          
-          <!-- Este es el bloque que se muestra cuando no hay una detección válida -->
+
+          <!-- Sin detección -->
           <ng-template #noDetection>
-  <div class="no-detection-state">
-    <i class="fas fa-eye-slash"></i> <!-- Cambié el icono a uno más apropiado -->
-    <p class="no-detection-title">Herramienta no Detectada</p>
-    <p class="no-detection-subtitle">Apunta al centro del visor...</p>
-  </div>
-</ng-template>
+            <div class="no-detection-state">
+              <i class="fas fa-eye-slash"></i>
+              <p class="no-detection-title">Herramienta no Detectada</p>
+              <p class="no-detection-subtitle">Apunta al centro del visor...</p>
+            </div>
+          </ng-template>
         </div>
       </div>
 
-      <!-- Sección de Ayuda (sin cambios) -->
+      <!-- Sección de Ayuda -->
       <div class="content-card help-card">
         <div class="card-header">
           <i class="fas fa-info-circle"></i>
@@ -70,7 +60,7 @@
             <li>Asegura una buena iluminación sobre el instrumento.</li>
             <li>Coloca la herramienta en el centro del visor.</li>
             <li>Mantén la cámara estable para una mejor precisión.</li>
-            <li>Confirma la detección cuando aparezca el botón.</li>
+            <li>Espera unos segundos, se detectará automáticamente.</li>
           </ol>
         </div>
       </div>

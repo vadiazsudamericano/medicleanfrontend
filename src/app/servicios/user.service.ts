@@ -32,5 +32,13 @@ export class UserService {
     const token = localStorage.getItem('access_token'); // ✅ correcto || '';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.delete(`${this.apiUrl}/${id}`, { headers });
+ 
   }
+  actualizarRol(id: number, role: string): Observable<any> {
+  const token = localStorage.getItem('access_token');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.patch(`${this.apiUrl}/${id}/role`, { role }, { headers });
+
+}
+
 }

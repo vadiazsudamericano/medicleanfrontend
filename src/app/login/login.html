@@ -1,23 +1,49 @@
-<div class="login-container">
-  <div class="login-box">
-    <h2>Iniciar Sesión</h2>
+<div class="page-container">
+  <div class="card-container">
+    <div class="logo-container">
+      <img src="assets/scanner-svgrepo-com.png" />
+      <h1>Iniciar Sesión</h1>
+      <p>Bienvenido de nuevo a MediClean</p>
+    </div>
 
-    <label>Correo</label>
-    <input type="email" [(ngModel)]="email" placeholder="Ingresa tu correo" />
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="form">
+      <div class="form-group">
+        <label for="email">Correo</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          placeholder="Ingresa tu correo"
+        />
+      </div>
 
-    <label>Contraseña</label>
-    <input
-      [type]="showPassword ? 'text' : 'password'"
-      [(ngModel)]="password"
-      placeholder="Ingresa tu contraseña"
-    />
-    <button (click)="togglePassword()" class="toggle-btn">
-      {{ showPassword ? 'Ocultar' : 'Mostrar' }}
-    </button>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          placeholder="Ingresa tu contraseña"
+        />
+        <button type="button" (click)="togglePassword()" class="toggle-btn">
+          {{ showPassword ? 'Ocultar' : 'Mostrar' }}
+        </button>
+      </div>
 
-    <button (click)="onLogin()" class="login-btn">Acceder</button>
-    <button (click)="goToRegister()" class="register-btn">¿No tienes cuenta? Regístrate</button>
+      <div *ngIf="error" class="error-message">{{ error }}</div>
 
-    <div class="error" *ngIf="error">{{ error }}</div>
+      <button type="submit" class="primary-button" [disabled]="!loginForm.form.valid">
+        Acceder
+      </button>
+    </form>
+
+    <p class="footer-text">
+      ¿No tienes cuenta?
+      <a routerLink="/register">Regístrate</a>
+    </p>
   </div>
 </div>

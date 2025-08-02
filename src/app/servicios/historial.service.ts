@@ -1,27 +1,6 @@
-// RUTA: src/app/services/historial.service.ts
-
+// src/app/servicios/historial.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
-
-// --- INTERFACES PARA LOS DATOS DEL HISTORIAL ---
-// Interfaz para los datos que RECIBIMOS del backend
-export interface HistorialEntry {
-  id: number;
-  fechaEscaneo: string;
-  estadoAlEscanear: string;
-  herramienta: {
-    id: number;
-    nombre: string;
-  };
-}
-
-// Interfaz para los datos que ENVIAMOS al backend para crear un registro
-export interface CreateHistorialPayload {
-  herramientaId: number;
-  estadoAlEscanear: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -29,23 +8,31 @@ export interface CreateHistorialPayload {
 export class HistorialService {
   private apiUrl = 'https://backend-restablecido-production.up.railway.app/historial';
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient) {}
 
+  registrarEscaneo(data: {
+    herramientaId: number;
+    accion: string;
+    referenciaVisual: string;
+  }) {
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      console.error('❌ No se encontró token para historial');
+    }
 
-  // ==========================================================
-  // === ¡AÑADE ESTE NUEVO MÉTODO PARA SOLUCIONAR EL ERROR! ===
-  // ==========================================================
-  registrarEscaneo(payload: CreateHistorialPayload): Observable<any> {
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    
-    // Hacemos una petición POST para crear el nuevo registro
-    return this.http.post(this.apiUrl, payload, { headers });
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.post(this.apiUrl, data, { headers });
   }
-  getHistorial(): Observable<HistorialEntry[]> {
-  const token = this.authService.getToken();
-  const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-  return this.http.get<HistorialEntry[]>(this.apiUrl, { headers });
-}
 
+  getHistorial() {
+    const token = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.get<any[]>(this.apiUrl, { headers });
+  }
 }

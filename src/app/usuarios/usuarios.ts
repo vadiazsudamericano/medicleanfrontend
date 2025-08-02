@@ -42,4 +42,21 @@ export class UsuariosComponent implements OnInit {
       });
     }
   }
+  cambiarRol(id: number): void {
+  const nuevoRol = prompt('Ingrese el nuevo rol (admin/user):');
+  if (nuevoRol === 'admin' || nuevoRol === 'user') {
+    this.userService.actualizarRol(id, nuevoRol).subscribe({
+      next: () => {
+        alert('Rol actualizado correctamente');
+        this.ngOnInit(); // recargar la lista
+      },
+      error: (err) => {
+        alert('Error al actualizar rol: ' + err.error?.message || err.message);
+      }
+    });
+  } else {
+    alert('Rol inválido. Solo se permite "admin" o "user".');
+  }
+}
+
 }

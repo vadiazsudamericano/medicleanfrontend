@@ -1,47 +1,30 @@
-.contenedor-historial {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 1rem;
-  border-radius: 10px;
-  background-color: #f3f6f9;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-h2 {
-  text-align: center;
-  color: #007acc;
-  margin-bottom: 1rem;
-}
-
-.mensaje-carga,
-.mensaje-error,
-.mensaje-vacio {
-  text-align: center;
-  color: #888;
-  margin-top: 1.5rem;
-  font-size: 16px;
-}
-
-.lista-historial {
-  list-style: none;
-  padding: 0;
-}
-
-.item-historial {
-  padding: 1rem;
-  background-color: white;
-  margin-bottom: 0.8rem;
+.historial-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eef4ff;
+  border: 1px solid #cdd8f2;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 12px 20px;
+  margin: 10px auto;
+  width: 95%;
+  max-width: 600px;
+  text-decoration: none;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.titulo {
-  font-weight: bold;
-  font-size: 17px;
-  margin-bottom: 0.3rem;
+.historial-item:hover {
+  background-color: #d6e4ff;
 }
 
-.detalle {
+.historial-item strong {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.historial-item span {
+  font-size: 0.9rem;
   color: #555;
-  font-size: 14px;
 }
