@@ -59,7 +59,7 @@ export class EscanerComponent implements OnInit, OnDestroy {
     private router: Router,
     private herramientaService: HerramientaService,
     private historialService: HistorialService,
-    private cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef
   ) {}
 
   async ngOnInit() {
@@ -86,70 +86,45 @@ export class EscanerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.animationFrameId) {
-      window.cancelAnimationFrame(this.animationFrameId);
-    }
-    if (this.predictionIntervalId) {
-      clearInterval(this.predictionIntervalId);
-    }
-    if (this.webcam) {
-      this.webcam.stop();
-    }
-    if (this.confirmacionTimer) {
-      clearTimeout(this.confirmacionTimer);
-    }
+    if (this.animationFrameId) window.cancelAnimationFrame(this.animationFrameId);
+    if (this.predictionIntervalId) clearInterval(this.predictionIntervalId);
+    if (this.webcam) this.webcam.stop();
+    if (this.confirmacionTimer) clearTimeout(this.confirmacionTimer);
   }
 
   private startRenderLoop() {
     const loop = () => {
-      if (this.webcam) {
-        this.webcam.update();
-      }
+      this.webcam?.update();
       this.animationFrameId = window.requestAnimationFrame(loop);
     };
     this.animationFrameId = window.requestAnimationFrame(loop);
   }
 
   private startPredictionLoop() {
-    if (this.statusMessage) {
-      this.zone.run(() => { this.statusMessage = null; });
-    }
-
-    this.predictionIntervalId = setInterval(async () => {
-      await this.predict();
-    }, 300);
+    this.statusMessage = null;
+    this.predictionIntervalId = setInterval(() => this.predict(), 300);
   }
 
   private async predict() {
-    if (!this.webcam || !this.webcam.canvas) return;
-
+    if (!this.webcam?.canvas) return;
     const predictions = await this.model.predict(this.webcam.canvas);
 
-    const bestPrediction = predictions.reduce(
-      (max, pred) => (pred.probability > max.probability ? pred : max),
-      predictions[0]
-    );
+    const bestPrediction = predictions.reduce((max, pred) =>
+      pred.probability > max.probability ? pred : max, predictions[0]);
 
-    let deteccionFinal: Prediction | null = null;
-
-    if (
-      bestPrediction &&
+    const esValida =
       bestPrediction.probability > this.PREDICTION_THRESHOLD &&
-      !this.IGNORED_CLASSES.includes(bestPrediction.className.toLowerCase())
-    ) {
-      deteccionFinal = bestPrediction;
-    }
+      !this.IGNORED_CLASSES.includes(bestPrediction.className.toLowerCase());
 
     this.zone.run(() => {
-      if (this.herramientaDetectada?.className !== deteccionFinal?.className) {
-        this.herramientaDetectada = deteccionFinal;
+      const nueva = esValida ? bestPrediction : null;
+
+      if (this.herramientaDetectada?.className !== nueva?.className) {
+        this.herramientaDetectada = nueva;
         this.cdr.detectChanges();
 
-        if (deteccionFinal) {
-          this.iniciarConfirmacionConRetardo(deteccionFinal.className);
-        }
-
-        if (!deteccionFinal && this.confirmacionTimer) {
+        if (nueva) this.iniciarConfirmacionConRetardo(nueva.className);
+        else if (this.confirmacionTimer) {
           clearTimeout(this.confirmacionTimer);
           this.confirmacionTimer = null;
           this.herramientaPendiente = null;
@@ -158,52 +133,49 @@ export class EscanerComponent implements OnInit, OnDestroy {
     });
   }
 
-  private iniciarConfirmacionConRetardo(nombreHerramienta: string) {
-    if (this.herramientaPendiente !== nombreHerramienta) {
-      this.herramientaPendiente = nombreHerramienta;
-
-      if (this.confirmacionTimer) {
-        clearTimeout(this.confirmacionTimer);
-      }
+  private iniciarConfirmacionConRetardo(nombre: string) {
+    if (this.herramientaPendiente !== nombre) {
+      this.herramientaPendiente = nombre;
+      if (this.confirmacionTimer) clearTimeout(this.confirmacionTimer);
 
       this.confirmacionTimer = setTimeout(() => {
-        if (this.herramientaDetectada?.className === nombreHerramienta) {
-          this.onConfirmarHerramienta(nombreHerramienta);
+        if (this.herramientaDetectada?.className === nombre) {
+          this.onConfirmarHerramienta(nombre);
         }
         this.confirmacionTimer = null;
         this.herramientaPendiente = null;
-      }, 2000); // 2 segundos de retardo antes de confirmar
+      }, 2000);
     }
   }
-private onConfirmarHerramienta(nombreHerramienta: string) {
-  this.herramientaService.getHerramientaPorNombre(nombreHerramienta.trim()).subscribe({
-    next: (data) => {
-      if (data && data.id) {
-        // ✅ Aquí enviamos los 3 campos necesarios
-        this.historialService.registrarEscaneo({
-          herramientaId: data.id,
-          accion: 'escaneo',
-          referenciaVisual: 'Escaneo automático desde cámara'
-        }).subscribe({
-          next: () => {
-            console.log('✅ Escaneo registrado en historial');
-            this.router.navigate(['/detalle-herramienta', nombreHerramienta]);
-          },
-          error: (err: any) => {
-            console.error('⚠️ Error al guardar en historial, pero se navegará igual:', err);
-            this.router.navigate(['/detalle-herramienta', nombreHerramienta]);
-          }
-        });
-      } else {
-        this.statusMessage = `❌ No se encontraron detalles para "${nombreHerramienta}".`;
+
+  private onConfirmarHerramienta(nombre: string) {
+    this.herramientaService.getHerramientaPorNombre(nombre.trim()).subscribe({
+      next: (data) => {
+        if (data?.id) {
+          this.historialService.registrarEscaneo({
+            herramientaId: data.id,
+            accion: 'escaneo',
+            referenciaVisual: 'Escaneo automático desde cámara'
+          }).subscribe({
+            next: () => {
+              console.log('✅ Escaneo registrado en historial');
+              this.router.navigate(['/detalle-herramienta', nombre]);
+            },
+            error: (err) => {
+              console.warn('⚠️ Error en historial. Redirigiendo igual...', err);
+              this.router.navigate(['/detalle-herramienta', nombre]);
+            }
+          });
+        } else {
+          this.statusMessage = `❌ No se encontraron detalles para "${nombre}".`;
+          this.cdr.detectChanges();
+        }
+      },
+      error: (err) => {
+        console.error('❌ Error al buscar herramienta:', err);
+        this.statusMessage = '❌ Error de conexión o herramienta no encontrada.';
         this.cdr.detectChanges();
       }
-    },
-    error: (err: any) => {
-      console.error('❌ Error al buscar herramienta:', err);
-      this.statusMessage = '❌ Error de conexión o herramienta no encontrada.';
-      this.cdr.detectChanges();
-    }
-  });
-}
+    });
+  }
 }
