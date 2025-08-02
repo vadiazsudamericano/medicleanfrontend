@@ -44,6 +44,7 @@
      que es el problema de las bandas negras. */
   width: auto;
   height: auto;
+  transform: scaleX(-1); /* Voltea horizontalmente */
 }
 
 /* --- Retícula y Mensajes Superpuestos (sin cambios) --- */
