@@ -17,16 +17,6 @@ interface Prediction {
   className: string;
   probability: number;
 }
-interface TeachableMachineModel {
-  predict(canvas: HTMLCanvasElement): Promise<Prediction[]>;
-}
-interface Webcam {
-  setup: () => Promise<void>;
-  play: () => Promise<void>;
-  stop: () => void;
-  update: () => void;
-  canvas: HTMLCanvasElement;
-}
 
 @Component({
   selector: 'app-escaner',
@@ -43,8 +33,8 @@ export class EscanerComponent implements OnInit, OnDestroy {
 
   @ViewChild('webcamContainer', { static: true }) webcamContainer!: ElementRef;
 
-  private model!: TeachableMachineModel;
-  private webcam!: Webcam;
+  private model!: tmImage.CustomMobileNet;
+  private webcam!: tmImage.Webcam;
   private animationFrameId: number | null = null;
   private predictionIntervalId: any | null = null;
 
@@ -69,7 +59,7 @@ export class EscanerComponent implements OnInit, OnDestroy {
       this.cdr.detectChanges();
 
       this.webcam = new tmImage.Webcam(400, 400, true);
-      await this.webcam.setup();
+      await this.webcam.setup({ facingMode: 'environment' });
       await this.webcam.play();
       this.webcamContainer.nativeElement.appendChild(this.webcam.canvas);
 
