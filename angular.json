@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "scaner-app": {
+    "medicleanfrontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/scaner-app",
+            "outputPath": "dist/medicleanfrontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -63,10 +63,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "scaner-app:build:production"
+              "buildTarget": "medicleanfrontend:build:production"
             },
             "development": {
-              "buildTarget": "scaner-app:build:development"
+              "buildTarget": "medicleanfrontend:build:development"
             }
           },
           "defaultConfiguration": "development"
