@@ -138,34 +138,34 @@ export class EscanerComponent implements OnInit, OnDestroy {
     }
   }
 
-  private onConfirmarHerramienta(nombre: string) {
-    this.herramientaService.getHerramientaPorNombre(nombre.trim()).subscribe({
-      next: (data) => {
-        if (data?.id) {
-          this.historialService.registrarEscaneo({
-            herramientaId: data.id,
-            accion: 'escaneo',
-            referenciaVisual: 'Escaneo automático desde cámara'
-          }).subscribe({
-            next: () => {
-              console.log('✅ Escaneo registrado en historial');
-              this.router.navigate(['/detalle-herramienta', nombre]);
-            },
-            error: (err) => {
-              console.warn('⚠️ Error en historial. Redirigiendo igual...', err);
-              this.router.navigate(['/detalle-herramienta', nombre]);
-            }
-          });
-        } else {
-          this.statusMessage = `❌ No se encontraron detalles para "${nombre}".`;
-          this.cdr.detectChanges();
-        }
-      },
-      error: (err) => {
-        console.error('❌ Error al buscar herramienta:', err);
-        this.statusMessage = '❌ Error de conexión o herramienta no encontrada.';
+ private onConfirmarHerramienta(nombre: string) {
+  this.herramientaService.getHerramientaPorNombre(nombre.trim()).subscribe({
+    next: (data) => {
+      if (data?.id) {
+        this.historialService.registrarEscaneo({
+          herramientaId: data.id,
+          accion: 'escaneo',
+          referenciaVisual: 'Escaneo automático desde cámara'
+        }).subscribe({
+          next: () => {
+            console.log('✅ Escaneo registrado en historial');
+            this.router.navigate(['/detalle-herramienta', data.id]); // 👈 CORREGIDO
+          },
+          error: (err) => {
+            console.warn('⚠️ Error en historial. Redirigiendo igual...', err);
+            this.router.navigate(['/detalle-herramienta', data.id]); // 👈 CORREGIDO
+          }
+        });
+      } else {
+        this.statusMessage = `❌ No se encontraron detalles para "${nombre}".`;
         this.cdr.detectChanges();
       }
-    });
-  }
+    },
+    error: (err) => {
+      console.error('❌ Error al buscar herramienta:', err);
+      this.statusMessage = '❌ Error de conexión o herramienta no encontrada.';
+      this.cdr.detectChanges();
+    }
+  });
+}
 }
