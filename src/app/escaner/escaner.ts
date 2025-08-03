@@ -76,18 +76,27 @@ export class EscanerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.animationFrameId) window.cancelAnimationFrame(this.animationFrameId);
-    if (this.predictionIntervalId) clearInterval(this.predictionIntervalId);
-    if (this.webcam) this.webcam.stop();
-    if (this.confirmacionTimer) clearTimeout(this.confirmacionTimer);
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+    if (this.predictionIntervalId) {
+      clearInterval(this.predictionIntervalId);
+    }
+    if (this.confirmacionTimer) {
+      clearTimeout(this.confirmacionTimer);
+    }
+    if (this.webcam) {
+      this.webcam.stop();
+      this.webcamContainer.nativeElement.innerHTML = '';
+    }
   }
 
   private startRenderLoop() {
     const loop = () => {
       this.webcam?.update();
-      this.animationFrameId = window.requestAnimationFrame(loop);
+      this.animationFrameId = requestAnimationFrame(loop);
     };
-    this.animationFrameId = window.requestAnimationFrame(loop);
+    this.animationFrameId = requestAnimationFrame(loop);
   }
 
   private startPredictionLoop() {
@@ -114,8 +123,8 @@ export class EscanerComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
 
         if (nueva) this.iniciarConfirmacionConRetardo(nueva.className);
-        else if (this.confirmacionTimer) {
-          clearTimeout(this.confirmacionTimer);
+        else {
+          if (this.confirmacionTimer) clearTimeout(this.confirmacionTimer);
           this.confirmacionTimer = null;
           this.herramientaPendiente = null;
         }
@@ -138,34 +147,33 @@ export class EscanerComponent implements OnInit, OnDestroy {
     }
   }
 
- private onConfirmarHerramienta(nombre: string) {
-  this.herramientaService.getHerramientaPorNombre(nombre.trim()).subscribe({
-    next: (data) => {
-      if (data?.id) {
-        this.historialService.registrarEscaneo({
-          herramientaId: data.id,
-          accion: 'escaneo',
-          referenciaVisual: 'Escaneo automático desde cámara'
-        }).subscribe({
-          next: () => {
-            console.log('✅ Escaneo registrado en historial');
-            this.router.navigate(['/detalle-herramienta', data.id]); // 👈 CORREGIDO
-          },
-          error: (err) => {
-            console.warn('⚠️ Error en historial. Redirigiendo igual...', err);
-            this.router.navigate(['/detalle-herramienta', data.id]); // 👈 CORREGIDO
-          }
-        });
-      } else {
-        this.statusMessage = `❌ No se encontraron detalles para "${nombre}".`;
+  private onConfirmarHerramienta(nombre: string) {
+    this.herramientaService.getHerramientaPorNombre(nombre.trim()).subscribe({
+      next: (data) => {
+        if (data?.id) {
+          this.historialService.registrarEscaneo({
+            herramientaId: data.id,
+            accion: 'escaneo',
+            referenciaVisual: 'Escaneo automático desde cámara'
+          }).subscribe({
+            next: () => {
+              this.router.navigate(['/detalle-herramienta', data.id]);
+            },
+            error: (err) => {
+              console.warn('⚠️ Error en historial. Redirigiendo igual...', err);
+              this.router.navigate(['/detalle-herramienta', data.id]);
+            }
+          });
+        } else {
+          this.statusMessage = `❌ No se encontraron detalles para "${nombre}".`;
+          this.cdr.detectChanges();
+        }
+      },
+      error: (err) => {
+        console.error('❌ Error al buscar herramienta:', err);
+        this.statusMessage = '❌ Error de conexión o herramienta no encontrada.';
         this.cdr.detectChanges();
       }
-    },
-    error: (err) => {
-      console.error('❌ Error al buscar herramienta:', err);
-      this.statusMessage = '❌ Error de conexión o herramienta no encontrada.';
-      this.cdr.detectChanges();
-    }
-  });
-}
+    });
+  }
 }
