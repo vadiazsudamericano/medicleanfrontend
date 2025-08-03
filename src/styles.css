@@ -25,6 +25,7 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: var(--transition);
+  padding-top: 80px; /* 🔧 Corrige el solapamiento del navbar */
 }
 
 h1, h2, h3 {
