@@ -1,95 +1,56 @@
 .detalle-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  background-color: #f8f9fc;
-  padding: 2rem;
+  max-width: 90%;
+  margin: 4rem auto 2rem;
+  background-color: #f5f6fa;
+  padding: 1.5rem;
   border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   font-family: 'Segoe UI', sans-serif;
+  color: #222;
 }
 
 .detalle-container h2 {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
   color: #003366;
   text-align: center;
-  font-weight: 600;
-  font-size: 1.8rem;
-}
-
-.detalle-card {
-  padding: 1rem 0;
 }
 
 .detalle-card p {
-  font-size: 1.05rem;
-  margin: 0.8rem 0;
-  color: #333;
-  line-height: 1.6;
+  margin: 0.6rem 0;
+  font-size: 1rem;
 }
 
 .detalle-card strong {
-  color: #0d47a1;
-  font-weight: 600;
+  color: #003366;
 }
 
-.detalle-card ul {
-  margin: 0.5rem 0 1rem;
+ul {
   padding-left: 1.2rem;
-  list-style-type: disc;
+  margin: 0.5rem 0;
 }
 
-.detalle-card li {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  color: #444;
+li {
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+  color: #333;
 }
 
 .btn-volver {
   display: block;
   width: 100%;
   margin-top: 2rem;
-  padding: 0.8rem 1.2rem;
-  background-color: transparent;
-  color: #0d47a1;
-  border: 2px solid #0d47a1;
+  padding: 0.6rem 1rem;
+  border: 2px solid #003366;
+  color: #003366;
   border-radius: 8px;
   text-align: center;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
-  transition: all 0.3s ease;
+  background-color: transparent;
+  transition: 0.3s;
 }
 
 .btn-volver:hover {
-  background-color: #0d47a1;
-  color: #fff;
-}
-
-.cargando {
-  text-align: center;
-  margin-top: 2rem;
-  font-size: 1.1rem;
-  color: #666;
-}
-
-/* --- Responsive Mejorado --- */
-@media (max-width: 600px) {
-  .detalle-container {
-    margin: 1rem;
-    padding: 1.2rem;
-    border-radius: 12px;
-  }
-
-  .detalle-container h2 {
-    font-size: 1.5rem;
-  }
-
-  .detalle-card p,
-  .detalle-card li {
-    font-size: 1rem;
-  }
-
-  .btn-volver {
-    font-size: 1rem;
-    padding: 0.75rem;
-  }
+  background-color: #003366;
+  color: white;
 }

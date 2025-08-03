@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-detalle-herramienta',
   standalone: true,
@@ -12,7 +13,7 @@ import { CommonModule } from '@angular/common';
 export class DetalleHerramientaComponent implements OnInit {
   herramienta: any;
   id: number = 0;
-  mensajeCarga: string = 'Cargando información...'; // ✅ Aquí está la propiedad
+  mensajeCarga: string = 'Cargando información...';
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
@@ -25,6 +26,15 @@ export class DetalleHerramientaComponent implements OnInit {
         .subscribe({
           next: (res) => {
             this.herramienta = res;
+
+            // ✅ Registrar automáticamente en historial
+            this.http.post('https://backend-restablecido-production.up.railway.app/historial', {
+              herramientaId: this.herramienta.id,
+              fecha: new Date().toISOString()
+            }).subscribe({
+              next: () => console.log('📝 Historial actualizado'),
+              error: (err) => console.error('❌ Error al registrar en historial:', err)
+            });
           },
           error: (err) => {
             this.mensajeCarga = '⚠️ No se pudo cargar la herramienta.';
