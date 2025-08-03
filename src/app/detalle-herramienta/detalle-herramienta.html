@@ -6,7 +6,13 @@
     <p><strong>Uso:</strong> {{ herramienta.uso || 'No especificado' }}</p>
     <p><strong>Esterilización:</strong> {{ herramienta.esterilizacion ? 'Sí' : 'No' }}</p>
     <p><strong>Estado actual:</strong> {{ herramienta.estado || 'Desconocido' }}</p>
-    <p><strong>Proceso:</strong> {{ herramienta.proceso || 'No especificado' }}</p>
+    <p><strong>Proceso:</strong></p>
+<ul *ngIf="herramienta.proceso?.length > 0; else sinProceso">
+  <li *ngFor="let paso of herramienta.proceso">{{ paso }}</li>
+</ul>
+<ng-template #sinProceso>
+  <p>No especificado</p>
+</ng-template>
   </div>
 
   <a routerLink="/escaner" class="btn-volver">← Escanear otra herramienta</a>

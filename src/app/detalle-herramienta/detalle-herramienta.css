@@ -1,6 +1,6 @@
 .detalle-container {
   max-width: 600px;
-  margin: 3rem auto;
+  margin: 2rem auto;
   background-color: #f8f9fc;
   padding: 2rem;
   border-radius: 16px;
@@ -13,6 +13,7 @@
   color: #003366;
   text-align: center;
   font-weight: 600;
+  font-size: 1.8rem;
 }
 
 .detalle-card {
@@ -20,10 +21,10 @@
 }
 
 .detalle-card p {
-  font-size: 1rem;
-  margin: 0.7rem 0;
+  font-size: 1.05rem;
+  margin: 0.8rem 0;
   color: #333;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .detalle-card strong {
@@ -31,16 +32,30 @@
   font-weight: 600;
 }
 
+.detalle-card ul {
+  margin: 0.5rem 0 1rem;
+  padding-left: 1.2rem;
+  list-style-type: disc;
+}
+
+.detalle-card li {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
 .btn-volver {
-  display: inline-block;
+  display: block;
+  width: 100%;
   margin-top: 2rem;
-  padding: 0.6rem 1.2rem;
+  padding: 0.8rem 1.2rem;
   background-color: transparent;
   color: #0d47a1;
   border: 2px solid #0d47a1;
   border-radius: 8px;
-  text-decoration: none;
+  text-align: center;
   font-weight: 500;
+  text-decoration: none;
   transition: all 0.3s ease;
 }
 
@@ -56,19 +71,25 @@
   color: #666;
 }
 
-/* --- Responsive --- */
+/* --- Responsive Mejorado --- */
 @media (max-width: 600px) {
   .detalle-container {
-    margin: 2rem 1rem;
-    padding: 1.5rem;
+    margin: 1rem;
+    padding: 1.2rem;
+    border-radius: 12px;
   }
 
-  .detalle-card p {
-    font-size: 0.95rem;
+  .detalle-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .detalle-card p,
+  .detalle-card li {
+    font-size: 1rem;
   }
 
   .btn-volver {
-    width: 100%;
-    text-align: center;
+    font-size: 1rem;
+    padding: 0.75rem;
   }
 }
