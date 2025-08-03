@@ -4,7 +4,7 @@
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background-color: #e9f0ff;
+  background: linear-gradient(to bottom, #e9f0ff, #ffffff);
 }
 
 .card-container.perfil-box {
@@ -14,20 +14,25 @@
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.5s ease-in-out;
 }
 
 h2 {
   margin-bottom: 1.5rem;
   color: #001d3d;
   text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
 }
 
 p {
   margin: 0.8rem 0;
   font-size: 1rem;
   color: #333;
+  line-height: 1.5;
 }
 
+/* Etiqueta de rol */
 .badge-role {
   display: inline-block;
   background-color: #fcd5b4;
@@ -36,4 +41,38 @@ p {
   padding: 6px 16px;
   border-radius: 20px;
   font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+/* --- Animación al cargar --- */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .card-container.perfil-box {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+  }
+
+  .badge-role {
+    font-size: 0.9rem;
+    padding: 5px 14px;
+  }
 }

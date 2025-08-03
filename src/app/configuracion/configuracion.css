@@ -3,12 +3,14 @@
   margin-bottom: 2rem;
   background-color: var(--bg-secondary);
   border-radius: var(--card-radius);
+  text-align: center;
 }
 
 .page-title {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
+  color: var(--text-primary);
 }
 
 .setting-section {
@@ -21,9 +23,12 @@
   color: var(--accent-blue);
 }
 
+/* Opciones de tema */
 .theme-options {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .theme-card {
@@ -33,18 +38,18 @@
   border-radius: 10px;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  flex: 1;
+  flex: 1 1 200px;
   text-align: center;
   transition: transform 0.2s ease;
+  max-width: 300px;
 }
 
 .theme-card:hover {
   transform: scale(1.05);
   background-color: var(--bg-secondary);
 }
-/* ==== CONTINUACIÓN Y MEJORA PARA PANTALLA DE CONFIGURACIÓN ==== */
 
-/* Estilo general de la tarjeta */
+/* Tarjeta general */
 .card {
   background-color: var(--bg-primary);
   padding: 1.5rem;
@@ -53,7 +58,6 @@
   margin-bottom: 2rem;
 }
 
-/* Encabezados dentro de la tarjeta */
 .card h2 {
   font-size: 1.4rem;
   font-weight: 600;
@@ -64,7 +68,7 @@
   gap: 0.5rem;
 }
 
-/* Vista previa de cada tema */
+/* Vista previa del tema */
 .theme-preview {
   width: 100%;
   height: 50px;
@@ -80,13 +84,13 @@
   background: linear-gradient(to right, #15243b, #243c63);
 }
 
-/* Tema seleccionado */
+/* Tema activo */
 .theme-card.active {
   border: 3px solid var(--accent-blue);
   box-shadow: 0 0 12px var(--accent-blue-glow);
 }
 
-/* Toggle switch */
+/* Switch de configuración */
 .switch {
   position: relative;
   display: inline-block;
@@ -100,7 +104,6 @@
   height: 0;
 }
 
-/* Slider del toggle */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -133,7 +136,7 @@ input:checked + .slider:before {
   transform: translateX(24px);
 }
 
-/* Contenedor de la opción */
+/* Item de configuración */
 .setting-item {
   display: flex;
   justify-content: space-between;
@@ -158,4 +161,26 @@ input:checked + .slider:before {
 .setting-toggle {
   display: flex;
   align-items: center;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .theme-options {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .theme-card {
+    width: 100%;
+    max-width: 90vw;
+  }
+
+  .setting-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
 }

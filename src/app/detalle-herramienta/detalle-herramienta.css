@@ -10,30 +10,43 @@
 
 .detalle-container h2 {
   margin-bottom: 1.5rem;
-  color: #1a1a1a;
+  color: #003366;
+  text-align: center;
+  font-weight: 600;
+}
+
+.detalle-card {
+  padding: 1rem 0;
 }
 
 .detalle-card p {
   font-size: 1rem;
   margin: 0.7rem 0;
   color: #333;
+  line-height: 1.5;
 }
 
 .detalle-card strong {
   color: #0d47a1;
+  font-weight: 600;
 }
 
 .btn-volver {
   display: inline-block;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
+  padding: 0.6rem 1.2rem;
+  background-color: transparent;
   color: #0d47a1;
+  border: 2px solid #0d47a1;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .btn-volver:hover {
-  color: #08306b;
+  background-color: #0d47a1;
+  color: #fff;
 }
 
 .cargando {
@@ -41,4 +54,21 @@
   margin-top: 2rem;
   font-size: 1.1rem;
   color: #666;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .detalle-container {
+    margin: 2rem 1rem;
+    padding: 1.5rem;
+  }
+
+  .detalle-card p {
+    font-size: 0.95rem;
+  }
+
+  .btn-volver {
+    width: 100%;
+    text-align: center;
+  }
 }

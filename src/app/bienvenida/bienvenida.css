@@ -3,14 +3,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(to bottom, #d0f0f7, #ffffff);
   text-align: center;
-  padding: 1rem;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
 }
 
 .logo-animado {
   width: 150px;
+  max-width: 80vw;
   animation: bounce 2s ease-in-out infinite;
 }
 
@@ -22,9 +24,11 @@
   opacity: 0;
   animation: fadeIn 2s forwards;
   animation-delay: 1s;
+  line-height: 1.3;
+  padding: 0 1rem;
 }
 
-/* Animaciones */
+/* --- Animaciones --- */
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
@@ -32,4 +36,15 @@
 
 @keyframes fadeIn {
   to { opacity: 1; }
+}
+
+/* --- Responsive (pantallas pequeñas) --- */
+@media (max-width: 480px) {
+  .titulo {
+    font-size: 1.5rem;
+  }
+
+  .logo-animado {
+    width: 120px;
+  }
 }

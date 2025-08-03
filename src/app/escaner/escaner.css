@@ -1,5 +1,3 @@
-/* RUTA: src/app/escaner/escaner.css (LA SOLUCIÓN COMPLETA Y FINAL) */
-
 /* --- Contenedor principal del escáner y sus columnas --- */
 .scanner-ui-container {
   display: grid;
@@ -8,46 +6,53 @@
   align-items: flex-start;
 }
 
-/* --- Visor de la Cámara (Aquí está la magia) --- */
+/* --- Visor de la Cámara --- */
 .camera-viewport {
   position: relative;
   border: 1px solid var(--border-color);
   border-radius: 12px;
   background-color: #000;
   box-shadow: var(--shadow-medium);
-  overflow: hidden; /* ¡CRÍTICO! Recorta el exceso del canvas */
-  aspect-ratio: 1 / 1; /* Mantiene el contenedor cuadrado */
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
 }
 
-/* 
-  Seleccionamos el <canvas> que Teachable Machine crea.
-  Usamos ::ng-deep para asegurarnos de que el estilo se aplique.
-*/
+/* --- Estilos definitivos del canvas generado por Teachable Machine --- */
 .webcam-container ::ng-deep canvas {
-  /*
-   * ANÁLISIS DE LA SOLUCIÓN DEFINITIVA:
-   * 1. Posicionamos el canvas en el centro absoluto del contenedor.
-   * 2. Le decimos que su tamaño MÍNIMO debe ser el 100% del ancho Y el 100% del alto.
-   * 3. Como el video de la cámara es rectangular (no cuadrado), para mantener
-   *    su proporción, una de las dimensiones crecerá MÁS del 100%.
-   * 4. El 'overflow: hidden' de '.camera-viewport' recortará perfectamente
-   *    el exceso, haciendo que el video llene el cuadro sin distorsionarse.
-  */
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-  
-  /* Esto evita que el canvas sea más pequeño que el contenedor,
-     que es el problema de las bandas negras. */
-  width: auto;
-  height: auto;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
   transform: scaleX(-1); /* Voltea horizontalmente */
 }
 
-/* --- Retícula y Mensajes Superpuestos (sin cambios) --- */
+/* --- Retícula de escaneo --- */
+.scanner-reticle {
+  position: absolute;
+  inset: 20px;
+  border: 2px solid rgba(51, 193, 255, 0.3);
+  border-radius: 8px;
+  pointer-events: none;
+}
+.scanner-reticle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+  animation: scan-line 3s infinite ease-in-out;
+}
+@keyframes scan-line {
+  0% { transform: translateY(-150px); opacity: 0; }
+  20%, 80% { opacity: 1; }
+  100% { transform: translateY(150px); opacity: 0; }
+}
+
+/* --- Mensaje de estado superpuesto --- */
 .status-overlay {
   position: absolute;
   inset: 0;
@@ -72,57 +77,81 @@
   font-weight: 500;
 }
 
-.scanner-reticle {
-  position: absolute;
-  inset: 20px;
-  border: 2px solid rgba(51, 193, 255, 0.3);
-  border-radius: 8px;
-  pointer-events: none;
-}
-.scanner-reticle::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
-  animation: scan-line 3s infinite ease-in-out;
-}
-@keyframes scan-line {
-  0% { transform: translateY(-150px); opacity: 0; }
-  20%, 80% { opacity: 1; }
-  100% { transform: translateY(150px); opacity: 0; }
-}
-
-/* --- Panel de Información (sin cambios) --- */
+/* --- Panel lateral de información --- */
 .info-panel {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
-/* ... (El resto de tus estilos para .card-header, .detection-card, etc., se quedan igual) ... */
 .card-header {
-  display: flex; align-items: center; gap: 0.75rem;
-  padding-bottom: 1rem; margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
   border-bottom: 1px solid var(--border-color);
 }
-.card-header i { color: var(--accent-blue); }
-.card-header h2 { font-family: var(--font-body); font-size: 1.25rem; margin: 0; }
-.detection-card .card-body { text-align: center; }
-.detected-label { color: var(--text-secondary); margin: 0; }
-.detected-name { font-family: var(--font-display); font-size: 2rem; margin: 0.5rem 0; }
-.detected-confidence { font-family: var(--font-mono); font-size: 1.2rem; color: var(--accent-green); margin: 0 0 1.5rem 0; }
-.btn-confirm { width: 100%; }
-.no-detection-state { padding: 2rem 0; }
-.no-detection-state i { font-size: 2.5rem; color: var(--text-secondary); opacity: 0.7; }
-.no-detection-state .no-detection-title { font-size: 1.2rem; font-weight: 600; margin: 1.5rem 0 0.5rem 0; }
-.no-detection-state .no-detection-subtitle { color: var(--text-secondary); font-weight: 400; margin: 0; }
-.help-card ol { padding-left: 20px; margin: 0; line-height: 1.8; }
+.card-header i {
+  color: var(--accent-blue);
+}
+.card-header h2 {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  margin: 0;
+}
+.detection-card .card-body {
+  text-align: center;
+}
+.detected-label {
+  color: var(--text-secondary);
+  margin: 0;
+}
+.detected-name {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  margin: 0.5rem 0;
+}
+.detected-confidence {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  color: var(--accent-green);
+  margin: 0 0 1.5rem 0;
+}
+.btn-confirm {
+  width: 100%;
+}
+.no-detection-state {
+  padding: 2rem 0;
+}
+.no-detection-state i {
+  font-size: 2.5rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+.no-detection-state .no-detection-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem 0;
+}
+.no-detection-state .no-detection-subtitle {
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin: 0;
+}
+.help-card ol {
+  padding-left: 20px;
+  margin: 0;
+  line-height: 1.8;
+}
 
 /* --- RESPONSIVE --- */
 @media (max-width: 992px) {
   .scanner-ui-container {
     grid-template-columns: 1fr;
+  }
+
+  .camera-viewport {
+    width: 100%;
+    aspect-ratio: 1 / 1;
   }
 }
