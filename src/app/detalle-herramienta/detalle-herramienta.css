@@ -54,3 +54,23 @@ li {
   background-color: #003366;
   color: white;
 }
+.btn-proceso {
+  display: inline-block;
+  margin: 1.5rem auto 0;
+  padding: 0.7rem 1.2rem;
+  background-color: #0051ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0, 81, 255, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-proceso:hover {
+  background-color: #003bbd;
+  transform: scale(1.03);
+}

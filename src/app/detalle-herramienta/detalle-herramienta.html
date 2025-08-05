@@ -1,61 +1,20 @@
-<div class="page-container">
-  <div class="detalle-container" *ngIf="herramienta; else cargando">
-    <h2>{{ herramienta.nombre }}</h2>
+<!-- MATERIALES ARRIBA -->
+<p><strong>Materiales necesarios para esterilización:</strong></p>
+<ul *ngIf="herramienta.materiales?.length; else sinMateriales">
+  <li *ngFor="let mat of herramienta.materiales">{{ mat }}</li>
+</ul>
+<ng-template #sinMateriales>
+  <p>No especificado</p>
+</ng-template>
 
-    <div class="detalle-card">
-      <p><strong>Descripción:</strong> {{ herramienta.descripcion || 'Sin descripción' }}</p>
-      <p><strong>Uso:</strong> {{ herramienta.uso || 'No especificado' }}</p>
-      <p><strong>Esterilización:</strong> {{ herramienta.esterilizacion ? 'Sí' : 'No' }}</p>
-      <p><strong>Estado actual:</strong> {{ herramienta.estado || 'Desconocido' }}</p>
-      
-      <p><strong>Proceso:</strong></p>
-      <ul *ngIf="herramienta.proceso?.length; else sinProceso">
-        <li *ngFor="let paso of herramienta.proceso">{{ paso }}</li>
-      </ul>
-      <ng-template #sinProceso>
-        <p>No especificado</p>
-      </ng-template>
-<<<<<<< HEAD
-      <!-- ... podría estar dentro del <div class="card"> ... -->
+<!-- PROCESO -->
+<p><strong>Proceso:</strong></p>
+<ul *ngIf="herramienta.proceso?.length; else sinProceso">
+  <li *ngFor="let paso of herramienta.proceso">{{ paso }}</li>
+</ul>
+<ng-template #sinProceso>
+  <p>No especificado</p>
+</ng-template>
 
-<!-- Contenedor para el botón de acción principal -->
-<div class="d-grid gap-2 my-4">
-  
-  <!-- 
-    - btn: Le dice a Bootstrap que esto es un botón.
-    - btn-primary: Le da el color azul principal de tu tema.
-    - btn-lg: Lo hace un poco más grande y fácil de tocar en móviles.
-    - d-flex, align-items-center, justify-content-center: Centra el contenido (ícono y texto) dentro del botón.
-  -->
-  <a routerLink="/proceso-desinfeccion" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center">
-    
-    <!-- Ícono de Font Awesome para darle un toque visual -->
-    <i class="fas fa-thermometer-three-quarters me-2"></i>
-    
-    <!-- Texto del botón -->
-    <span>Acceder a Proceso de Desinfección</span>
-  </a>
-
-</div>
-
-<!-- ... resto del contenido ... -->
-=======
-
-      <!-- ✅ MATERIALES NECESARIOS -->
-      <p><strong>Materiales necesarios para esterilización:</strong></p>
-      <ul *ngIf="herramienta.materiales?.length; else sinMateriales">
-        <li *ngFor="let mat of herramienta.materiales">{{ mat }}</li>
-      </ul>
-      <ng-template #sinMateriales>
-        <p>No especificado</p>
-      </ng-template>
->>>>>>> cdbb411 (cambios piensa)
-    </div>
-
-    <a routerLink="/escaner" class="btn-volver">← Escanear otra herramienta</a>
-  </div>
-
-  <ng-template #cargando>
-    <p class="cargando">{{ mensajeCarga }}</p>
-  </ng-template>
-</div>
+<!-- BOTÓN (opcional mejorado) -->
+<a class="btn-volver" href="#">Acceder a Proceso de Desinfección</a>
