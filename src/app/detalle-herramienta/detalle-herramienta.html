@@ -16,11 +16,24 @@
       </ng-template>
       <!-- ... podría estar dentro del <div class="card"> ... -->
 
-<div class="d-grid gap-2 mt-4">
-  <a routerLink="/proceso-desinfeccion" class="btn btn-primary btn-lg">
-    <i class="fas fa-thermometer-three-quarters me-2"></i> <!-- Opcional: un ícono de termómetro -->
-    Acceder a Proceso de Desinfección
+<!-- Contenedor para el botón de acción principal -->
+<div class="d-grid gap-2 my-4">
+  
+  <!-- 
+    - btn: Le dice a Bootstrap que esto es un botón.
+    - btn-primary: Le da el color azul principal de tu tema.
+    - btn-lg: Lo hace un poco más grande y fácil de tocar en móviles.
+    - d-flex, align-items-center, justify-content-center: Centra el contenido (ícono y texto) dentro del botón.
+  -->
+  <a routerLink="/proceso-desinfeccion" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center">
+    
+    <!-- Ícono de Font Awesome para darle un toque visual -->
+    <i class="fas fa-thermometer-three-quarters me-2"></i>
+    
+    <!-- Texto del botón -->
+    <span>Acceder a Proceso de Desinfección</span>
   </a>
+
 </div>
 
 <!-- ... resto del contenido ... -->

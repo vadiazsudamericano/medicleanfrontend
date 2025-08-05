@@ -1,46 +1,61 @@
+<!-- Usamos un contenedor para centrar el contenido y darle márgenes -->
 <div class="container mt-5">
+
+  <!-- Creamos una "tarjeta" (card) para agrupar toda la información -->
   <div class="card text-center shadow-lg">
+
+    <!-- Encabezado de la tarjeta -->
     <div class="card-header bg-primary text-white">
       <h2>Proceso de Desinfección</h2>
     </div>
+
+    <!-- Cuerpo de la tarjeta -->
     <div class="card-body p-5">
+
+      <!-- Usamos un *ngIf para mostrar el contenido solo cuando tengamos datos -->
       <div *ngIf="temperaturaActual !== null; else noData">
         
-        <!-- Indicador de Temperatura -->
+        <!-- Indicador de Temperatura con mejor estilo -->
         <h3 class="card-title text-muted">Temperatura Actual</h3>
-        <p class="display-1 fw-bold">
+        <p class="display-1 fw-bold text-primary">
           {{ temperaturaActual | number:'1.2-2' }} °C
         </p>
 
-        <!-- Mensaje de Estado -->
+        <!-- Mensaje de Estado dentro de una alerta de color dinámico -->
         <div class="alert mt-4" [ngClass]="{
           'alert-success': estadoClase === 'exito',
           'alert-warning': estadoClase === 'advertencia',
           'alert-danger': estadoClase === 'peligro',
           'alert-info': estadoClase === 'info'
         }" role="alert">
-          <h4 class="alert-heading">Estado del Proceso</h4>
-          <p class="mb-0">{{ mensajeEstado }}</p>
+          <h4 class="alert-heading fw-bold">Estado del Proceso</h4>
+          <p class="mb-0 fs-5">{{ mensajeEstado }}</p>
         </div>
 
       </div>
 
-      <!-- Plantilla que se muestra si no hay datos -->
+      <!-- Esto se muestra si no hay datos (temperaturaActual es null) -->
       <ng-template #noData>
         <div class="d-flex justify-content-center align-items-center p-5">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
-          <strong class="ms-3">{{ mensajeEstado }}</strong>
+          <strong class="ms-3 fs-4">{{ mensajeEstado }}</strong>
         </div>
       </ng-template>
     </div>
+
+    <!-- Pie de la tarjeta -->
     <div class="card-footer text-muted">
       Los datos se actualizan cada 10 segundos.
     </div>
   </div>
 
+  <!-- Botón para volver al listado -->
   <div class="text-center mt-4">
-      <a routerLink="/herramientas" class="btn btn-secondary">Volver al Listado de Herramientas</a>
+      <a routerLink="/herramientas" class="btn btn-secondary">
+        <i class="fas fa-arrow-left me-2"></i> <!-- Opcional: ícono de flecha -->
+        Volver al Listado de Herramientas
+      </a>
   </div>
 </div>
