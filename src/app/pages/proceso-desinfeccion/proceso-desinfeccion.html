@@ -1,43 +1,30 @@
-<div class="container mt-5"> 
-  <div class="card text-center shadow-lg"> 
+<div class="container mt-5">
+  <div class="card text-center shadow-lg">
     <div class="card-header bg-primary text-white">
       <h2>Proceso de Desinfección</h2>
-    </div> 
+    </div>
     <div class="card-body p-5">
 
-      <!-- ========================================================= -->
-      <!-- ===           INICIO: SECCIÓN MODIFICADA              === -->
-      <!-- ========================================================= -->
-
-      <!-- Este DIV ahora envuelve TODA la lógica de visualización de datos.
-           Solo si 'temperaturaActual' NO es null, se mostrará su contenido. -->
       <div *ngIf="temperaturaActual !== null; else noData">
         
-        <!-- El título "Temperatura Actual" ahora está DENTRO del *ngIf -->
         <h3 class="card-title text-muted">Temperatura Actual</h3>
         <p class="display-1 fw-bold text-primary">
           {{ temperaturaActual | number:'1.2-2' }} °C
         </p>
 
-        <!-- El título "Estado del Proceso" y la alerta también están DENTRO -->
         <h3 class="card-title text-muted mt-4">Estado del Proceso</h3>
         <div class="alert mt-2" [ngClass]="{
           'alert-success': estadoClase === 'exito',
           'alert-warning': estadoClase === 'advertencia',
           'alert-danger': estadoClase === 'peligro',
           'alert-info': estadoClase === 'info'
-        }" role="alert"> 
+        }" role="alert">
           <p class="mb-0 fs-5">{{ mensajeEstado }}</p>
         </div>
 
       </div>
 
-      <!-- ========================================================= -->
-      <!-- ===            FIN: SECCIÓN MODIFICADA                === -->
-      <!-- ========================================================= -->
-
-
-      <!-- Esta parte se muestra si 'temperaturaActual' ES null. -->
+      <!-- Plantilla que se muestra si no hay datos -->
       <ng-template #noData>
         <div class="d-flex justify-content-center align-items-center p-5">
           <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -46,6 +33,15 @@
           <strong class="ms-3 fs-4">{{ mensajeEstado }}</strong>
         </div>
       </ng-template>
+
+      <!-- Consejo de Temperatura Óptima -->
+      <div class="mt-4">
+        <span class="badge rounded-pill bg-light text-dark p-3">
+          <i class="fas fa-info-circle me-2"></i>
+          Recuerda: La temperatura óptima para una desinfección exitosa es de 121°C.
+        </span>
+      </div>
+      
     </div>
  
     <div class="card-footer text-muted">
@@ -54,9 +50,20 @@
   </div>
  
   <div class="text-center mt-4">
+
+      <!-- ========================================================= -->
+      <!-- ===           INICIO: SECCIÓN MODIFICADA              === -->
+      <!-- ========================================================= -->
+
+      <!-- Usamos un 'a' con routerLink para volver al listado general. Es la forma más simple. -->
       <a routerLink="/herramientas" class="btn btn-secondary">
         <i class="fas fa-arrow-left me-2"></i>
         Volver al Listado de Herramientas
       </a>
+
+      <!-- ========================================================= -->
+      <!-- ===            FIN: SECCIÓN MODIFICADA                === -->
+      <!-- ========================================================= -->
+
   </div>
 </div>
