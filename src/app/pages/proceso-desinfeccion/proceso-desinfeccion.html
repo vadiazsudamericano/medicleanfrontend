@@ -1,40 +1,43 @@
-<!-- Usamos un contenedor para centrar el contenido y darle márgenes -->
-<div class="container mt-5">
-
-  <!-- Creamos una "tarjeta" (card) para agrupar toda la información -->
-  <div class="card text-center shadow-lg">
-
-    <!-- Encabezado de la tarjeta -->
+<div class="container mt-5"> 
+  <div class="card text-center shadow-lg"> 
     <div class="card-header bg-primary text-white">
       <h2>Proceso de Desinfección</h2>
-    </div>
-
-    <!-- Cuerpo de la tarjeta -->
+    </div> 
     <div class="card-body p-5">
 
-      <!-- Usamos un *ngIf para mostrar el contenido solo cuando tengamos datos -->
+      <!-- ========================================================= -->
+      <!-- ===           INICIO: SECCIÓN MODIFICADA              === -->
+      <!-- ========================================================= -->
+
+      <!-- Este DIV ahora envuelve TODA la lógica de visualización de datos.
+           Solo si 'temperaturaActual' NO es null, se mostrará su contenido. -->
       <div *ngIf="temperaturaActual !== null; else noData">
         
-        <!-- Indicador de Temperatura con mejor estilo -->
+        <!-- El título "Temperatura Actual" ahora está DENTRO del *ngIf -->
         <h3 class="card-title text-muted">Temperatura Actual</h3>
         <p class="display-1 fw-bold text-primary">
           {{ temperaturaActual | number:'1.2-2' }} °C
         </p>
 
-        <!-- Mensaje de Estado dentro de una alerta de color dinámico -->
-        <div class="alert mt-4" [ngClass]="{
+        <!-- El título "Estado del Proceso" y la alerta también están DENTRO -->
+        <h3 class="card-title text-muted mt-4">Estado del Proceso</h3>
+        <div class="alert mt-2" [ngClass]="{
           'alert-success': estadoClase === 'exito',
           'alert-warning': estadoClase === 'advertencia',
           'alert-danger': estadoClase === 'peligro',
           'alert-info': estadoClase === 'info'
-        }" role="alert">
-          <h4 class="alert-heading fw-bold">Estado del Proceso</h4>
+        }" role="alert"> 
           <p class="mb-0 fs-5">{{ mensajeEstado }}</p>
         </div>
 
       </div>
 
-      <!-- Esto se muestra si no hay datos (temperaturaActual es null) -->
+      <!-- ========================================================= -->
+      <!-- ===            FIN: SECCIÓN MODIFICADA                === -->
+      <!-- ========================================================= -->
+
+
+      <!-- Esta parte se muestra si 'temperaturaActual' ES null. -->
       <ng-template #noData>
         <div class="d-flex justify-content-center align-items-center p-5">
           <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -44,17 +47,15 @@
         </div>
       </ng-template>
     </div>
-
-    <!-- Pie de la tarjeta -->
+ 
     <div class="card-footer text-muted">
       Los datos se actualizan cada 10 segundos.
     </div>
   </div>
-
-  <!-- Botón para volver al listado -->
+ 
   <div class="text-center mt-4">
       <a routerLink="/herramientas" class="btn btn-secondary">
-        <i class="fas fa-arrow-left me-2"></i> <!-- Opcional: ícono de flecha -->
+        <i class="fas fa-arrow-left me-2"></i>
         Volver al Listado de Herramientas
       </a>
   </div>
