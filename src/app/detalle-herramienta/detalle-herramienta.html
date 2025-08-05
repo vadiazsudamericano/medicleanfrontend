@@ -14,6 +14,16 @@
       <ng-template #sinProceso>
         <p>No especificado</p>
       </ng-template>
+      <!-- ... podría estar dentro del <div class="card"> ... -->
+
+<div class="d-grid gap-2 mt-4">
+  <a routerLink="/proceso-desinfeccion" class="btn btn-primary btn-lg">
+    <i class="fas fa-thermometer-three-quarters me-2"></i> <!-- Opcional: un ícono de termómetro -->
+    Acceder a Proceso de Desinfección
+  </a>
+</div>
+
+<!-- ... resto del contenido ... -->
     </div>
 
     <a routerLink="/escaner" class="btn-volver">← Escanear otra herramienta</a>

@@ -1,0 +1,46 @@
+<div class="container mt-5">
+  <div class="card text-center shadow-lg">
+    <div class="card-header bg-primary text-white">
+      <h2>Proceso de Desinfección</h2>
+    </div>
+    <div class="card-body p-5">
+      <div *ngIf="temperaturaActual !== null; else noData">
+        
+        <!-- Indicador de Temperatura -->
+        <h3 class="card-title text-muted">Temperatura Actual</h3>
+        <p class="display-1 fw-bold">
+          {{ temperaturaActual | number:'1.2-2' }} °C
+        </p>
+
+        <!-- Mensaje de Estado -->
+        <div class="alert mt-4" [ngClass]="{
+          'alert-success': estadoClase === 'exito',
+          'alert-warning': estadoClase === 'advertencia',
+          'alert-danger': estadoClase === 'peligro',
+          'alert-info': estadoClase === 'info'
+        }" role="alert">
+          <h4 class="alert-heading">Estado del Proceso</h4>
+          <p class="mb-0">{{ mensajeEstado }}</p>
+        </div>
+
+      </div>
+
+      <!-- Plantilla que se muestra si no hay datos -->
+      <ng-template #noData>
+        <div class="d-flex justify-content-center align-items-center p-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <strong class="ms-3">{{ mensajeEstado }}</strong>
+        </div>
+      </ng-template>
+    </div>
+    <div class="card-footer text-muted">
+      Los datos se actualizan cada 10 segundos.
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+      <a routerLink="/herramientas" class="btn btn-secondary">Volver al Listado de Herramientas</a>
+  </div>
+</div>

@@ -16,6 +16,18 @@ import { DetalleHerramientaComponent } from './detalle-herramienta/detalle-herra
 import { HerramientaComponent } from './herramienta/herramienta';
 import { BienvenidaComponent } from './bienvenida/bienvenida';
 
+// =========================================================================
+// ===             INICIO: SECCIÓN CORREGIDA                             ===
+// =========================================================================
+
+// La ruta ahora apunta a tu archivo SIN '.component' al final
+import { ProcesoDesinfeccionComponent } from './pages/proceso-desinfeccion/proceso-desinfeccion';
+
+// =========================================================================
+// ===              FIN: SECCIÓN CORREGIDA                               ===
+// =========================================================================
+
+
 // --- 2. DEFINICIÓN DE RUTAS ---
 export const routes: Routes = [
   // --- RUTAS PÚBLICAS ---
@@ -36,7 +48,11 @@ export const routes: Routes = [
       { path: 'configuracion', component: ConfiguracionComponent },
       { path: 'herramientas', component: HerramientaComponent },
       { path: 'registrar-herramienta', component: RegistrarHerramientaComponent },
-      { path: 'detalle-herramienta/:id', component: DetalleHerramientaComponent }, // ✅ Corregido
+      { path: 'detalle-herramienta/:id', component: DetalleHerramientaComponent },
+
+      // La ruta para el nuevo componente. Esto está correcto.
+      { path: 'proceso-desinfeccion', component: ProcesoDesinfeccionComponent },
+
 
       // ✅ Ruta standalone cargada dinámicamente
       {
@@ -51,4 +67,4 @@ export const routes: Routes = [
 
   // --- RUTA CATCH-ALL ---
   { path: '**', redirectTo: '', pathMatch: 'full' }
-];
+]; 
