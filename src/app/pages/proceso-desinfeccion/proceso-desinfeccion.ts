@@ -5,8 +5,10 @@ import { CommonModule } from '@angular/common';
 import { TemperaturaService, LecturaTemperatura } from '../temperatura/temperatura.service';
 
 // =========================================================================
-// ===             INICIO: SECCIÓN CORREGIDA                             ===
+// ===             1. IMPORTA 'Location' de Angular                      ===
 // =========================================================================
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-proceso-desinfeccion',
@@ -16,11 +18,6 @@ import { TemperaturaService, LecturaTemperatura } from '../temperatura/temperatu
   standalone: true,
   imports: [CommonModule]
 })
-
-// =========================================================================
-// ===              FIN: SECCIÓN CORREGIDA                               ===
-// =========================================================================
-
 export class ProcesoDesinfeccionComponent implements OnInit, OnDestroy {
 
   temperaturaActual: number | null = null;
@@ -28,8 +25,13 @@ export class ProcesoDesinfeccionComponent implements OnInit, OnDestroy {
   estadoClase: string = 'info';
   private intervalId: any;
 
-  // Añadimos 'private' para que la sintaxis sea correcta
-  constructor(private temperaturaService: TemperaturaService) { }
+  // =========================================================================
+  // ===             2. INYECTA 'Location' EN EL CONSTRUCTOR               ===
+  // =========================================================================
+  constructor(
+    private temperaturaService: TemperaturaService,
+    private location: Location // Añadimos esto
+  ) { }
 
   ngOnInit(): void {
     this.getTemperatura();
@@ -81,5 +83,13 @@ export class ProcesoDesinfeccionComponent implements OnInit, OnDestroy {
       this.mensajeEstado = 'La temperatura está fuera de los rangos críticos, pero no es la óptima.';
       this.estadoClase = 'info';
     }
+  }
+
+  // =========================================================================
+  // ===             3. AÑADE LA NUEVA FUNCIÓN 'volver()'                  ===
+  // =========================================================================
+  volver(): void {
+    // Esta función de Angular simplemente navega a la página anterior en el historial
+    this.location.back();
   }
 }

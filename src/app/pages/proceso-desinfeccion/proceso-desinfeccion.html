@@ -1,69 +1,73 @@
-<div class="container mt-5">
-  <div class="card text-center shadow-lg">
-    <div class="card-header bg-primary text-white">
-      <h2>Proceso de Desinfección</h2>
-    </div>
-    <div class="card-body p-5">
+    <div class="container mt-5">
+    <div class="card text-center shadow-lg">
+        <div class="card-header bg-primary text-white">
+        <h2>Proceso de Desinfección</h2>
+        </div>
+        <div class="card-body p-5">
 
-      <div *ngIf="temperaturaActual !== null; else noData">
+        <div *ngIf="temperaturaActual !== null; else noData">
+            
+            <h3 class="card-title text-muted">Temperatura Actual</h3>
+            <p class="display-1 fw-bold text-primary">
+            {{ temperaturaActual | number:'1.2-2' }} °C
+            </p>
+
+            <h3 class="card-title text-muted mt-4">Estado del Proceso</h3>
+            <div class="alert mt-2" [ngClass]="{
+            'alert-success': estadoClase === 'exito',
+            'alert-warning': estadoClase === 'advertencia',
+            'alert-danger': estadoClase === 'peligro',
+            'alert-info': estadoClase === 'info'
+            }" role="alert">
+            <p class="mb-0 fs-5">{{ mensajeEstado }}</p>
+            </div>
+
+        </div>
+
+        <!-- Plantilla que se muestra si no hay datos -->
+        <ng-template #noData>
+            <div class="d-flex justify-content-center align-items-center p-5">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <strong class="ms-3 fs-4">{{ mensajeEstado }}</strong>
+            </div>
+        </ng-template>
+
+        <!-- Consejo de Temperatura Óptima -->
+        <div class="mt-4">
+            <span class="badge rounded-pill bg-light text-dark p-3">
+            <i class="fas fa-info-circle me-2"></i>
+            Recuerda: La temperatura óptima para una desinfección exitosa es de 121°C.
+            </span>
+        </div>
         
-        <h3 class="card-title text-muted">Temperatura Actual</h3>
-        <p class="display-1 fw-bold text-primary">
-          {{ temperaturaActual | number:'1.2-2' }} °C
-        </p>
-
-        <h3 class="card-title text-muted mt-4">Estado del Proceso</h3>
-        <div class="alert mt-2" [ngClass]="{
-          'alert-success': estadoClase === 'exito',
-          'alert-warning': estadoClase === 'advertencia',
-          'alert-danger': estadoClase === 'peligro',
-          'alert-info': estadoClase === 'info'
-        }" role="alert">
-          <p class="mb-0 fs-5">{{ mensajeEstado }}</p>
         </div>
-
-      </div>
-
-      <!-- Plantilla que se muestra si no hay datos -->
-      <ng-template #noData>
-        <div class="d-flex justify-content-center align-items-center p-5">
-          <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          <strong class="ms-3 fs-4">{{ mensajeEstado }}</strong>
+    
+        <div class="card-footer text-muted">
+        Los datos se actualizan cada 10 segundos.
         </div>
-      </ng-template>
-
-      <!-- Consejo de Temperatura Óptima -->
-      <div class="mt-4">
-        <span class="badge rounded-pill bg-light text-dark p-3">
-          <i class="fas fa-info-circle me-2"></i>
-          Recuerda: La temperatura óptima para una desinfección exitosa es de 121°C.
-        </span>
-      </div>
-      
     </div>
- 
-    <div class="card-footer text-muted">
-      Los datos se actualizan cada 10 segundos.
-    </div>
-  </div>
- 
-  <div class="text-center mt-4">
+    
+      <div class="text-center mt-4">
 
       <!-- ========================================================= -->
-      <!-- ===           INICIO: SECCIÓN MODIFICADA              === -->
+      <!-- ===           INICIO: SECCIÓN CORREGIDA               === -->
       <!-- ========================================================= -->
 
-      <!-- Usamos un 'a' con routerLink para volver al listado general. Es la forma más simple. -->
-      <a routerLink="/herramientas" class="btn btn-secondary">
+      <!-- 
+        Cambiamos 'a routerLink' por 'button (click)'.
+        (click)="volver()" le dice a Angular que ejecute la función 'volver()' 
+        de nuestro archivo TypeScript cuando se presione el botón.
+      -->
+      <button (click)="volver()" class="btn btn-secondary">
         <i class="fas fa-arrow-left me-2"></i>
-        Volver al Listado de Herramientas
-      </a>
+        Volver a Detalles de la Herramienta
+      </button>
 
       <!-- ========================================================= -->
-      <!-- ===            FIN: SECCIÓN MODIFICADA                === -->
+      <!-- ===            FIN: SECCIÓN CORREGIDA                 === -->
       <!-- ========================================================= -->
 
   </div>
-</div>
+    </div>
