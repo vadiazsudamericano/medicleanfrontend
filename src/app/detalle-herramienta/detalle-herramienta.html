@@ -7,6 +7,7 @@
       <p><strong>Uso:</strong> {{ herramienta.uso || 'No especificado' }}</p>
       <p><strong>Esterilización:</strong> {{ herramienta.esterilizacion ? 'Sí' : 'No' }}</p>
       <p><strong>Estado actual:</strong> {{ herramienta.estado || 'Desconocido' }}</p>
+      
       <p><strong>Proceso:</strong></p>
       <ul *ngIf="herramienta.proceso?.length; else sinProceso">
         <li *ngFor="let paso of herramienta.proceso">{{ paso }}</li>
@@ -14,6 +15,7 @@
       <ng-template #sinProceso>
         <p>No especificado</p>
       </ng-template>
+<<<<<<< HEAD
       <!-- ... podría estar dentro del <div class="card"> ... -->
 
 <!-- Contenedor para el botón de acción principal -->
@@ -37,6 +39,17 @@
 </div>
 
 <!-- ... resto del contenido ... -->
+=======
+
+      <!-- ✅ MATERIALES NECESARIOS -->
+      <p><strong>Materiales necesarios para esterilización:</strong></p>
+      <ul *ngIf="herramienta.materiales?.length; else sinMateriales">
+        <li *ngFor="let mat of herramienta.materiales">{{ mat }}</li>
+      </ul>
+      <ng-template #sinMateriales>
+        <p>No especificado</p>
+      </ng-template>
+>>>>>>> cdbb411 (cambios piensa)
     </div>
 
     <a routerLink="/escaner" class="btn-volver">← Escanear otra herramienta</a>
