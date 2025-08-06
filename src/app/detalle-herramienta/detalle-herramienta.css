@@ -35,10 +35,11 @@ li {
   color: #333;
 }
 
+/* ✅ BOTONES UNIFICADOS */
 .btn-volver {
   display: block;
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 1.2rem;
   padding: 0.6rem 1rem;
   border: 2px solid #003366;
   color: #003366;
@@ -47,30 +48,15 @@ li {
   font-weight: 600;
   text-decoration: none;
   background-color: transparent;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .btn-volver:hover {
   background-color: #003366;
   color: white;
 }
-.btn-proceso {
-  display: inline-block;
-  margin: 1.5rem auto 0;
-  padding: 0.7rem 1.2rem;
-  background-color: #0051ff;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 1rem;
-  text-decoration: none;
-  box-shadow: 0 4px 8px rgba(0, 81, 255, 0.2);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
 
-.btn-proceso:hover {
-  background-color: #003bbd;
-  transform: scale(1.03);
+/* ✅ OPCIONAL: Agrega un espacio entre botones si deseas que estén uno debajo del otro */
+.btn-volver + .btn-volver {
+  margin-top: 0.8rem;
 }
