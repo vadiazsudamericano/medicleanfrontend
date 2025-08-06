@@ -1,4 +1,3 @@
-// RUTA: src/app/navbar/navbar.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ThemeService } from '../servicios/theme.service';
@@ -25,12 +24,12 @@ export class NavbarComponent {
 
   navegar(ruta: string): void {
     this.router.navigate([ruta]);
-    this.menuAbierto = false; // Se cierra el menú automáticamente
+    this.menuAbierto = false;
   }
 
   onLogout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
-    this.menuAbierto = false; // Se cierra el menú automáticamente
+    this.menuAbierto = false;
   }
 }

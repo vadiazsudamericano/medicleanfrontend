@@ -1,17 +1,21 @@
 <!-- RUTA: src/app/navbar/navbar.html -->
 <nav class="navbar">
   <div class="navbar-container">
-    <!-- Nombre de la app -->
-    <div class="navbar-brand">MediClean</div>
+    <!-- Nombre de la App -->
+    <div class="navbar-left">
+      <span class="navbar-brand">MediClean</span>
+    </div>
 
-    <!-- Icono de menú hamburguesa -->
-    <div class="hamburger" (click)="toggleMenu()">
-      <i class="fas fa-bars"></i>
+    <!-- Icono hamburguesa a la derecha -->
+    <div class="navbar-right">
+      <button class="hamburger" (click)="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </div>
 
   <!-- Menú de navegación -->
-  <ul [class.active]="menuAbierto" class="nav-links">
+  <ul class="nav-links" [class.active]="menuAbierto">
     <li><a (click)="navegar('/inicio')">Inicio</a></li>
     <li><a (click)="navegar('/escaner')">Escáner</a></li>
     <li><a (click)="navegar('/historial')">Historial</a></li>
