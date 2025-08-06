@@ -146,3 +146,47 @@ body {
     width: 100%;
   }
 }
+
+/* ========================================================= */
+/* ===        ESTILOS PARA ALERTAS LLAMATIVAS            === */
+/* ========================================================= */
+
+/* Estilo base para todas las alertas especiales */
+.alert-llamativa {
+  border-left-width: 8px !important; /* Borde izquierdo más grueso */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Estilo para la alerta de PRECALENTAMIENTO (naranja/amarillo) */
+.alert-precalentamiento {
+  background-color: #fff8e1; /* Fondo amarillo pálido */
+  color: #8c5d00; /* Texto oscuro */
+  border-left-color: #ffab00 !important; /* Borde naranja */
+}
+
+/* Estilo para la alerta de PELIGRO (rojo) */
+.alert-peligro {
+  background-color: #ffebee; /* Fondo rojo pálido */
+  color: #b71c1c; /* Texto oscuro */
+  border-left-color: #d32f2f !important; /* Borde rojo */
+}
+
+/* Icono grande para las alertas */
+.alert-llamativa .alert-icon {
+  font-size: 2.5rem; /* Icono grande */
+  margin-right: 1rem;
+}
+
+/* Contenedor del texto de la alerta */
+.alert-llamativa .alert-text {
+  text-align: left;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
