@@ -15,23 +15,22 @@
             <h3 class="card-title text-muted mt-4">Estado del Proceso</h3>
 
             <!-- ========================================================= -->
-            <!-- ===           INICIO: SECCIÓN ACTUALIZADA             === -->
+            <!-- ===           INICIO: SECCIÓN CORREGIDA               === -->
             <!-- ========================================================= -->
-
-            <!-- Usamos ngSwitch para mostrar diferentes diseños de alerta -->
+ 
             <div [ngSwitch]="estadoClase">
 
-              <!-- CASO 1: Alerta LLAMATIVA para ÉXITO -->
+              <!-- CASO 1: Alerta LLAMATIVA para ÉXITO (VERDE) -->
               <div *ngSwitchCase="'exito'" 
                    class="alert alert-llamativa alert-exito mt-2" role="alert">
-                <i class="fas fa-check-circle alert-icon"></i> <!-- Icono de check -->
+                <i class="fas fa-check-circle alert-icon"></i>
                 <div class="alert-text">
                   <h4 class="alert-heading fw-bold">¡Esterilización Completa!</h4>
                   <p class="mb-0 fs-5">{{ mensajeEstado }}</p>
                 </div>
               </div>
 
-              <!-- CASO 2: Alerta LLAMATIVA para PRECALENTAMIENTO -->
+              <!-- CASO 2: Alerta LLAMATIVA para PRECALENTAMIENTO (AMARILLO) -->
               <div *ngSwitchCase="'precalentamiento'" 
                    class="alert alert-llamativa alert-precalentamiento mt-2" role="alert">
                 <i class="fas fa-pause-circle alert-icon"></i>
@@ -41,7 +40,7 @@
                 </div>
               </div>
         
-              <!-- CASO 3: Alerta LLAMATIVA para PELIGRO -->
+              <!-- CASO 3: Alerta LLAMATIVA para PELIGRO (ROJO) -->
               <div *ngSwitchCase="'peligro'" 
                    class="alert alert-llamativa alert-peligro mt-2" role="alert">
                 <i class="fas fa-exclamation-triangle alert-icon"></i>
@@ -51,18 +50,25 @@
                 </div>
               </div>
         
-              <!-- CASO 4: Alerta NORMAL para el resto de estados -->
+              <!-- CASO 4: Alerta LLAMATIVA para INFO (AZUL) -->
+              <div *ngSwitchCase="'info'" 
+                   class="alert alert-llamativa alert-info-llamativa mt-2" role="alert">
+                <i class="fas fa-info-circle alert-icon"></i>
+                <div class="alert-text">
+                  <h4 class="alert-heading fw-bold">Información</h4>
+                  <p class="mb-0 fs-5">{{ mensajeEstado }}</p>
+                </div>
+              </div>
+        
+              <!-- CASO 5: Alerta NORMAL para el estado inicial de advertencia -->
               <div *ngSwitchDefault 
-                   class="alert mt-2" [ngClass]="{
-                    'alert-warning': estadoClase === 'advertencia', 
-                    'alert-info': estadoClase === 'info'
-                   }" role="alert">
+                   class="alert alert-warning mt-2" role="alert">
                 <p class="mb-0 fs-5">{{ mensajeEstado }}</p>
               </div>
         
             </div>
             <!-- ========================================================= -->
-            <!-- ===           FIN: SECCIÓN ACTUALIZADA                === -->
+            <!-- ===            FIN: SECCIÓN CORREGIDA                 === -->
             <!-- ========================================================= -->
 
         </div>
