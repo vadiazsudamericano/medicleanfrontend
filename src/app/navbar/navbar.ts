@@ -1,6 +1,6 @@
 // RUTA: src/app/navbar/navbar.ts
 
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { ThemeService } from '../servicios/theme.service';
@@ -14,8 +14,6 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./navbar.css'],
 })
 export class NavbarComponent {
-  @ViewChild('navbarCollapse', { static: false }) navbarCollapse!: ElementRef;
-
   menuAbierto = false;
   currentTheme: 'dark' | 'cobalt';
 
@@ -33,16 +31,11 @@ export class NavbarComponent {
 
   cerrarMenu(): void {
     this.menuAbierto = false;
-
-    const navbar = this.navbarCollapse?.nativeElement;
-    if (navbar && navbar.classList.contains('show')) {
-      navbar.classList.remove('show');
-    }
   }
 
   navegar(ruta: string): void {
     this.router.navigate([ruta]);
-    this.cerrarMenu(); // 👈 cierra menú tras navegar
+    this.cerrarMenu(); // ✅ Cierra el menú al hacer clic
   }
 
   toggleTheme(): void {

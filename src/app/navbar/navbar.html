@@ -1,37 +1,18 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/inicio">MediClean</a>
+<!-- RUTA: src/app/navbar/navbar.html -->
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="navbar">
+  <div class="logo">MediClean</div>
 
-    <div class="collapse navbar-collapse" id="navbarNav" #navbarCollapse>
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" (click)="navegar('/inicio')" routerLinkActive="active">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" (click)="navegar('/escaner')" routerLinkActive="active">Escáner</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" (click)="navegar('/historial')" routerLinkActive="active">Historial</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" (click)="navegar('/perfil')" routerLinkActive="active">Perfil</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" (click)="navegar('/configuracion')" routerLinkActive="active">Configuración</a>
-        </li>
-      </ul>
-    </div>
+  <!-- Botón hamburguesa -->
+  <div class="toggle-button" (click)="toggleMenu()">☰</div>
+
+  <!-- Menú de navegación -->
+  <div class="nav-links" [class.active]="menuAbierto">
+    <a class="nav-link" (click)="navegar('/inicio')">Inicio</a>
+    <a class="nav-link" (click)="navegar('/escaner')">Escáner</a>
+    <a class="nav-link" (click)="navegar('/historial')">Historial</a>
+    <a class="nav-link" (click)="navegar('/perfil')">Perfil</a>
+    <a class="nav-link" (click)="navegar('/configuracion')">Configuración</a>
+    <a class="nav-link" (click)="onLogout()">Cerrar sesión</a>
   </div>
 </nav>
