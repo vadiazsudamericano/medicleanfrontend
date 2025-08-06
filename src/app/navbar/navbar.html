@@ -1,9 +1,7 @@
 <nav class="navbar">
   <div class="navbar-container">
-    <!-- Logo a la izquierda -->
     <div class="logo">MediClean</div>
 
-    <!-- Ícono hamburguesa alineado a la derecha -->
     <button class="hamburger" (click)="toggleMenu()" aria-label="Menú">
       <span class="bar"></span>
       <span class="bar"></span>
@@ -11,7 +9,6 @@
     </button>
   </div>
 
-  <!-- Menú de navegación desplegable -->
   <div class="nav-links" [class.active]="menuAbierto">
     <a class="nav-link" (click)="navegar('/inicio')">Inicio</a>
     <a class="nav-link" (click)="navegar('/escaner')">Escáner</a>

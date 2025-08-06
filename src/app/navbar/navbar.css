@@ -2,6 +2,7 @@
   background-color: #1d3557;
   color: white;
   padding: 1rem 1.5rem;
+  padding-top: calc(env(safe-area-inset-top) + 1rem);
   position: fixed;
   width: 100%;
   top: 0;
@@ -11,13 +12,14 @@
 
 .navbar-container {
   display: flex;
-  justify-content: space-between; /* 👈 Distribuye el logo a la izquierda y el botón a la derecha */
+  justify-content: space-between;
   align-items: center;
 }
 
 .logo {
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  color: white;
 }
 
 /* Botón hamburguesa */
@@ -31,7 +33,6 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 1100;
 }
 
 .bar {
@@ -79,7 +80,7 @@
   }
 
   .hamburger {
-    display: flex; /* 👈 Se muestra solo en pantallas pequeñas */
+    display: flex;
   }
 
   .nav-links .nav-link {
