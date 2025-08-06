@@ -16,13 +16,14 @@
   align-items: center;
 }
 
+/* ✅ Nombre de la app alineado a la izquierda */
 .logo {
   font-weight: bold;
   font-size: 1.6rem;
   color: white;
 }
 
-/* Botón hamburguesa */
+/* ✅ Botón hamburguesa a la derecha */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -33,6 +34,7 @@
   border: none;
   cursor: pointer;
   padding: 0;
+  margin-left: auto;
 }
 
 .bar {
@@ -43,12 +45,13 @@
   transition: all 0.3s ease;
 }
 
-/* Menú de enlaces */
+/* ✅ Enlaces del menú */
 .nav-links {
   display: flex;
   gap: 1.5rem;
 }
 
+/* ✅ Enlace individual */
 .nav-link {
   color: white;
   text-decoration: none;
@@ -60,7 +63,7 @@
   color: #90caf9;
 }
 
-/* Responsive */
+/* ✅ Responsive para celulares */
 @media (max-width: 768px) {
   .nav-links {
     position: absolute;
