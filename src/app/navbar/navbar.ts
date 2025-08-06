@@ -1,52 +1,36 @@
 // RUTA: src/app/navbar/navbar.ts
-
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ThemeService } from '../servicios/theme.service';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css'],
 })
 export class NavbarComponent {
   menuAbierto = false;
-  currentTheme: 'dark' | 'cobalt';
 
   constructor(
-    private themeService: ThemeService,
     private router: Router,
+    private themeService: ThemeService,
     private authService: AuthService
-  ) {
-    this.currentTheme = this.themeService.getTheme();
-  }
+  ) {}
 
   toggleMenu(): void {
     this.menuAbierto = !this.menuAbierto;
   }
 
-  cerrarMenu(): void {
-    this.menuAbierto = false;
-  }
-
   navegar(ruta: string): void {
     this.router.navigate([ruta]);
-    this.cerrarMenu();
-  }
-
-  toggleTheme(): void {
-    const next = this.currentTheme === 'dark' ? 'cobalt' : 'dark';
-    this.themeService.setTheme(next);
-    this.currentTheme = next;
+    this.menuAbierto = false; // Se cierra el menú automáticamente
   }
 
   onLogout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
-    this.cerrarMenu();
+    this.menuAbierto = false; // Se cierra el menú automáticamente
   }
 }
