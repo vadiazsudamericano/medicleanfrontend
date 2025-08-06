@@ -14,7 +14,7 @@ export class ProcesoDesinfeccionComponent implements OnInit, OnDestroy {
 
   temperaturaActual: number | null = null;
   mensajeEstado: string = 'Obteniendo datos...';
-  estadoClase: string = 'info'; // Puede ser: exito, precalentamiento, peligro, advertencia
+  estadoClase: string = 'advertencia'; // Inicia en advertencia (amarillo simple)
   private intervalId: any;
 
   constructor(
@@ -23,7 +23,7 @@ export class ProcesoDesinfeccionComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.getTemperatura(); 
+    this.getTemperatura();
     this.intervalId = setInterval(() => {
       this.getTemperatura();
     }, 2000);
@@ -44,7 +44,7 @@ export class ProcesoDesinfeccionComponent implements OnInit, OnDestroy {
         } else {
           this.temperaturaActual = null;
           this.mensajeEstado = 'No se han recibido datos del sensor todavía.';
-          this.estadoClase = 'advertencia'; // Cambiado a 'advertencia' para que no sea azul
+          this.estadoClase = 'advertencia';
         }
       },
       error: (err) => {
@@ -57,40 +57,34 @@ export class ProcesoDesinfeccionComponent implements OnInit, OnDestroy {
   }
 
   // =========================================================================
-  // ===             INICIO: LÓGICA FINAL Y CORREGIDA                    ===
+  // ===             INICIO: LÓGICA FINAL Y SIMPLIFICADA                   ===
   // =========================================================================
   actualizarEstado(): void {
     if (this.temperaturaActual === null) return;
 
-    // Caso 1: ¡PELIGRO! Temperatura muy alta.
+    // CASO ROJO: ¡PELIGRO!
     if (this.temperaturaActual > 130) {
-      this.mensajeEstado = '¡PELIGRO! Temperatura excesiva. RETIRA LA FUENTE DE CALOR INMEDIATAMENTE para evitar daños en la herramienta.';
+      this.mensajeEstado = '¡PELIGRO! Temperatura excesiva. RETIRA LA FUENTE DE CALOR INMEDIATAMENTE.';
       this.estadoClase = 'peligro';
     
-    // CASO 2: ZONA DE ÉXITO EXTENDIDA. ¡SIEMPRE VERDE!
-    } else if (this.temperaturaActual >= 115) { // Cubre de 115°C a 130°C
-      this.estadoClase = 'exito'; // La alerta siempre será VERDE en este rango.
-      
-      // Mensaje específico si está en el rango ideal
-      if (this.temperaturaActual <= 121) {
-        this.mensajeEstado = '¡ÉXITO! Temperatura óptima alcanzada. Retira la fuente de calor. La herramienta está desinfectada.';
-      } else { // Mensaje si está por encima del ideal pero no es peligroso
-        this.mensajeEstado = 'Temperatura por encima de la óptima. Mantén retirada la fuente de calor y deja que la herramienta se enfríe.';
-      }
+    // CASO VERDE: ¡ÉXITO Y MANTENER!
+    } else if (this.temperaturaActual >= 115) {
+      this.mensajeEstado = '¡ÉXITO! Temperatura óptima alcanzada. Retira la fuente de calor. La herramienta está desinfectada.';
+      this.estadoClase = 'exito';
     
-    // CASO 3: ZONA DE PRE-CALENTAMIENTO (Amarilla)
+    // CASO AMARILLO: ¡PRECALENTAMIENTO!
     } else if (this.temperaturaActual >= 80) {
       this.mensajeEstado = 'Aleja la pistola de calor y espera. Si la temperatura no sube a 115°C, aplica más calor en ráfagas cortas.';
       this.estadoClase = 'precalentamiento';
     
-    // CASO 4: ZONA DEMASIADO FRÍA (Azul simple por defecto)
+    // CASO INICIAL: DEMASIADO FRÍO (Amarillo simple)
     } else {
       this.mensajeEstado = 'El proceso no es lo suficientemente riguroso. Aplica calor de forma constante hasta alcanzar al menos 80°C.';
       this.estadoClase = 'advertencia';
-    } 
+    }
   }
   // =========================================================================
-  // ===              FIN: LÓGICA FINAL Y CORREGIDA                      ===
+  // ===              FIN: LÓGICA FINAL Y SIMPLIFICADA                     ===
   // =========================================================================
   
   volver(): void { 
