@@ -15,7 +15,11 @@ export class DetalleHerramientaComponent implements OnInit {
   id: number = 0;
   mensajeCarga: string = 'Cargando información...';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private router: Router // ✅ Inyectamos Router
+  ) {}
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
@@ -44,5 +48,10 @@ export class DetalleHerramientaComponent implements OnInit {
     } else {
       this.mensajeCarga = '⚠️ ID inválido en la URL.';
     }
+  }
+
+  // ✅ Función para ir al proceso de desinfección
+  irAProceso(): void {
+    this.router.navigate(['/proceso-desinfeccion']);
   }
 }
