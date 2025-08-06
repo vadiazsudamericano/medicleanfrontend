@@ -11,29 +11,13 @@
 
 .navbar-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* 👈 Distribuye el logo a la izquierda y el botón a la derecha */
   align-items: center;
 }
 
 .logo {
   font-weight: bold;
   font-size: 1.5rem;
-}
-
-.nav-links {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.nav-link {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-.nav-link:hover {
-  color: #90caf9;
 }
 
 /* Botón hamburguesa */
@@ -58,6 +42,23 @@
   transition: all 0.3s ease;
 }
 
+/* Menú de enlaces */
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #90caf9;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .nav-links {
@@ -78,6 +79,12 @@
   }
 
   .hamburger {
-    display: flex;
+    display: flex; /* 👈 Se muestra solo en pantallas pequeñas */
+  }
+
+  .nav-links .nav-link {
+    padding: 0.8rem;
+    width: 100%;
+    text-align: center;
   }
 }
