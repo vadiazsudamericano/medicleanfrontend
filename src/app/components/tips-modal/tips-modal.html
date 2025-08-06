@@ -1,0 +1,25 @@
+<!-- Este es el fondo oscuro que cubre toda la pantalla -->
+<div class="modal-backdrop" (click)="onClose()">
+  
+  <!-- Este es el cuadro blanco del anuncio -->
+  <!-- (click)="$event.stopPropagation()" evita que el modal se cierre al hacer clic dentro de él -->
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <!-- El botón de cerrar (X) -->
+    <button class="close-button" (click)="onClose()">×</button>
+    
+    <h2>¡Consejos para un Escaneo Perfecto!</h2>
+    <p>Sigue estas recomendaciones para la mejor detección:</p>
+    
+    <ul>
+      <li>💡 Ten una iluminación adecuada, sin reflejos ni sombras.</li>
+      <li>📷 Enfoca solamente la herramienta, evitando otros objetos.</li>
+      <li>🖼️ Usa un fondo simple y de color sólido si es posible.</li>
+      <li>1️⃣ Escanea una sola herramienta a la vez.</li>
+      <li>🖐️ Mantén la cámara y la herramienta estables.</li>
+    </ul>
+    
+    <button class="accept-button" (click)="onClose()">¡Entendido!</button>
+    
+  </div>
+</div>

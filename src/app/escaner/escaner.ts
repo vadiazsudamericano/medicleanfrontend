@@ -12,6 +12,7 @@ import { Router, RouterModule } from '@angular/router';
 import * as tmImage from '@teachablemachine/image';
 import { HerramientaService } from '../servicios/herramienta.service';
 import { HistorialService } from '../servicios/historial.service';
+import { TipsModalComponent } from '../components/tips-modal/tips-modal'; // NUEVO: Importa el componente del modal
 
 interface Prediction {
   className: string;
@@ -21,7 +22,7 @@ interface Prediction {
 @Component({
   selector: 'app-escaner',
   standalone: true,
-  imports: [CommonModule, NgClass, RouterModule],
+  imports: [CommonModule, NgClass, RouterModule, TipsModalComponent], // NUEVO: Añade TipsModalComponent aquí
   templateUrl: './escaner.html',
   styleUrls: ['./escaner.css']
 })
@@ -44,6 +45,8 @@ export class EscanerComponent implements OnInit, OnDestroy {
   private confirmacionTimer: any = null;
   private herramientaPendiente: string | null = null;
 
+  public isTipsModalVisible = false; // NUEVO: Propiedad para controlar la visibilidad del modal
+
   constructor(
     private zone: NgZone,
     private router: Router,
@@ -53,6 +56,8 @@ export class EscanerComponent implements OnInit, OnDestroy {
   ) {}
 
   async ngOnInit() {
+    this.isTipsModalVisible = true; // NUEVO: Muestra el modal al iniciar el componente
+
     try {
       this.model = await tmImage.load(this.MODEL_URL, this.METADATA_URL);
       this.statusMessage = 'Modelo cargado. Iniciando cámara...';
@@ -87,7 +92,9 @@ export class EscanerComponent implements OnInit, OnDestroy {
     }
     if (this.webcam) {
       this.webcam.stop();
-      this.webcamContainer.nativeElement.innerHTML = '';
+      if (this.webcamContainer.nativeElement) { // Condición de seguridad
+        this.webcamContainer.nativeElement.innerHTML = '';
+      }
     }
   }
 
@@ -176,4 +183,9 @@ export class EscanerComponent implements OnInit, OnDestroy {
       }
     });
   }
-}
+
+  // NUEVO: Método público para cerrar el modal desde el HTML
+  public closeTipsModal() {
+    this.isTipsModalVisible = false;
+  }
+} 
