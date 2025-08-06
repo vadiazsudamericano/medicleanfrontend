@@ -5,6 +5,7 @@ import { UserService, Usuario } from '../servicios/user.service';
 import { AuthService } from '../auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-usuarios',
@@ -24,7 +25,8 @@ export class UsuariosComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +37,8 @@ export class UsuariosComponent implements OnInit {
         this.usuarios = data;
       },
       error: (err) => {
-        console.error('Error al cargar usuarios:', err);
+        this.toastr.error('Error al cargar usuarios', 'Error');
+        console.error(err);
       }
     });
   }
@@ -45,9 +48,11 @@ export class UsuariosComponent implements OnInit {
       this.userService.eliminarUsuario(id).subscribe({
         next: () => {
           this.usuarios = this.usuarios.filter(u => u.id !== id);
+          this.toastr.success('Usuario eliminado correctamente', 'Éxito');
         },
         error: (err) => {
-          console.error('Error al eliminar usuario:', err);
+          this.toastr.error('No se pudo eliminar el usuario', 'Error');
+          console.error(err);
         }
       });
     }
@@ -60,20 +65,27 @@ export class UsuariosComponent implements OnInit {
   }
 
   aplicarCambioRol(): void {
-    if (this.nuevoRol === 'admin' || this.nuevoRol === 'user') {
-      this.userService.actualizarRol(this.selectedUserId!, this.nuevoRol).subscribe({
-        next: () => {
-          alert('Rol actualizado correctamente');
-          this.mostrarSelectRol = false;
-          this.selectedUserId = null;
-          this.ngOnInit();
-        },
-        error: (err) => {
-          alert('Error al actualizar rol: ' + err.error?.message || err.message);
-        }
-      });
-    } else {
-      alert('Selecciona un rol válido.');
+    if (!this.nuevoRol || !['admin', 'user'].includes(this.nuevoRol)) {
+      this.toastr.warning('Selecciona un rol válido', 'Advertencia');
+      return;
     }
+
+    this.userService.actualizarRol(this.selectedUserId!, this.nuevoRol).subscribe({
+      next: () => {
+        this.toastr.success('Rol actualizado correctamente', 'Éxito');
+        this.mostrarSelectRol = false;
+        this.selectedUserId = null;
+        this.ngOnInit(); // Recarga usuarios
+      },
+      error: (err) => {
+        this.toastr.error('Error al actualizar el rol', 'Error');
+        console.error(err);
+      }
+    });
+  }
+
+  cancelarCambio(): void {
+    this.mostrarSelectRol = false;
+    this.selectedUserId = null;
   }
 }

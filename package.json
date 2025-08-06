@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^20.1.1",
+    "@angular/animations": "^20.1.2",
     "@angular/common": "^20.1.2",
     "@angular/compiler": "^20.1.2",
     "@angular/core": "^20.1.2",
@@ -24,6 +24,7 @@
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
     "jwt-decode": "^4.0.0",
+    "ngx-toastr": "^19.0.0",
     "ngx-webcam": "^0.4.1",
     "rxjs": "~7.8.0",
     "stream-browserify": "^3.0.0",
