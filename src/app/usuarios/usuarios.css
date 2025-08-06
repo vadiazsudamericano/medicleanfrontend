@@ -40,15 +40,16 @@
 /* === BOTONES === */
 .btn-delete,
 .btn-role {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   border: none;
-  border-radius: 8px;
-  padding: 6px 14px;
+  border-radius: 6px;
+  padding: 6px 10px;
   font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, transform 0.2s ease;
   margin-bottom: 6px;
 }
@@ -75,8 +76,8 @@
 
 .icon-trash,
 .icon-role {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 }
 
 /* === SELECTOR ROL === */
@@ -154,46 +155,40 @@
 }
 
 /* === RESPONSIVE === */
-@media (max-width: 768px) {
-  .tabla-container {
-    padding: 1rem;
-  }
-
+@media screen and (max-width: 768px) {
   .tabla-usuarios thead {
     display: none;
   }
 
-  .tabla-usuarios, .tabla-usuarios tbody, .tabla-usuarios tr, .tabla-usuarios td {
+  .tabla-usuarios tbody tr {
     display: block;
-    width: 100%;
-  }
-
-  .tabla-usuarios tr {
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #fff;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     padding: 1rem;
+    background-color: #fff;
   }
 
   .tabla-usuarios td {
-    text-align: left;
-    padding: 0.5rem 0;
-    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    text-align: right;
   }
 
   .tabla-usuarios td::before {
     content: attr(data-label);
-    font-weight: 700;
+    font-weight: bold;
     color: #2c3e50;
-    display: block;
-    margin-bottom: 4px;
+    text-align: left;
   }
 
   .btn-delete,
   .btn-role {
     width: 100%;
     justify-content: center;
+    font-size: 0.9rem;
+    padding: 8px;
   }
 
   .rol-selector {
@@ -207,12 +202,11 @@
   }
 
   .notificacion {
+    top: 50%;
     left: 50%;
     right: auto;
-    transform: translateX(-50%);
-    top: 16px;
-    width: 90%;
-    max-width: 300px;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
     text-align: center;
   }
 }
