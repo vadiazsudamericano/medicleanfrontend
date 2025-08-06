@@ -18,7 +18,7 @@ export class DetalleHerramientaComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    private router: Router // ✅ Inyectamos Router
+    private router: Router // ✅ necesario para redirección
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class DetalleHerramientaComponent implements OnInit {
     }
   }
 
-  // ✅ Función para ir al proceso de desinfección
+  // ✅ MÉTODO QUE REDIRIGE A /proceso-desinfeccion
   irAProceso(): void {
     this.router.navigate(['/proceso-desinfeccion']);
   }
