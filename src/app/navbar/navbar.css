@@ -1,13 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
 .navbar {
-  font-family: 'Poppins', sans-serif;
-  background-color: #003366;
+  background-color: #1e3a5f;
   color: white;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  position: relative;
-  z-index: 10;
+  padding: 0.8rem 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: 'Poppins', sans-serif;
 }
 
 .navbar-container {
@@ -17,53 +15,57 @@
 }
 
 .navbar-brand {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
 }
 
 .hamburger {
-  font-size: 1.6rem;
-  color: white;
   background: none;
   border: none;
+  color: white;
+  font-size: 1.8rem;
   cursor: pointer;
+  display: none; /* oculto en escritorio */
 }
 
+/* Estilo del menú */
 .nav-links {
   list-style: none;
   padding-left: 0;
   margin: 0;
-  display: none;
-  flex-direction: column;
-  gap: 1.2rem;
-  margin-top: 1rem;
-}
-
-.nav-links.active {
   display: flex;
+  gap: 1.5rem;
+  font-weight: 500;
 }
 
 .nav-links li a {
-  color: white;
   text-decoration: none;
-  font-size: 1.1rem;
-  transition: color 0.3s;
+  color: white;
+  transition: color 0.3s ease;
 }
 
 .nav-links li a:hover {
-  color: #ffcc00;
+  color: #a0c4ff;
 }
 
-/* Escritorio */
-@media (min-width: 768px) {
+/* Responsive */
+@media (max-width: 768px) {
   .hamburger {
-    display: none;
+    display: block; /* visible en móvil */
   }
 
   .nav-links {
-    display: flex !important;
-    flex-direction: row;
-    gap: 2rem;
-    margin-top: 0;
+    display: none;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1rem;
+    background-color: #1e3a5f;
+    padding: 1rem;
+    border-top: 1px solid #446a99;
+  }
+
+  .nav-links.active {
+    display: flex;
   }
 }
