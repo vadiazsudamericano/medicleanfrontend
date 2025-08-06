@@ -1,17 +1,15 @@
-<!-- RUTA: src/app/navbar/navbar.html -->
-
 <nav class="navbar">
   <div class="navbar-container">
     <div class="logo">MediClean</div>
 
-    <!-- Botón hamburguesa -->
+    <!-- Icono de menú hamburguesa -->
     <button class="hamburger" (click)="toggleMenu()" aria-label="Menú">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
     </button>
 
-    <!-- Menú de navegación -->
+    <!-- Menú desplegable -->
     <div class="nav-links" [class.active]="menuAbierto">
       <a class="nav-link" (click)="navegar('/inicio')">Inicio</a>
       <a class="nav-link" (click)="navegar('/escaner')">Escáner</a>

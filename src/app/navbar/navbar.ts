@@ -1,4 +1,4 @@
-// RUTA: src/app/navbar/navbar.ts
+// navbar.ts
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
@@ -33,7 +33,7 @@ export class NavbarComponent {
 
   navegar(ruta: string): void {
     this.router.navigate([ruta]);
-    this.cerrarMenu(); // ✅ Cierra el menú en móvil al hacer clic
+    this.cerrarMenu();
   }
 
   toggleTheme(): void {

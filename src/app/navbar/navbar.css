@@ -1,5 +1,3 @@
-/* RUTA: src/app/navbar/navbar.css */
-
 .navbar {
   background-color: #1d3557;
   color: white;
@@ -38,23 +36,26 @@
   color: #90caf9;
 }
 
-/* Hamburguesa oculta en pantallas grandes */
+/* Botón hamburguesa */
 .hamburger {
   display: none;
   flex-direction: column;
   justify-content: space-between;
-  width: 24px;
-  height: 18px;
+  width: 28px;
+  height: 21px;
   background: none;
   border: none;
   cursor: pointer;
+  padding: 0;
+  z-index: 1100;
 }
 
 .bar {
   height: 3px;
+  width: 100%;
   background-color: white;
   border-radius: 2px;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
 }
 
 /* Responsive */
