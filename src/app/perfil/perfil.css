@@ -1,3 +1,4 @@
+/* Contenedor general */
 .page-container {
   display: flex;
   justify-content: center;
@@ -5,8 +6,10 @@
   min-height: 100vh;
   padding: 20px;
   background: linear-gradient(to bottom, #e9f0ff, #ffffff);
+  box-sizing: border-box;
 }
 
+/* Tarjeta de perfil */
 .card-container.perfil-box {
   width: 100%;
   max-width: 500px;
@@ -15,8 +18,10 @@
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
   animation: fadeInUp 0.5s ease-in-out;
+  box-sizing: border-box;
 }
 
+/* Título */
 h2 {
   margin-bottom: 1.5rem;
   color: #001d3d;
@@ -25,6 +30,7 @@ h2 {
   font-weight: 700;
 }
 
+/* Párrafos */
 p {
   margin: 0.8rem 0;
   font-size: 1rem;
@@ -44,7 +50,7 @@ p {
   margin-top: 0.5rem;
 }
 
-/* --- Animación al cargar --- */
+/* Animación de entrada */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -56,7 +62,7 @@ p {
   }
 }
 
-/* --- Responsive --- */
+/* Responsive para móviles */
 @media (max-width: 600px) {
   .card-container.perfil-box {
     padding: 1.5rem;

@@ -9,6 +9,7 @@ body {
   max-width: 700px;
   margin: 4rem auto;
   padding: 1rem;
+  box-sizing: border-box;
 }
 
 /* Tarjeta principal */
@@ -26,6 +27,7 @@ body {
   padding: 1.5rem;
   font-size: 1.8rem;
   font-weight: 600;
+  text-align: center;
 }
 
 /* Body */
@@ -39,12 +41,14 @@ body {
   font-size: 4rem;
   font-weight: bold;
   color: #0051ff;
+  margin-bottom: 1rem;
 }
 
 /* Títulos */
 .card-title {
   font-weight: 500;
   margin-bottom: 1rem;
+  font-size: 1.2rem;
 }
 
 /* Estado */
@@ -53,6 +57,9 @@ body {
   padding: 1.2rem;
   margin-top: 1rem;
   border-radius: 12px;
+  background-color: #f1f9ff;
+  color: #003366;
+  border-left: 5px solid #0051ff;
 }
 
 /* Consejo */
@@ -93,9 +100,49 @@ body {
   border: none;
   border-radius: 8px;
   transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .btn:hover {
   background-color: #001f3f;
   color: #ffffff;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 768px) {
+  .container {
+    margin: 2rem 1rem;
+  }
+
+  .card-body {
+    padding: 1.2rem;
+  }
+
+  .display-1 {
+    font-size: 3rem;
+  }
+
+  .card-header {
+    font-size: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .alert {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .badge {
+    font-size: 0.95rem;
+    padding: 0.8rem 1.2rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
 }

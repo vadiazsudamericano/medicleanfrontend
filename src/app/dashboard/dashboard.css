@@ -26,8 +26,9 @@
   background-color: var(--bg-color);
   color: var(--text-color);
   min-height: 100vh;
-  padding: 20px;
+  padding: 90px 20px 20px; /* 90px por el navbar fijo */
   font-family: 'Segoe UI', sans-serif;
+  box-sizing: border-box;
 }
 
 /* Header */
@@ -121,7 +122,7 @@
   margin-bottom: 1rem;
 }
 
-/* 🎯 Herramientas Destacadas: 2 filas de 3 */
+/* Herramientas Destacadas */
 .featured-tools-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -231,7 +232,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .featured-tools-grid {
     grid-template-columns: 1fr;
   }
@@ -239,9 +240,7 @@
   .tool-card img {
     height: 140px;
   }
-}
 
-@media (max-width: 768px) {
   .info-module {
     flex-direction: column;
     text-align: center;

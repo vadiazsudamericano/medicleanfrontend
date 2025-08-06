@@ -1,23 +1,26 @@
 .detalle-container {
-  max-width: 90%;
-  margin: 4rem auto 2rem;
+  max-width: 960px;
+  margin: 90px auto 2rem; /* 90px arriba por el navbar fijo */
   background-color: #f5f6fa;
   padding: 1.5rem;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   font-family: 'Segoe UI', sans-serif;
   color: #222;
+  box-sizing: border-box;
 }
 
 .detalle-container h2 {
   margin-bottom: 1.2rem;
   color: #003366;
   text-align: center;
+  font-size: 1.8rem;
 }
 
 .detalle-card p {
   margin: 0.6rem 0;
   font-size: 1rem;
+  line-height: 1.5;
 }
 
 .detalle-card strong {
@@ -25,7 +28,7 @@
 }
 
 ul {
-  padding-left: 1.2rem;
+  padding-left: 1.5rem;
   margin: 0.5rem 0;
 }
 
@@ -37,10 +40,10 @@ li {
 
 /* ✅ BOTONES UNIFICADOS */
 .btn-volver {
-  display: block;
+  display: inline-block;
   width: 100%;
-  margin-top: 1.2rem;
-  padding: 0.6rem 1rem;
+  margin-top: 1.5rem;
+  padding: 0.7rem 1rem;
   border: 2px solid #003366;
   color: #003366;
   border-radius: 8px;
@@ -49,6 +52,7 @@ li {
   text-decoration: none;
   background-color: transparent;
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .btn-volver:hover {
@@ -56,7 +60,24 @@ li {
   color: white;
 }
 
-/* ✅ OPCIONAL: Agrega un espacio entre botones si deseas que estén uno debajo del otro */
+/* ✅ Margen entre múltiples botones */
 .btn-volver + .btn-volver {
   margin-top: 0.8rem;
+}
+
+/* ✅ Responsive para pantallas pequeñas */
+@media (max-width: 600px) {
+  .detalle-container {
+    margin-top: 80px;
+    padding: 1rem;
+  }
+
+  .detalle-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .btn-volver {
+    font-size: 0.95rem;
+    padding: 0.6rem;
+  }
 }
