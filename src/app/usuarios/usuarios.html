@@ -17,19 +17,14 @@
         <td data-label="Email">{{ user.email }}</td>
         <td data-label="Rol">{{ user.role }}</td>
         <td data-label="Acciones" *ngIf="currentUserRol === 'admin'">
-          <button class="btn-delete" (click)="eliminarUsuario(user.id)">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 6h18M8 6v14h8V6M10 6V4h4v2" />
-            </svg>
-            Eliminar
-          </button>
-
-          <button class="btn-role" (click)="mostrarSelector(user.id)">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon-role" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 20v-6M6 20v-4M18 20v-10M4 4h16" />
-            </svg>
-            Cambiar rol
-          </button>
+          <div class="acciones-btns">
+            <button class="btn-delete" (click)="eliminarUsuario(user.id)">
+              <i class="fas fa-trash"></i> Eliminar
+            </button>
+            <button class="btn-role" (click)="mostrarSelector(user.id)">
+              <i class="fas fa-user-cog"></i> Cambiar rol
+            </button>
+          </div>
 
           <!-- Selector visual de rol -->
           <div *ngIf="mostrarSelectRol && selectedUserId === user.id" class="rol-selector">
@@ -38,11 +33,15 @@
               <option value="admin">Admin</option>
               <option value="user">User</option>
             </select>
-            <button (click)="aplicarCambioRol()">Aplicar</button>
-            <button class="cancelar" (click)="cancelarCambio()">Cancelar</button>
+            <div class="rol-botones">
+              <button (click)="aplicarCambioRol()">Aplicar</button>
+              <button class="cancelar" (click)="cancelarCambio()">Cancelar</button>
+            </div>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<div *ngIf="mensaje" class="notificacion" [ngClass]="tipoMensaje">{{ mensaje }}</div>
