@@ -1,27 +1,25 @@
 <!-- RUTA: src/app/navbar/navbar.html -->
 <nav class="navbar-container">
-  <!-- El logo ahora se adapta al tema oscuro -->
-  <a class="navbar-brand" routerLink="/inicio">
+  <!-- El logo -->
+  <a class="navbar-brand" routerLink="/inicio" (click)="cerrarMenu()">
     <img src="assets/scanner-svgrepo-com.png" alt="MediClean Logo">
     <span>MediClean</span>
   </a>
 
-  <!-- Botón hamburguesa con un icono -->
-  <!-- CÓDIGO DE PRUEBA -->
-<button class="menu-toggle" (click)="toggleMenu()">
-  <i class="fas fa-bars"></i>
-</button>
+  <!-- Botón hamburguesa -->
+  <button class="menu-toggle" (click)="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </button>
 
-  <!-- Enlaces con la misma estructura, pero nuevo estilo -->
+  <!-- Menú con enlaces -->
   <ul class="navbar-links" [ngClass]="{ 'show': menuAbierto }">
-    <li><a class="nav-link" routerLink="/inicio" routerLinkActive="active">Inicio</a></li>
-    <li><a class="nav-link" routerLink="/escaner" routerLinkActive="active">Escanear</a></li>
-    <li><a class="nav-link" routerLink="/historial" routerLinkActive="active">Historial</a></li>
-    <li><a class="nav-link" routerLink="/perfil" routerLinkActive="active">Perfil</a></li>
-    <li><a class="nav-link" routerLink="/configuracion" routerLinkActive="active">Configuración</a></li>
+    <li><a class="nav-link" routerLink="/inicio" routerLinkActive="active" (click)="cerrarMenu()">Inicio</a></li>
+    <li><a class="nav-link" routerLink="/escaner" routerLinkActive="active" (click)="cerrarMenu()">Escanear</a></li>
+    <li><a class="nav-link" routerLink="/historial" routerLinkActive="active" (click)="cerrarMenu()">Historial</a></li>
+    <li><a class="nav-link" routerLink="/perfil" routerLinkActive="active" (click)="cerrarMenu()">Perfil</a></li>
+    <li><a class="nav-link" routerLink="/configuracion" routerLinkActive="active" (click)="cerrarMenu()">Configuración</a></li>
     <li>
-      <!-- ¡AQUÍ ESTÁ LA MAGIA! Usamos las clases de botón de nuestro styles.css global -->
-      <button class="btn btn-secondary" (click)="onLogout()">
+      <button class="btn btn-secondary" (click)="onLogout(); cerrarMenu()">
         <i class="fas fa-sign-out-alt"></i>
         <span>Cerrar Sesión</span>
       </button>

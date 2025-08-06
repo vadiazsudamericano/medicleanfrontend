@@ -29,6 +29,10 @@ export class NavbarComponent {
     this.menuAbierto = !this.menuAbierto;
   }
 
+  cerrarMenu(): void {
+    this.menuAbierto = false;
+  }
+
   toggleTheme(): void {
     const next = this.currentTheme === 'dark' ? 'cobalt' : 'dark';
     this.themeService.setTheme(next);
@@ -38,5 +42,6 @@ export class NavbarComponent {
   onLogout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+    this.cerrarMenu();
   }
 }

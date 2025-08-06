@@ -25,7 +25,7 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: var(--transition);
-  padding-top: 100px; /* 🔧 Corrige el solapamiento del navbar */
+  padding-top: 100px;
 }
 
 h1, h2, h3 {
@@ -72,6 +72,31 @@ p, span, label, input, button, select {
 }
 
 /* =====================
+   BOTONES
+====================== */
+.btn,
+.btn-volver,
+.btn-proceso {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background-color: transparent;
+  color: var(--accent-blue);
+  border: 2px solid var(--accent-blue);
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn-volver:hover,
+.btn-proceso:hover {
+  background-color: var(--accent-blue);
+  color: white;
+}
+
+/* =====================
    DETALLE HERRAMIENTA
 ====================== */
 .detalle-container {
@@ -99,22 +124,30 @@ p, span, label, input, button, select {
   color: var(--accent-blue);
 }
 
-.btn-volver {
-  display: inline-block;
-  margin-top: 2rem;
-  padding: 0.6rem 1.2rem;
-  background-color: transparent;
-  color: var(--accent-blue);
-  border: 2px solid var(--accent-blue);
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: var(--transition);
+/* =====================
+   DASHBOARD Y GRIDS
+====================== */
+.dashboard-grid,
+.main-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: auto;
 }
 
-.btn-volver:hover {
-  background-color: var(--accent-blue);
-  color: white;
+.metric-card {
+  background-color: var(--bg-secondary);
+  padding: 1.2rem;
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
+  text-align: center;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
 }
 
 /* =====================
@@ -162,23 +195,60 @@ body.high-contrast * {
 /* =====================
    RESPONSIVE
 ====================== */
+@media (max-width: 1200px) {
+  .dashboard-grid,
+  .main-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
-  .detalle-container {
-    margin: 2rem 1rem;
-    padding: 1.5rem;
-  }
-
-  .detalle-card p {
-    font-size: 0.95rem;
-  }
-
-  .btn-volver {
-    width: 100%;
-    text-align: center;
+  body {
+    font-size: 15px;
+    padding-top: 70px;
   }
 
   .navbar {
     flex-direction: column;
     align-items: flex-start;
+    padding: 10px 20px;
+  }
+
+  .navbar a {
+    margin: 10px 0;
+    display: block;
+  }
+
+  .detalle-container,
+  .card {
+    width: 95%;
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+
+  .dashboard-grid,
+  .main-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .btn, .btn-volver, .btn-proceso {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1, h2 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  .btn, .btn-volver {
+    font-size: 1rem;
+    padding: 0.5rem;
   }
 }

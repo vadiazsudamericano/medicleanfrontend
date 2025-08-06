@@ -1,3 +1,6 @@
+/* =====================
+   CONFIGURACIÓN GENERAL
+====================== */
 .page-header {
   padding: 1rem;
   margin-bottom: 2rem;
@@ -14,21 +17,23 @@
 }
 
 .setting-section {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 
 .setting-section h2 {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-bottom: 1rem;
   color: var(--accent-blue);
 }
 
-/* Opciones de tema */
+/* =====================
+   TARJETAS DE TEMA
+====================== */
 .theme-options {
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 1rem;
 }
 
 .theme-card {
@@ -38,10 +43,11 @@
   border-radius: 10px;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  flex: 1 1 200px;
+  flex: 1 1 220px;
   text-align: center;
   transition: transform 0.2s ease;
   max-width: 300px;
+  min-width: 200px;
 }
 
 .theme-card:hover {
@@ -49,23 +55,9 @@
   background-color: var(--bg-secondary);
 }
 
-/* Tarjeta general */
-.card {
-  background-color: var(--bg-primary);
-  padding: 1.5rem;
-  border-radius: var(--card-radius);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
-}
-
-.card h2 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.theme-card.active {
+  border: 3px solid var(--accent-blue);
+  box-shadow: 0 0 12px var(--accent-blue-glow);
 }
 
 /* Vista previa del tema */
@@ -84,13 +76,57 @@
   background: linear-gradient(to right, #15243b, #243c63);
 }
 
-/* Tema activo */
-.theme-card.active {
-  border: 3px solid var(--accent-blue);
-  box-shadow: 0 0 12px var(--accent-blue-glow);
+/* =====================
+   TARJETAS
+====================== */
+.card {
+  background-color: var(--bg-primary);
+  padding: 1.5rem;
+  border-radius: var(--card-radius);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
 }
 
-/* Switch de configuración */
+.card h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* =====================
+   SWITCH Y CONFIGURACIÓN
+====================== */
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.setting-text h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.setting-text p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.setting-toggle {
+  display: flex;
+  align-items: center;
+}
+
+/* SWITCH */
 .switch {
   position: relative;
   display: inline-block;
@@ -136,35 +172,14 @@ input:checked + .slider:before {
   transform: translateX(24px);
 }
 
-/* Item de configuración */
-.setting-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.setting-text h4 {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: bold;
-  color: var(--text-primary);
-}
-
-.setting-text p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-}
-
-.setting-toggle {
-  display: flex;
-  align-items: center;
-}
-
-/* RESPONSIVE */
+/* =====================
+   RESPONSIVE
+====================== */
 @media (max-width: 768px) {
+  .page-title {
+    font-size: 1.5rem;
+  }
+
   .theme-options {
     flex-direction: column;
     align-items: center;
@@ -180,7 +195,19 @@ input:checked + .slider:before {
     align-items: flex-start;
   }
 
-  .page-title {
-    font-size: 1.5rem;
+  .slider {
+    width: 45px;
+    height: 22px;
+  }
+
+  .slider:before {
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 2px;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(20px);
   }
 }
