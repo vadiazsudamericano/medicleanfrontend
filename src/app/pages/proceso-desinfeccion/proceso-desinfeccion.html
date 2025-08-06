@@ -1,4 +1,4 @@
-    <div class="container mt-5">
+<div class="container mt-5">
     <div class="card text-center shadow-lg">
         <div class="card-header bg-primary text-white">
         <h2>Proceso de Desinfección</h2>
@@ -13,14 +13,24 @@
             </p>
 
             <h3 class="card-title text-muted mt-4">Estado del Proceso</h3>
+
+            <!-- ========================================================= -->
+            <!-- ===           INICIO: SECCIÓN MODIFICADA              === -->
+            <!-- ========================================================= -->
+
+            <!-- Hemos añadido la condición para el nuevo estado 'precalentamiento'. -->
             <div class="alert mt-2" [ngClass]="{
-            'alert-success': estadoClase === 'exito',
-            'alert-warning': estadoClase === 'advertencia',
-            'alert-danger': estadoClase === 'peligro',
-            'alert-info': estadoClase === 'info'
+              'alert-success': estadoClase === 'exito',
+              'alert-warning': estadoClase === 'advertencia',
+              'alert-danger': estadoClase === 'peligro',
+              'alert-info': estadoClase === 'info' || estadoClase === 'precalentamiento'
             }" role="alert">
-            <p class="mb-0 fs-5">{{ mensajeEstado }}</p>
+              <p class="mb-0 fs-5">{{ mensajeEstado }}</p>
             </div>
+
+            <!-- ========================================================= -->
+            <!-- ===            FIN: SECCIÓN MODIFICADA                === -->
+            <!-- ========================================================= -->
 
         </div>
 
@@ -45,32 +55,19 @@
         </div>
     
         <div class="card-footer text-muted">
-        Los datos se actualizan cada 10 segundos.
+          <!-- Modificamos este texto para reflejar el nuevo intervalo -->
+          Los datos se actualizan cada 2 segundos.
         </div>
     </div>
     
       <div class="text-center mt-4">
-
-      <!-- ========================================================= -->
-      <!-- ===           INICIO: SECCIÓN CORREGIDA               === -->
-      <!-- ========================================================= -->
-
-      <!-- 
-        Cambiamos 'a routerLink' por 'button (click)'.
-        (click)="volver()" le dice a Angular que ejecute la función 'volver()' 
-        de nuestro archivo TypeScript cuando se presione el botón.
-      -->
+ 
       <button (click)="volver()" 
         style="background-color: #001f3f; color: #f8f9fa; border-color: #001f3f;" 
         class="btn">
-  <i class="fas fa-arrow-left me-2"></i>
-  Volver a Detalles de la Herramienta
-</button>
+        <i class="fas fa-arrow-left me-2"></i>
+        Volver a Detalles de la Herramienta
+      </button>
 
-
-      <!-- ========================================================= -->
-      <!-- ===            FIN: SECCIÓN CORREGIDA                 === -->
-      <!-- ========================================================= -->
-
-  </div>
-    </div>
+      </div>
+</div>
