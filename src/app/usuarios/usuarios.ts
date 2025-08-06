@@ -17,15 +17,13 @@ export class UsuariosComponent implements OnInit {
   usuarios: Usuario[] = [];
   currentUserRol: string | null = null;
 
-  // 👇 Notificación personalizada
-  mensaje: string = '';
-  tipoMensaje: 'success' | 'error' | 'warning' | '' = '';
-  mostrarMensaje = false;
-
-  // 👇 Variables para cambio de rol
   mostrarSelectRol = false;
   selectedUserId: number | null = null;
   nuevoRol: string = '';
+
+  // 👇 Notificación
+  mensaje: string = '';
+  tipoMensaje: 'success' | 'error' | 'warning' = 'success';
 
   constructor(
     private userService: UserService,
@@ -39,8 +37,9 @@ export class UsuariosComponent implements OnInit {
       next: (data) => {
         this.usuarios = data;
       },
-      error: () => {
+      error: (err) => {
         this.mostrarNotificacion('Error al cargar usuarios', 'error');
+        console.error(err);
       }
     });
   }
@@ -52,8 +51,9 @@ export class UsuariosComponent implements OnInit {
           this.usuarios = this.usuarios.filter(u => u.id !== id);
           this.mostrarNotificacion('Usuario eliminado correctamente', 'success');
         },
-        error: () => {
+        error: (err) => {
           this.mostrarNotificacion('No se pudo eliminar el usuario', 'error');
+          console.error(err);
         }
       });
     }
@@ -76,10 +76,11 @@ export class UsuariosComponent implements OnInit {
         this.mostrarNotificacion('Rol actualizado correctamente', 'success');
         this.mostrarSelectRol = false;
         this.selectedUserId = null;
-        this.ngOnInit(); // Recarga usuarios
+        this.ngOnInit(); // recargar usuarios
       },
-      error: () => {
+      error: (err) => {
         this.mostrarNotificacion('Error al actualizar el rol', 'error');
+        console.error(err);
       }
     });
   }
@@ -89,11 +90,13 @@ export class UsuariosComponent implements OnInit {
     this.selectedUserId = null;
   }
 
-  // 👇 Método para mostrar notificación flotante
   mostrarNotificacion(mensaje: string, tipo: 'success' | 'error' | 'warning') {
     this.mensaje = mensaje;
     this.tipoMensaje = tipo;
-    this.mostrarMensaje = true;
-    setTimeout(() => this.mostrarMensaje = false, 3000);
+
+    // Ocultar automáticamente después de 3 segundos
+    setTimeout(() => {
+      this.mensaje = '';
+    }, 3000);
   }
 }
