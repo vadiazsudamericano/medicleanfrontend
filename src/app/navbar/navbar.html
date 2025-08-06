@@ -1,18 +1,24 @@
 <!-- RUTA: src/app/navbar/navbar.html -->
 
 <nav class="navbar">
-  <div class="logo">MediClean</div>
+  <div class="navbar-container">
+    <div class="logo">MediClean</div>
 
-  <!-- Botón hamburguesa -->
-  <div class="toggle-button" (click)="toggleMenu()">☰</div>
+    <!-- Botón hamburguesa -->
+    <button class="hamburger" (click)="toggleMenu()" aria-label="Menú">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
 
-  <!-- Menú de navegación -->
-  <div class="nav-links" [class.active]="menuAbierto">
-    <a class="nav-link" (click)="navegar('/inicio')">Inicio</a>
-    <a class="nav-link" (click)="navegar('/escaner')">Escáner</a>
-    <a class="nav-link" (click)="navegar('/historial')">Historial</a>
-    <a class="nav-link" (click)="navegar('/perfil')">Perfil</a>
-    <a class="nav-link" (click)="navegar('/configuracion')">Configuración</a>
-    <a class="nav-link" (click)="onLogout()">Cerrar sesión</a>
+    <!-- Menú de navegación -->
+    <div class="nav-links" [class.active]="menuAbierto">
+      <a class="nav-link" (click)="navegar('/inicio')">Inicio</a>
+      <a class="nav-link" (click)="navegar('/escaner')">Escáner</a>
+      <a class="nav-link" (click)="navegar('/historial')">Historial</a>
+      <a class="nav-link" (click)="navegar('/perfil')">Perfil</a>
+      <a class="nav-link" (click)="navegar('/configuracion')">Configuración</a>
+      <a class="nav-link" (click)="onLogout()">Cerrar sesión</a>
+    </div>
   </div>
 </nav>

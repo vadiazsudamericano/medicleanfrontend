@@ -1,15 +1,13 @@
 // RUTA: src/app/navbar/navbar.ts
 
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ThemeService } from '../servicios/theme.service';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css'],
 })
@@ -35,7 +33,7 @@ export class NavbarComponent {
 
   navegar(ruta: string): void {
     this.router.navigate([ruta]);
-    this.cerrarMenu(); // ✅ Cierra el menú al hacer clic
+    this.cerrarMenu(); // ✅ Cierra el menú en móvil al hacer clic
   }
 
   toggleTheme(): void {
