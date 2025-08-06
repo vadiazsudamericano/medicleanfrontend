@@ -1,3 +1,5 @@
+<!-- RUTA: src/app/usuarios/usuarios.html -->
+
 <div class="tabla-container">
   <h2>Gestión de Usuarios</h2>
   <table class="tabla-usuarios">
@@ -21,12 +23,23 @@
             </svg>
             Eliminar
           </button>
-          <button class="btn-role" (click)="cambiarRol(user.id)">
-  <svg xmlns="http://www.w3.org/2000/svg" class="icon-role" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path d="M12 20v-6M6 20v-4M18 20v-10M4 4h16" />
-  </svg>
-  Cambiar rol
-</button>
+
+          <button class="btn-role" (click)="mostrarSelector(user.id)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon-role" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 20v-6M6 20v-4M18 20v-10M4 4h16" />
+            </svg>
+            Cambiar rol
+          </button>
+
+          <!-- Selector visual de rol -->
+          <div *ngIf="mostrarSelectRol && selectedUserId === user.id" class="rol-selector">
+            <select [(ngModel)]="nuevoRol">
+              <option value="" disabled selected>Selecciona un rol</option>
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+            </select>
+            <button (click)="aplicarCambioRol()">Aplicar</button>
+          </div>
 
         </td>
       </tr>

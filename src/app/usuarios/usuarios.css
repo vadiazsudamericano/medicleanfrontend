@@ -35,19 +35,22 @@
   color: #2c3e50;
 }
 
-.btn-delete {
+.btn-delete, .btn-role {
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #e74c3c;
-  color: #fff;
   border: none;
   border-radius: 8px;
   padding: 6px 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-delete {
+  background-color: #e74c3c;
+  color: #fff;
 }
 
 .btn-delete:hover {
@@ -55,24 +58,10 @@
   transform: scale(1.05);
 }
 
-.icon-trash {
-  width: 18px;
-  height: 18px;
-}
 .btn-role {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   background-color: #3498db;
   color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 6px 14px;
-  font-weight: 600;
-  cursor: pointer;
   margin-top: 8px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .btn-role:hover {
@@ -80,7 +69,36 @@
   transform: scale(1.05);
 }
 
-.icon-role {
+.icon-trash, .icon-role {
   width: 18px;
   height: 18px;
+}
+
+/* Estilo del selector */
+.rol-selector {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.rol-selector select {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.rol-selector button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.rol-selector button:hover {
+  background-color: #219150;
 }
