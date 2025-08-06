@@ -152,3 +152,16 @@
     transform: translateY(0);
   }
 }
+
+/* === RESPONSIVE NOTIFICACIÓN CENTRADA EN CELULAR === */
+@media (max-width: 768px) {
+  .notificacion {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    top: 16px;
+    width: 90%;
+    max-width: 300px;
+    text-align: center;
+  }
+}
