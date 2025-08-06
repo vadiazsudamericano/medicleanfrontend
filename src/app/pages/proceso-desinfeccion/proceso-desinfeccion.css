@@ -160,6 +160,13 @@ body {
   animation: fadeIn 0.5s ease-in-out;
 }
 
+/* Estilo para la alerta de ÉXITO (verde) */
+.alert-exito {
+  background-color: #e8f5e9;
+  color: #1b5e20;
+  border-left-color: #4caf50 !important;
+}
+
 /* Estilo para la alerta de PRECALENTAMIENTO (naranja/amarillo) */
 .alert-precalentamiento {
   background-color: #fff8e1;
@@ -167,25 +174,26 @@ body {
   border-left-color: #ffab00 !important;
 }
 
-/* ========================================================= */
-/* ===           INICIO: SECCIÓN AÑADIDA                 === */
-/* ========================================================= */
-/* Estilo para la alerta de ÉXITO (verde) */
-.alert-exito {
-  background-color: #e8f5e9; /* Fondo verde pálido */
-  color: #1b5e20; /* Texto oscuro */
-  border-left-color: #4caf50 !important; /* Borde verde */
-}
-/* ========================================================= */
-/* ===            FIN: SECCIÓN AÑADIDA                   === */
-/* ========================================================= */
-
 /* Estilo para la alerta de PELIGRO (rojo) */
 .alert-peligro {
   background-color: #ffebee;
   color: #b71c1c;
   border-left-color: #d32f2f !important;
 }
+
+/* ========================================================= */
+/* ===           INICIO: SECCIÓN AÑADIDA                 === */
+/* ========================================================= */
+/* Estilo para la alerta de INFO LLAMATIVA (azul) */
+.alert-info-llamativa {
+  background-color: #e3f2fd; /* Fondo azul muy pálido */
+  color: #0d47a1; /* Texto azul oscuro */
+  border-left-color: #1976d2 !important; /* Borde azul fuerte */
+}
+/* ========================================================= */
+/* ===            FIN: SECCIÓN AÑADIDA                   === */
+/* ========================================================= */
+ 
 
 /* Icono grande para las alertas */
 .alert-llamativa .alert-icon {
