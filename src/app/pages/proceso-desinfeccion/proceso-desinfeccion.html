@@ -15,38 +15,46 @@
             <h3 class="card-title text-muted mt-4">Estado del Proceso</h3>
 
             <!-- ========================================================= -->
-            <!-- ===           INICIO: NUEVA LÓGICA DE ALERTAS         === -->
+            <!-- ===           INICIO: SECCIÓN ACTUALIZADA             === -->
             <!-- ========================================================= -->
 
-            <!-- Usamos ngSwitch para mostrar diferentes diseños de alerta
-                 según el valor de la variable 'estadoClase' -->
+            <!-- Usamos ngSwitch para mostrar diferentes diseños de alerta -->
             <div [ngSwitch]="estadoClase">
 
-              <!-- CASO 1: Alerta LLAMATIVA para PRECALENTAMIENTO -->
+              <!-- CASO 1: Alerta LLAMATIVA para ÉXITO -->
+              <div *ngSwitchCase="'exito'" 
+                   class="alert alert-llamativa alert-exito mt-2" role="alert">
+                <i class="fas fa-check-circle alert-icon"></i> <!-- Icono de check -->
+                <div class="alert-text">
+                  <h4 class="alert-heading fw-bold">¡Esterilización Completa!</h4>
+                  <p class="mb-0 fs-5">{{ mensajeEstado }}</p>
+                </div>
+              </div>
+
+              <!-- CASO 2: Alerta LLAMATIVA para PRECALENTAMIENTO -->
               <div *ngSwitchCase="'precalentamiento'" 
                    class="alert alert-llamativa alert-precalentamiento mt-2" role="alert">
-                <i class="fas fa-pause-circle alert-icon"></i> <!-- Icono de pausa -->
+                <i class="fas fa-pause-circle alert-icon"></i>
                 <div class="alert-text">
                   <h4 class="alert-heading fw-bold">¡Atención! Zona de Calentamiento</h4>
                   <p class="mb-0 fs-5">{{ mensajeEstado }}</p>
                 </div>
               </div>
         
-              <!-- CASO 2: Alerta LLAMATIVA para PELIGRO -->
+              <!-- CASO 3: Alerta LLAMATIVA para PELIGRO -->
               <div *ngSwitchCase="'peligro'" 
                    class="alert alert-llamativa alert-peligro mt-2" role="alert">
-                <i class="fas fa-exclamation-triangle alert-icon"></i> <!-- Icono de advertencia -->
+                <i class="fas fa-exclamation-triangle alert-icon"></i>
                 <div class="alert-text">
                   <h4 class="alert-heading fw-bold">¡Peligro! Temperatura Excesiva</h4>
                   <p class="mb-0 fs-5">{{ mensajeEstado }}</p>
                 </div>
               </div>
         
-              <!-- CASO 3: Alerta NORMAL para el resto de estados -->
+              <!-- CASO 4: Alerta NORMAL para el resto de estados -->
               <div *ngSwitchDefault 
                    class="alert mt-2" [ngClass]="{
-                    'alert-success': estadoClase === 'exito',
-                    'alert-warning': estadoClase === 'advertencia',
+                    'alert-warning': estadoClase === 'advertencia', 
                     'alert-info': estadoClase === 'info'
                    }" role="alert">
                 <p class="mb-0 fs-5">{{ mensajeEstado }}</p>
@@ -54,7 +62,7 @@
         
             </div>
             <!-- ========================================================= -->
-            <!-- ===           FIN: NUEVA LÓGICA DE ALERTAS              === -->
+            <!-- ===           FIN: SECCIÓN ACTUALIZADA                === -->
             <!-- ========================================================= -->
 
         </div>

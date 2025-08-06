@@ -14,8 +14,7 @@ export class ProcesoDesinfeccionComponent implements OnInit, OnDestroy {
 
   temperaturaActual: number | null = null;
   mensajeEstado: string = 'Obteniendo datos...';
-  // Añadimos 'precalentamiento' a los posibles estados
-  estadoClase: string = 'info'; // Puede ser: info, exito, advertencia, peligro, precalentamiento
+  estadoClase: string = 'info'; // Puede ser: info, exito, advertencia, peligro, precalentamiento 
   private intervalId: any;
 
   constructor(
@@ -58,35 +57,41 @@ export class ProcesoDesinfeccionComponent implements OnInit, OnDestroy {
     });
   }
 
+  // =========================================================================
+  // ===             INICIO: SECCIÓN CORREGIDA CON NUEVA LÓGICA            ===
+  // =========================================================================
   actualizarEstado(): void {
     if (this.temperaturaActual === null) return;
 
-    // Caso 1: ¡PELIGRO! Demasiado caliente.
-    if (this.temperaturaActual > 134) {
-      this.mensajeEstado = '¡CUIDADO! Una temperatura alta puede causar deformación o debilitamiento del material.';
+    // Caso 1: ¡PELIGRO! Temperatura muy alta.
+    if (this.temperaturaActual > 130) {
+      this.mensajeEstado = '¡PELIGRO! Temperatura excesiva. RETIRA LA FUENTE DE CALOR INMEDIATAMENTE para evitar daños en la herramienta.';
       this.estadoClase = 'peligro';
     
-    // Caso 2: ¡ÉXITO! Rango óptimo.
-    } else if (this.temperaturaActual >= 110 && this.temperaturaActual <= 121) {
-      this.mensajeEstado = 'La temperatura de desinfección es la ÓPTIMA. La herramienta está desinfectada.';
+    // Caso 2: ¡ÉXITO! Rango de esterilización alcanzado.
+    } else if (this.temperaturaActual >= 115 && this.temperaturaActual <= 121) {
+      this.mensajeEstado = '¡ÉXITO! Temperatura óptima alcanzada. Retira la fuente de calor. La herramienta está desinfectada.';
       this.estadoClase = 'exito';
     
-    // Caso 3: ¡NUEVO ESTADO! Pre-calentamiento.
-    } else if (this.temperaturaActual >= 80 && this.temperaturaActual < 110) {
-      this.mensajeEstado = 'Aleja la pistola de calor y espera. Si la temperatura no sube a 110°C, aplica más calor en ráfagas cortas.';
-      this.estadoClase = 'precalentamiento'; // Estado especial para una alerta informativa
+    // Caso 3: ¡ATENCIÓN! Zona de pre-calentamiento.
+    } else if (this.temperaturaActual >= 80 && this.temperaturaActual < 115) {
+      this.mensajeEstado = 'Aleja la pistola de calor y espera. Si la temperatura no sube a 115°C, aplica más calor en ráfagas cortas.';
+      this.estadoClase = 'precalentamiento';
     
-    // Caso 4: ¡ADVERTENCIA! Demasiado frío.
+    // Caso 4: ADVERTENCIA. Temperatura demasiado baja.
     } else if (this.temperaturaActual < 80) {
       this.mensajeEstado = 'El proceso no es lo suficientemente riguroso. Aplica calor de forma constante hasta alcanzar al menos 80°C.';
       this.estadoClase = 'advertencia';
     
-    // Caso 5: Entre el óptimo y el peligroso.
-    } else {
-      this.mensajeEstado = 'Temperatura por encima de la óptima. Retira la fuente de calor y deja que se enfríe hasta el rango ideal.';
+    // Caso 5: Temperatura por encima del rango óptimo, pero aún no peligrosa.
+    } else { // Esto cubre el rango > 121 y <= 130
+      this.mensajeEstado = 'Temperatura por encima de la óptima. Retira la fuente de calor y deja que la herramienta se enfríe.';
       this.estadoClase = 'info';
     }
   }
+  // =========================================================================
+  // ===              FIN: SECCIÓN CORREGIDA CON NUEVA LÓGICA              ===
+  // =========================================================================
   
   volver(): void { 
     this.location.back();
