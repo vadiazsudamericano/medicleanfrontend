@@ -14,7 +14,7 @@ export class ProcesoDesinfeccionComponent implements OnInit, OnDestroy {
 
   temperaturaActual: number | null = null;
   mensajeEstado: string = 'Obteniendo datos...';
-  estadoClase: string = 'info'; // Puede ser: info, exito, advertencia, peligro, precalentamiento 
+  estadoClase: string = 'info'; // Puede ser: exito, precalentamiento, peligro, advertencia
   private intervalId: any;
 
   constructor(
@@ -23,8 +23,7 @@ export class ProcesoDesinfeccionComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.getTemperatura();
-    // Lo ponemos en 2 segundos para la reactividad
+    this.getTemperatura(); 
     this.intervalId = setInterval(() => {
       this.getTemperatura();
     }, 2000);
@@ -45,7 +44,7 @@ export class ProcesoDesinfeccionComponent implements OnInit, OnDestroy {
         } else {
           this.temperaturaActual = null;
           this.mensajeEstado = 'No se han recibido datos del sensor todavía.';
-          this.estadoClase = 'info';
+          this.estadoClase = 'advertencia'; // Cambiado a 'advertencia' para que no sea azul
         }
       },
       error: (err) => {
@@ -58,7 +57,7 @@ export class ProcesoDesinfeccionComponent implements OnInit, OnDestroy {
   }
 
   // =========================================================================
-  // ===             INICIO: SECCIÓN CORREGIDA CON NUEVA LÓGICA            ===
+  // ===             INICIO: LÓGICA FINAL Y CORREGIDA                    ===
   // =========================================================================
   actualizarEstado(): void {
     if (this.temperaturaActual === null) return;
@@ -68,29 +67,30 @@ export class ProcesoDesinfeccionComponent implements OnInit, OnDestroy {
       this.mensajeEstado = '¡PELIGRO! Temperatura excesiva. RETIRA LA FUENTE DE CALOR INMEDIATAMENTE para evitar daños en la herramienta.';
       this.estadoClase = 'peligro';
     
-    // Caso 2: ¡ÉXITO! Rango de esterilización alcanzado.
-    } else if (this.temperaturaActual >= 115 && this.temperaturaActual <= 121) {
-      this.mensajeEstado = '¡ÉXITO! Temperatura óptima alcanzada. Retira la fuente de calor. La herramienta está desinfectada.';
-      this.estadoClase = 'exito';
+    // CASO 2: ZONA DE ÉXITO EXTENDIDA. ¡SIEMPRE VERDE!
+    } else if (this.temperaturaActual >= 115) { // Cubre de 115°C a 130°C
+      this.estadoClase = 'exito'; // La alerta siempre será VERDE en este rango.
+      
+      // Mensaje específico si está en el rango ideal
+      if (this.temperaturaActual <= 121) {
+        this.mensajeEstado = '¡ÉXITO! Temperatura óptima alcanzada. Retira la fuente de calor. La herramienta está desinfectada.';
+      } else { // Mensaje si está por encima del ideal pero no es peligroso
+        this.mensajeEstado = 'Temperatura por encima de la óptima. Mantén retirada la fuente de calor y deja que la herramienta se enfríe.';
+      }
     
-    // Caso 3: ¡ATENCIÓN! Zona de pre-calentamiento.
-    } else if (this.temperaturaActual >= 80 && this.temperaturaActual < 115) {
+    // CASO 3: ZONA DE PRE-CALENTAMIENTO (Amarilla)
+    } else if (this.temperaturaActual >= 80) {
       this.mensajeEstado = 'Aleja la pistola de calor y espera. Si la temperatura no sube a 115°C, aplica más calor en ráfagas cortas.';
       this.estadoClase = 'precalentamiento';
     
-    // Caso 4: ADVERTENCIA. Temperatura demasiado baja.
-    } else if (this.temperaturaActual < 80) {
+    // CASO 4: ZONA DEMASIADO FRÍA (Azul simple por defecto)
+    } else {
       this.mensajeEstado = 'El proceso no es lo suficientemente riguroso. Aplica calor de forma constante hasta alcanzar al menos 80°C.';
       this.estadoClase = 'advertencia';
-    
-    // Caso 5: Temperatura por encima del rango óptimo, pero aún no peligrosa.
-    } else { // Esto cubre el rango > 121 y <= 130
-      this.mensajeEstado = 'Temperatura por encima de la óptima. Retira la fuente de calor y deja que la herramienta se enfríe.';
-      this.estadoClase = 'info';
-    }
+    } 
   }
   // =========================================================================
-  // ===              FIN: SECCIÓN CORREGIDA CON NUEVA LÓGICA              ===
+  // ===              FIN: LÓGICA FINAL Y CORREGIDA                      ===
   // =========================================================================
   
   volver(): void { 
