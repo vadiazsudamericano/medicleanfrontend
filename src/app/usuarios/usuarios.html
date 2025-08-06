@@ -1,7 +1,13 @@
 <!-- RUTA: src/app/usuarios/usuarios.html -->
 
+<!-- ✅ Notificación flotante -->
+<div *ngIf="mostrarMensaje" class="notificacion" [ngClass]="tipoMensaje">
+  {{ mensaje }}
+</div>
+
 <div class="tabla-container">
   <h2>Gestión de Usuarios</h2>
+
   <table class="tabla-usuarios">
     <thead>
       <tr>
@@ -39,8 +45,8 @@
               <option value="user">User</option>
             </select>
             <button (click)="aplicarCambioRol()">Aplicar</button>
+            <button class="cancelar" (click)="cancelarCambio()">Cancelar</button>
           </div>
-
         </td>
       </tr>
     </tbody>

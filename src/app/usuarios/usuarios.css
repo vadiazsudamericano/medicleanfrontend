@@ -1,3 +1,4 @@
+/* === CONTENEDOR === */
 .tabla-container {
   max-width: 1000px;
   margin: 2rem auto;
@@ -14,6 +15,7 @@
   font-weight: 700;
 }
 
+/* === TABLA === */
 .tabla-usuarios {
   width: 100%;
   border-collapse: collapse;
@@ -35,7 +37,9 @@
   color: #2c3e50;
 }
 
-.btn-delete, .btn-role {
+/* === BOTONES === */
+.btn-delete,
+.btn-role {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -69,17 +73,19 @@
   transform: scale(1.05);
 }
 
-.icon-trash, .icon-role {
+.icon-trash,
+.icon-role {
   width: 18px;
   height: 18px;
 }
 
-/* Estilo del selector */
+/* === SELECTOR ROL === */
 .rol-selector {
   margin-top: 8px;
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .rol-selector select {
@@ -101,4 +107,48 @@
 
 .rol-selector button:hover {
   background-color: #4ba26f;
+}
+
+.rol-selector .cancelar {
+  background-color: #ccc;
+  color: #333;
+}
+
+.rol-selector .cancelar:hover {
+  background-color: #aaa;
+}
+
+/* === NOTIFICACIÓN FLOTANTE === */
+.notificacion {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: white;
+  z-index: 9999;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease;
+}
+
+.success {
+  background-color: #2ecc71;
+}
+.error {
+  background-color: #e74c3c;
+}
+.warning {
+  background-color: #f39c12;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

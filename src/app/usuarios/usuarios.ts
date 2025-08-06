@@ -5,7 +5,6 @@ import { UserService, Usuario } from '../servicios/user.service';
 import { AuthService } from '../auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-usuarios',
@@ -18,6 +17,11 @@ export class UsuariosComponent implements OnInit {
   usuarios: Usuario[] = [];
   currentUserRol: string | null = null;
 
+  // 👇 Notificación personalizada
+  mensaje: string = '';
+  tipoMensaje: 'success' | 'error' | 'warning' | '' = '';
+  mostrarMensaje = false;
+
   // 👇 Variables para cambio de rol
   mostrarSelectRol = false;
   selectedUserId: number | null = null;
@@ -25,8 +29,7 @@ export class UsuariosComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private authService: AuthService,
-    private toastr: ToastrService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -36,9 +39,8 @@ export class UsuariosComponent implements OnInit {
       next: (data) => {
         this.usuarios = data;
       },
-      error: (err) => {
-        this.toastr.error('Error al cargar usuarios', 'Error');
-        console.error(err);
+      error: () => {
+        this.mostrarNotificacion('Error al cargar usuarios', 'error');
       }
     });
   }
@@ -48,11 +50,10 @@ export class UsuariosComponent implements OnInit {
       this.userService.eliminarUsuario(id).subscribe({
         next: () => {
           this.usuarios = this.usuarios.filter(u => u.id !== id);
-          this.toastr.success('Usuario eliminado correctamente', 'Éxito');
+          this.mostrarNotificacion('Usuario eliminado correctamente', 'success');
         },
-        error: (err) => {
-          this.toastr.error('No se pudo eliminar el usuario', 'Error');
-          console.error(err);
+        error: () => {
+          this.mostrarNotificacion('No se pudo eliminar el usuario', 'error');
         }
       });
     }
@@ -66,20 +67,19 @@ export class UsuariosComponent implements OnInit {
 
   aplicarCambioRol(): void {
     if (!this.nuevoRol || !['admin', 'user'].includes(this.nuevoRol)) {
-      this.toastr.warning('Selecciona un rol válido', 'Advertencia');
+      this.mostrarNotificacion('Selecciona un rol válido', 'warning');
       return;
     }
 
     this.userService.actualizarRol(this.selectedUserId!, this.nuevoRol).subscribe({
       next: () => {
-        this.toastr.success('Rol actualizado correctamente', 'Éxito');
+        this.mostrarNotificacion('Rol actualizado correctamente', 'success');
         this.mostrarSelectRol = false;
         this.selectedUserId = null;
         this.ngOnInit(); // Recarga usuarios
       },
-      error: (err) => {
-        this.toastr.error('Error al actualizar el rol', 'Error');
-        console.error(err);
+      error: () => {
+        this.mostrarNotificacion('Error al actualizar el rol', 'error');
       }
     });
   }
@@ -87,5 +87,13 @@ export class UsuariosComponent implements OnInit {
   cancelarCambio(): void {
     this.mostrarSelectRol = false;
     this.selectedUserId = null;
+  }
+
+  // 👇 Método para mostrar notificación flotante
+  mostrarNotificacion(mensaje: string, tipo: 'success' | 'error' | 'warning') {
+    this.mensaje = mensaje;
+    this.tipoMensaje = tipo;
+    this.mostrarMensaje = true;
+    setTimeout(() => this.mostrarMensaje = false, 3000);
   }
 }
