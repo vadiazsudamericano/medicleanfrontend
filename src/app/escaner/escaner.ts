@@ -150,7 +150,7 @@ export class EscanerComponent implements OnInit, OnDestroy {
         }
         this.confirmacionTimer = null;
         this.herramientaPendiente = null;
-      }, 2000);
+      }, 1000);
     }
   }
 
